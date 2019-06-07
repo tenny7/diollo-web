@@ -17,6 +17,8 @@ class VendorController extends Controller
         return view('vendors.dashboard');
     }
 
+    
+
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +26,7 @@ class VendorController extends Controller
      */
     public function index()
     {
-        //
+       
     }
 
     /**

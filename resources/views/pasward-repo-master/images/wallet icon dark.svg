@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.586 17.975">
+  <defs>
+    <style>
+      .cls-1, .cls-3, .cls-6 {
+        fill: none;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        stroke: #003;
+      }
+
+      .cls-1, .cls-3 {
+        stroke-linejoin: round;
+      }
+
+      .cls-1 {
+        stroke-width: 1.8px;
+      }
+
+      .cls-2 {
+        fill: #fff;
+        stroke-width: 1.5px;
+      }
+
+      .cls-3 {
+        stroke-width: 1.6px;
+      }
+
+      .cls-4 {
+        fill: #003;
+      }
+
+      .cls-5 {
+        stroke: none;
+      }
+    </style>
+  </defs>
+  <g id="wallet_icon_dark" data-name="wallet icon dark" transform="translate(-868.242 -129.714)">
+    <g id="Rectangle_114" data-name="Rectangle 114" class="cls-1" transform="translate(868.242 133.271)">
+      <rect class="cls-5" width="16.368" height="14.418"/>
+      <rect class="cls-6" x="0.9" y="0.9" width="14.568" height="12.618"/>
+    </g>
+    <g id="Rectangle_115" data-name="Rectangle 115" class="cls-2" transform="translate(879.065 136.708)">
+      <rect class="cls-5" width="7.764" height="7.545"/>
+      <rect class="cls-6" x="0.75" y="0.75" width="6.264" height="6.045"/>
+    </g>
+    <path id="Path_870" data-name="Path 870" class="cls-3" d="M10903.2,131.948V130.26l13.621-1.746V131.4" transform="translate(-10033.626 2)"/>
+    <circle id="Ellipse_19" data-name="Ellipse 19" class="cls-4" cx="0.555" cy="0.555" r="0.555" transform="translate(881.283 139.926)"/>
+  </g>
+</svg>

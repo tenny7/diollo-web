@@ -587,9 +587,9 @@
                     </div>
 
                     <!-- Form -->
-                    <form class="mb-4">
+                    <form class="mb-4" method="post" action="{{ route('vendor.settings.password.update')}}">
 
-
+                        @csrf
 
                         <div class="row">
                             <div class="col-12 col-md-6 order-md-2">
@@ -626,7 +626,8 @@
 
                             </div>
                             <div class="col-12 col-md-6">
-
+                                    @include('partials.admin.success')
+                                    @include('partials.admin.error')
                                 <!-- Password -->
                                 <div class="form-group">
 
@@ -636,7 +637,7 @@
                     </label>
 
                                     <!-- Input -->
-                                    <input type="password" class="form-control">
+                                    <input type="password" name="old_password" class="form-control">
 
                                 </div>
 
@@ -649,7 +650,7 @@
                     </label>
 
                                     <!-- Input -->
-                                    <input type="password" class="form-control">
+                                    <input type="password" name="new_password" class="form-control">
 
                                 </div>
 
@@ -662,7 +663,7 @@
                     </label>
 
                                     <!-- Input -->
-                                    <input type="password" class="form-control">
+                                    <input type="password" name="c_password" class="form-control">
 
                                 </div>
 
@@ -679,7 +680,6 @@
                         </button>
 
                     </form>
-
                 </div>
             </div>
             <!-- / .row -->

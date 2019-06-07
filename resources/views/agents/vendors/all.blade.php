@@ -684,7 +684,9 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody class="list"><tr>
+                                @foreach($vendors as $vendor)
+                                <tbody class="list">
+                                    <tr>
                                         <td>
                                             <div class="custom-control custom-checkbox table-checkbox">
                                                 <input type="checkbox" class="custom-control-input" name="productsSelect" id="productsSelectOne">
@@ -694,29 +696,41 @@
                                             </div>
                                         </td>
                                         <td class="vendors-name" colspan="2">
-                                           Eni Stores
+                                            {{ $vendor->fullname }}
                                         </td>
                                         <td class="vendors-email">
-                                            info@enistores.com
+                                            {{ $vendor->email }}
                                         </td>
                                         <td class="vendors-phone">
-                                            08066128880
+                                            {{ $vendor->phone }}
                                         </td>
                                         <td class="vendors-city">
-                                            Uyo
+                                            @if(isset($vendor->city_id))
+                                            @php
+                                                $city = \Gerardojbaez\GeoData\Models\City::where('id',$vendor->city_id)->first(); 
+                                            @endphp
+                                            {{ $city->name }}
+                                            @endif
+                                            
                                         </td>
 
                                         <td class="vendors-state">
-                                            Akwa Ibom State
+                                            @if(isset($vendor->city_id))
+                                            @php
+                                                $region = \Gerardojbaez\GeoData\Models\Region::where('id',$vendor->region_id)->first(); 
+                                            @endphp
+                                            {{ $region->name }}
+                                            @endif
+                                            
                                         </td>
                                         <td class="vendors-contactname">
-                                            Christian Jombo
+                                                {{ $vendor->fullname }}
                                         </td>
                                         {{-- <td class="vendors-contactemail">
                                             chris@codekago.com
                                         </td> --}}
                                         <td class="vendors-contactphone">
-                                            080666128880
+                                                {{ $vendor->phone }}
                                         </td>
                                         <td class="vendors-status">
                                             <div class="badge badge-soft-success">
@@ -742,7 +756,9 @@
                                                 </div>
                                             </div>
                                         </td>
-                                    </tr></tbody>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
 
                             </table>
                         </div>

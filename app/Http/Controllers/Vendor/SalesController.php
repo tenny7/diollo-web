@@ -44,6 +44,7 @@ class SalesController extends Controller
      */
     public function customers()
     {
+        
         return view('vendors.sales.customers');
     }
 

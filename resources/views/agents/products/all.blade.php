@@ -258,6 +258,7 @@
 
                                 <!-- List group -->
                                 <div class="list-group list-group-flush my--3">
+                                   
                                     <a class="list-group-item px-0" href="#!">
 
                                         <div class="row">
@@ -273,21 +274,22 @@
 
                                                 <!-- Content -->
                                                 <div class="small text-muted">
-                                                    <strong class="text-body">Dianna Smiley</strong> shared your post with <strong class="text-body">Ab Hadley</strong>, <strong class="text-body">Adolfo Hess</strong>, and <strong class="text-body">3 others</strong>.
+                                                <strong class="text-body">Clara </strong> added to database <strong class="text-body">Ab Hadley</strong>, <strong class="text-body">Adolfo Hess</strong>, and <strong class="text-body">3 others</strong>.
                                                 </div>
 
                                             </div>
                                             <div class="col-auto">
 
                                                 <small class="text-muted">
-                              2m
-                            </small>
+                                                    2m
+                                                </small>
 
                                             </div>
                                         </div>
                                         <!-- / .row -->
 
                                     </a>
+                                    
                                     <a class="list-group-item px-0" href="#!">
 
                                         <div class="row">
@@ -556,39 +558,18 @@
                                 <div class="col-auto">
 
                                     <!-- Button -->
-                                    {{-- <a href="#" class="btn btn-primary">
+                                <a href="{{ route('agent.products.new')}}" class="btn btn-primary">
                                         New Product
-                                    </a> --}}
+                                    </a> 
 
                                 </div>
                             </div>
                             <!-- / .row -->
+                            
                             <div class="row align-items-center">
                                 <div class="col">
 
-                                    <!-- Nav -->
-                                    <ul class="nav nav-tabs nav-overflow header-tabs">
-                                        <li class="nav-item">
-                                            <a href="{{route('vendor.products.index')}}" class="nav-link active">
-                                              All <span class="badge badge-pill badge-soft-secondary">823</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{route('vendor.products.clearance')}}" class="nav-link">
-                                              Clearance <span class="badge badge-pill badge-soft-secondary">24</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{route('vendor.products.featured')}}" class="nav-link">
-                                              Featured <span class="badge badge-pill badge-soft-secondary">3</span>
-                                            </a>
-                                        </li>
-                                        <!-- <li class="nav-item">
-                                            <a href="products-promoted.html" class="nav-link">
-                                              Promoted <span class="badge badge-pill badge-soft-secondary">71</span>
-                                            </a>
-                                        </li> -->
-                                    </ul>
+                                    @include('partials.admin.tab')
 
                                 </div>
                             </div>
@@ -596,11 +577,13 @@
                     </div>
 
                     <!-- Card -->
+                    @include('partials.admin.success')
+                    @include('partials.admin.error')
                     <div class="card" data-toggle="lists" data-lists-values="[&quot;orders-order&quot;, &quot;orders-product&quot;, &quot;orders-date&quot;, &quot;orders-total&quot;, &quot;orders-status&quot;, &quot;orders-method&quot;]">
                         <div class="card-header">
                             <div class="row align-items-center">
                                 <div class="col">
-
+                                       
                                     <!-- Search -->
                                     <form class="row align-items-center">
                                         <div class="col-auto pr-0">
@@ -631,6 +614,7 @@
                             </div>
                             <!-- / .row -->
                         </div>
+                        
                         <div class="table-responsive">
                             <table class="table table-sm table-nowrap card-table">
                             <!-- <table class="table table-sm card-table"> -->
@@ -693,7 +677,10 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody class="list"><tr>
+                                <tbody class="list">
+                                    {{-- {{ dd($products)}} --}}
+                                    @foreach($products as $product)
+                                    <tr>
                                         <td>
                                             <div class="custom-control custom-checkbox table-checkbox">
                                                 <input type="checkbox" class="custom-control-input" name="productsSelect" id="productsSelectOne">
@@ -703,29 +690,36 @@
                                             </div>
                                         </td>
                                         <td class="products-product" colspan="2">
-                                            LG 8Kg Washer &amp; 5Kg Dryer Front Load Washing Machine - F4J6TMP8S
+                                            {{ $product->name }}
                                         </td>
                                         <td class="products-code">
-                                            #6520
+                                            {{ $product->code }}
                                         </td>
                                         <td class="products-brand">
-                                            LG
+                                            {{ $product->brand }}
                                         </td>
                                         <td class="products-price">
-                                            235,000
+                                            {{ $product->original_price }}
                                         </td>
 
                                         <td class="products-dprice">
-                                            200,000
+                                            {{ $product->discount_price }}
                                         </td>
                                         <td class="products-quantity">
-                                            20
+                                            {{ $product->qty }}
                                         </td>
                                         <td class="products-category">
-                                            Washers and Dryers
+                                            @foreach($product->categories as $category)
+                                                {{ $category->name }}
+                                            @endforeach
                                         </td>
                                         <td class="products-vendor">
-                                            Eni Stores
+                                            {{-- @foreach($product->store as $store) --}}
+                                            @php 
+                                                $store = \App\Models\Store::where('id',$product->store)->first();
+                                            @endphp
+                                            {{ $store->name }}
+                                            {{-- @endforeach --}}
                                         </td>
                                         <!-- <td class="orders-status">
                                             <div class="badge badge-soft-success">
@@ -734,7 +728,8 @@
                                         </td> -->
 
                                         <td class="orders-date">
-                                            <time datetime="2018-07-30">07/30/18</time>
+                                            {{-- <time datetime="2018-07-30">07/30/18</time> --}}
+                                            {{ $product->created_at->diffForHumans() }}
                                         </td>
 
                                         <td class="text-right">
@@ -746,22 +741,24 @@
                                                     <a href="#!" class="dropdown-item">
                                                       View Product
                                                     </a>
-                                                    <a href="#!" class="dropdown-item">
+                                                <a href="{{ route('agent.products.updateForm', $product->slug) }}" class="dropdown-item">
                                                       Edit Product
                                                     </a>
-                                                    <a href="#!" class="dropdown-item">
+                                                <a href="{{ route('agent.products.addFeatured',$product->slug) }}" class="dropdown-item">
                                                       Add to featured
                                                     </a>
-                                                    <a href="#!" class="dropdown-item">
+                                                    <a href="{{ route('agent.products.addClearance',$product->slug) }}" class="dropdown-item">
                                                       Add to Clearance Sales
                                                     </a>
-                                                    <a href="#!" class="dropdown-item">
+                                                    <a href="{{ route('agent.products.delete',$product->slug) }}" class="dropdown-item">
                                                       Delete Product
                                                     </a>
                                                 </div>
                                             </div>
                                         </td>
-                                    </tr></tbody>
+                                    </tr>
+                                @endforeach
+                            </tbody>
 
                             </table>
                         </div>

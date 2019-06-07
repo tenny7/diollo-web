@@ -548,7 +548,7 @@
 
                                     <!-- Title -->
                                     <h1 class="header-title">
-                      Settings
+                      Add product
                     </h1>
 
                                 </div>
@@ -561,10 +561,10 @@
                                     <ul class="nav nav-tabs nav-overflow header-tabs">
                                         <li class="nav-item">
                                             <a href="#!" class="nav-link active">
-                                              General
+                                              Create
                                             </a>
                                         </li>
-                                        <li class="nav-item">
+                                        {{-- <li class="nav-item">
                                             <a href="#!" class="nav-link">
                                               Profile
                                             </a>
@@ -578,17 +578,18 @@
                                             <a href="#!" class="nav-link">
                                               Bank
                                             </a>
-                                        </li>
+                                        </li> --}}
                                     </ul>
 
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                    @include('partials.admin.success')
+                    @include('partials.admin.error')
                     <!-- Form -->
-                    <form class="mb-4">
-
+                <form class="mb-4" method="post" action="{{ route('agent.products.add')}}" enctype="multipart/form-data">
+                    @csrf
                         <div class="row">
                             <div class="col-12">
 
@@ -597,11 +598,11 @@
 
                                     <!-- Label -->
                                     <label>
-                                      Business Name
+                                      Name
                                     </label>
 
                                     <!-- Input -->
-                                    <input type="text" class="form-control">
+                                    <input type="text" name="name" class="form-control">
 
                                 </div>
 
@@ -613,11 +614,11 @@
 
                                     <!-- Label -->
                                     <label>
-                                      Business Phone
+                                      Code
                                     </label>
 
                                     <!-- Input -->
-                                    <input type="text" class="form-control mb-3" placeholder="(+234)_______-____" data-mask="(+234) 00000000000" autocomplete="off" maxlength="18">
+                                    <input type="text" name="code" class="form-control mb-3" placeholder="must be numeric e.g 1234">
                                     <!-- <input type="text" class="form-control mb-3" placeholder="(___)____-____" data-mask="(000) 000000000"> -->
 
                                 </div>
@@ -631,23 +632,30 @@
 
                                     <!-- Label -->
                                     <label>
-                                      Business Email
+                                      Brand
                                     </label>
 
-                                    <!-- Input -->
-                                    <input type="text" class="form-control">
+                                    <select name="brand" id="brand" class="form-control">
+                                        @foreach($brands as $brand)
+                                            <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    {{-- <input type="text" class="form-control" name="brand" placeholder="brand"> --}}
+                                    
 
                                 </div>
 
                             </div>
-                            <div class="col-12">
+
+                            
+                            <div class="col-6">
 
                                 <!-- Email address -->
                                 <div class="form-group">
 
                                     <!-- Label -->
                                     <label class="mb-1">
-                                      Business address
+                                      Description
                                     </label>
 
                                     <!-- Form text -->
@@ -656,104 +664,215 @@
                                     </small> -->
 
                                     <!-- Input -->
-                                    <textarea name="address" class="form-control"></textarea>
+                                    <textarea name="description" class="form-control"></textarea>
 
                                 </div>
 
                             </div>
 
-                            <div class="col-12">
+                            
+                            <div class="col-12 col-md-6">
 
                                 <!-- Phone -->
                                 <div class="form-group">
 
                                     <!-- Label -->
                                     <label>
-                                      Country
+                                        Quick  Description
                                     </label>
 
                                     <!-- Input -->
-                                    <select class="form-control select2-hidden-accessible" data-toggle="select" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                                    <input type="text" name="quick_description" class="form-control" required>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 col-md-6">
+
+                                <!-- Phone -->
+                                <div class="form-group">
+
+                                    <!-- Label -->
+                                    <label>
+                                      Quantity
+                                    </label>
+                                    <input type="number" name="qty" class="form-control">
+
+                                  
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-6">
+
+                                <!-- Phone -->
+                                <div class="form-group">
+
+                                    <!-- Label -->
+                                    <label>
+                                      Store
+                                    </label>
+
+                                    <select name="store" id="store" class="form-control">
+                                        @foreach($stores as $store)
+                                            <option value="{{ $store->id }}">{{ $store->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    {{-- <input type="text" name="warranty" class="form-control" placeholder="warranty"> --}}
+                                    <!-- Input -->
+                                    {{-- <select class="form-control select2-hidden-accessible" data-toggle="select" data-select2-id="1" tabindex="-1" aria-hidden="true">
                                         <option data-select2-id="3">Nigeria</option>
                                         <option>Ghana</option>
                                         <option>Togo</option>
-                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="2" style="width: auto;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-zqj4-container"><span class="select2-selection__rendered" id="select2-zqj4-container" role="textbox" aria-readonly="true" title="Nigeria">Nigeria</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-12 col-md-6">
-
-                                <!-- Phone -->
-                                <div class="form-group">
-
-                                    <!-- Label -->
-                                    <label>
-                                      State
-                                    </label>
-
-                                    <!-- Input -->
-                                    <select class="form-control select2-hidden-accessible" data-toggle="select" data-select2-id="4" tabindex="-1" aria-hidden="true">
-                                        <option data-select2-id="6">Cross River</option>
-                                        <option>Akwa Ibom</option>
-                                        <option>Kaduna</option>
-                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="5" style="width: auto;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-warq-container"><span class="select2-selection__rendered" id="select2-warq-container" role="textbox" aria-readonly="true" title="Cross River">Cross River</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-12 col-md-6">
-
-                                <!-- Phone -->
-                                <div class="form-group">
-
-                                    <!-- Label -->
-                                    <label>
-                                      Region
-                                    </label>
-
-                                    <!-- Input -->
-                                    <select class="form-control select2-hidden-accessible" data-toggle="select" data-select2-id="7" tabindex="-1" aria-hidden="true">
-                                        <option data-select2-id="9">Calabar</option>
-                                        <option>Akpabuyo</option>
-                                        <option>Ikang</option>
-                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="8" style="width: auto;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-1od8-container"><span class="select2-selection__rendered" id="select2-1od8-container" role="textbox" aria-readonly="true" title="Calabar">Calabar</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="2" style="width: auto;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-zqj4-container"><span class="select2-selection__rendered" id="select2-zqj4-container" role="textbox" aria-readonly="true" title="Nigeria">Nigeria</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span> --}}
 
                                 </div>
 
                             </div>
 
                         </div>
+                        <div class="row">
+                                <div class="col-6">
+
+                                        <!-- Phone -->
+                                        <div class="form-group">
+        
+                                            <!-- Label -->
+                                            <label>
+                                              Warranty
+                                            </label>
+        
+                                            
+                                            <input type="text" name="waranty" class="form-control" placeholder="warranty">
+                                            <!-- Input -->
+                                            {{-- <select class="form-control select2-hidden-accessible" data-toggle="select" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                                                <option data-select2-id="3">Nigeria</option>
+                                                <option>Ghana</option>
+                                                <option>Togo</option>
+                                            </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="2" style="width: auto;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-zqj4-container"><span class="select2-selection__rendered" id="select2-zqj4-container" role="textbox" aria-readonly="true" title="Nigeria">Nigeria</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span> --}}
+        
+                                        </div>
+        
+                                    </div>
+                                <div class="col-6">
+
+                                        <!-- Phone -->
+                                        <div class="form-group">
+        
+                                            <!-- Label -->
+                                            <label>
+                                              Agent
+                                            </label>
+        
+                                            <select name="agent" id="agent" class="form-control">
+                                                @foreach($agents as $agent)
+                                                    <option value="{{ $agent->id }}">{{ $agent->fullname }}</option>
+                                                @endforeach
+                                            </select>
+                                            {{-- <input type="text" name="agent" class="form-control" placeholder="Agen"> --}}
+                                            <!-- Input -->
+                                            {{-- <select class="form-control select2-hidden-accessible" data-toggle="select" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                                                <option data-select2-id="3">Nigeria</option>
+                                                <option>Ghana</option>
+                                                <option>Togo</option>
+                                            </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="2" style="width: auto;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-zqj4-container"><span class="select2-selection__rendered" id="select2-zqj4-container" role="textbox" aria-readonly="true" title="Nigeria">Nigeria</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span> --}}
+        
+                                        </div>
+        
+                                    </div>
+                        </div>
                         <!-- / .row -->
 
                         <!-- Divider -->
                         <hr class="mt-4 mb-5">
+                        <div class="row">
+                                <div class="col-12 col-md-6">
 
+                                        <!-- Phone -->
+                                        <div class="form-group">
+        
+                                            <!-- Label -->
+                                            <label>
+                                              Original Price
+                                            </label>
+        
+                                            <input type="text" class="form-control" name="original_price" placeholder="original price e.g 2500">
+                                            
+        
+                                        </div>
+        
+                                    </div>
+                            <div class="col-12 col-md-6">
+
+                                <!-- Phone -->
+                                <div class="form-group">
+
+                                    <!-- Label -->
+                                    <label>
+                                      Discount Price
+                                    </label>
+
+                                    <input type="text" class="form-control" name="discount_price" placeholder="discount price e.g 2000">
+                                    
+
+                                </div>
+
+                            </div>
+                            
+                        </div>
                         <div class="row">
                             <div class="col-12">
                                 <label class="mb-1">
-                                  Business Logo
+                                  Product Image
                                 </label>
                                 <small class="form-text text-muted">
-                                  Please use an image no larger than 5MB
+                                  Please use an image no larger than 5MB. You can select multiple images
                                 </small>
                                 <!-- Single -->
-                                <div class="dropzone dropzone-single mb-3 dz-clickable" data-toggle="dropzone" data-dropzone-url="http://">
+                                <input type="file" class="form-control" name="product_image[]" id="" multiple>
+                                {{-- <div class="dropzone dropzone-single mb-3 dz-clickable" data-toggle="dropzone" data-dropzone-url="http://">
 
                                   
 
                                   <div class="dz-preview dz-preview-single"></div>
 
-                                <div class="dz-default dz-message"><span>Drop files here to upload</span></div></div>
+                                <div class="dz-default dz-message"><span>Drop files here to upload</span></div></div> --}}
                             </div>
                         </div>
                         <!-- / .row -->
 
+                        
+
                         <!-- Divider -->
                         <hr class="mt-4 mb-5">
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="mb-1">
+                                  Meta Title
+                                </label>
+                                {{-- <small class="form-text text-muted">
+                                 
+                                </small> --}}
+                                <!-- Single -->
+                                <input type="text" class="form-control" name="meta_title" id="" >
+                                
+                            </div>
 
+                            <div class="col-6">
+                                <label class="mb-1">
+                                  Meta Description
+                                </label>
+                                {{-- <small class="form-text text-muted">
+                                 
+                                </small> --}}
+                                <!-- Single -->
+                                <input type="text" class="form-control" name="meta_description" id="">
+                                
+                            </div>
+                        </div>
+                        <hr class="mt-4 mb-5">
                         <div class="row">
                             <div class="col-12">
 
@@ -762,30 +881,34 @@
 
                                     <!-- Label -->
                                     <label class="mb-1">
-                                       Availability
+                                       Is taxable?
                                     </label>
 
                                     <!-- Form text -->
                                     <small class="form-text text-muted">
-                                        Making your shop available means that users can see and make orders from your shop and you are obligated to attend to them.
+                                        is this product taxable
                                     </small>
 
                                     <div class="row">
                                         <div class="col-auto">
 
+                                            <select name="is_taxable" id="" class="form-control">
+                                                <option value="1">Yes</option>
+                                                <option value="2">No</option>
+                                            </select>
                                             <!-- Toggle -->
-                                            <div class="custom-control custom-checkbox-toggle">
-                                                <input type="checkbox" class="custom-control-input" id="toggleOne" checked="">
+                                            {{-- <div class="custom-control custom-checkbox-toggle">
+                                                <input type="checkbox" name="is_taxable" class="custom-control-input" id="toggleOne" checked="">
                                                 <label class="custom-control-label" for="toggleOne"></label>
-                                            </div>
+                                            </div> --}}
 
                                         </div>
                                         <div class="col ml--2">
 
                                             <!-- Help text -->
-                                            <small class="text-muted">
-                                              You're currently Available
-                                            </small>
+                                            {{-- <small class="text-muted">
+                                              Currently not taxable
+                                            </small> --}}
 
                                         </div>
                                     </div>
@@ -800,7 +923,7 @@
 
                         <!-- Submit -->
                         <button type="submit" class="btn btn-primary">
-                            Save shop settings
+                            Save Product
                         </button>
 
                             </form></div>

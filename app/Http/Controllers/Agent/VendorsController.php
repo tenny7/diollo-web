@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Agent;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,7 +15,8 @@ class VendorsController extends Controller
      */
     public function index()
     {
-        return view('agents.vendors.all');
+        $vendors = User::where('role',User::ROLE_VENDOR)->get();
+        return view('agents.vendors.all', compact('vendors'));
     }
 
     /**

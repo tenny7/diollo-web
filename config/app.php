@@ -123,6 +123,8 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'list_banks'    => 'https://api.paystack.co/bank',
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -174,6 +176,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Gerardojbaez\GeoData\GeoDataServiceProvider::class,
 
     ],
 

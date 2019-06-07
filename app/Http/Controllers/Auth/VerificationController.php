@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\VerifiesEmails;
+use App\Http\Traits\VerifyEmail;
+use App\Models\User;
 
 class VerificationController extends Controller
 {
@@ -18,14 +19,14 @@ class VerificationController extends Controller
     |
     */
 
-    use VerifiesEmails;
+    use VerifyEmail;
 
     /**
      * Where to redirect users after verification.
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -38,4 +39,23 @@ class VerificationController extends Controller
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
+
+    public function redirectTo(User $user)
+    {
+        return $user->redirectTo();
+    }
+
+    /**
+     * Get the post register / login redirect path.
+     *
+     * @return string
+     */
+    // public function redirectPath()
+    // {
+    //     if (method_exists($this, 'redirectTo')) {
+    //         return $this->redirectTo();
+    //     }
+
+    //     return property_exists($this, 'redirectTo') ? $this->redirectTo : '/home';
+    // }
 }

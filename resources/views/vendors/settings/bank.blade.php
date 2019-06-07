@@ -585,83 +585,87 @@
                         </div>
                     </div>
 
-                    <!-- Form -->
-                    <form class="mb-4">
-
-                        <div class="row">
-                            <div class="col-12">
-
-                                <!-- name -->
-                                <div class="form-group">
-
-                                    <!-- Bank Name -->
-                                    <div class="form-group">
-
-                                        <!-- Label -->
-                                        <label>
-                                          Bank
-                                        </label>
-
-                                        <!-- Input -->
-                                        <select class="form-control select2-hidden-accessible" data-toggle="select" data-select2-id="1" tabindex="-1" aria-hidden="true">
-                                            <option data-select2-id="3">Select Bank</option>
-                                            <option>Guaranty trust Bank</option>
-                                            <option>Zenith Bank</option>
-                                            <option>First Bank of Nigeria</option>
-                                        </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="2" style="width: auto;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-gdwp-container"><span class="select2-selection__rendered" id="select2-gdwp-container" role="textbox" aria-readonly="true" title="Select Bank">Select Bank</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <!-- Account Number -->
-                                <div class="form-group">
-
-                                    <!-- Label -->
-                                    <label>
-                                      Account Number
-                                    </label>
-
-                                    <!-- Input -->
-                                    <input type="text" class="form-control">
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-12 col-md-6">
-
-                                <!-- Account Name -->
-                                <div class="form-group">
-
-                                    <!-- Label -->
-                                    <label>
-                                      Account Name
-                                    </label>
-
-                                    <!-- Input -->
-                                    <input type="text" class="form-control">
-
-                                </div>
-
-                            </div>
-
-
-
-                        </div>
-                        <!-- / .row -->
-
-                        <!-- Divider -->
-                        <hr class="mt-4 mb-5">
-
-                        <!-- Submit -->
-                        <button type="submit" class="btn btn-primary">
-                            Save bank details
-                        </button>
-
-                    </form>
+                     <!-- Form -->
+                     @include('partials.admin.success')
+                     @include('partials.admin.error')
+                 <form class="mb-4" method="post" action="{{ route('vendor.settings.saveBank') }}">
+                     @csrf
+                         <div class="row">
+                             <div class="col-12">
+ 
+                                 <!-- name -->
+                                 <div class="form-group">
+ 
+                                     <!-- Bank Name -->
+                                     <div class="form-group">
+ 
+                                         <!-- Label -->
+                                         <label>
+                                           Bank
+                                         </label>
+ 
+                                         <!-- Input -->
+                                         <select name="bank" class="form-control select2-hidden-accessible" data-toggle="select" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                                             <option data-select2-id="3">Select Bank</option>
+                                             @foreach($banks as $bank)
+                                                 <option value="{{ $bank->bank }}">{{ $bank->bank}}</option>
+                                         
+                                             @endforeach
+                                            
+                                         </select>
+ 
+                                     </div>
+ 
+                                 </div>
+ 
+                             </div>
+                             <div class="col-12 col-md-6">
+                                 <!-- Account Number -->
+                                 <div class="form-group">
+ 
+                                     <!-- Label -->
+                                     <label>
+                                       Account Number
+                                     </label>
+ 
+                                     <!-- Input -->
+                                 <input type="text" name="account_number" value="{{ $user->account_number }}" class="form-control">
+ 
+                                 </div>
+ 
+                             </div>
+ 
+                             <div class="col-12 col-md-6">
+ 
+                                 <!-- Account Name -->
+                                 <div class="form-group">
+ 
+                                     <!-- Label -->
+                                     <label>
+                                       Account Name
+                                     </label>
+ 
+                                     <!-- Input -->
+                                     <input type="text" name="account_name" value="{{ $user->account_name }}" class="form-control">
+ 
+                                 </div>
+ 
+                             </div>
+ 
+ 
+ 
+                         </div>
+                         <!-- / .row -->
+ 
+                         <!-- Divider -->
+                         <hr class="mt-4 mb-5">
+ 
+                         <!-- Submit -->
+                         <button type="submit" class="btn btn-primary">
+                             Update bank details
+                         </button>
+ 
+                     </form>
 
                 </div>
             </div>

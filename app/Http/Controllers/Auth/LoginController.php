@@ -27,6 +27,28 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/home';
 
+    // public function redirectTo()
+    // {
+        // return redirect()->intended(route('welcome'));
+        // switch ($this->role) {
+        //     case self::ROLE_ADMIN:
+        //         return '/admin/dashboard';
+        //         break;
+        //     case self::ROLE_AGENT:
+        //         return '/agent/dashboard';
+        //         break;
+        //     case self::ROLE_VENDOR:
+        //         return '/vendor/dashboard';
+        //         break;
+        //     case self::ROLE_AFFILIATE:
+        //         return '/affiliate/dashboard';
+        //         break;
+        //     default:
+        //         return '/';
+        //         break;
+        // }
+    // }
+
     /**
      * Create a new controller instance.
      *

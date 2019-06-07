@@ -1,0 +1,775 @@
+/* start of header css */
+body{
+  margin: 0px;
+  overflow-x: hidden;
+  height: auto;
+  padding-top: 170px;
+}
+
+body h1, h2, h3, h4, h5, h6{
+  font-family: 'Ubuntu', sans-serif;
+  color: #000333;
+}
+
+body a{
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: bold;
+}
+
+body p{
+  font-family: 'Cabin', sans-serif;
+}
+
+/* start code for categories dropdown */
+.categories{
+  width: 100%;
+  text-align: center;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.drop{
+  background-color: #000333;
+  height: 100vh;
+}
+
+.drop li a{
+  color: #fff;
+}
+
+.drop a:hover{
+  text-decoration: none;
+}
+
+.drop h1:hover{
+  color: #ff3c89;
+  margin-left: -20px;
+}
+
+.icon::before {
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .drop h1:hover::before{
+     font-family: "Font Awesome 5 Free";
+     font-weight: 900;
+     font-size: 19px;
+     color: #FF3C89;
+     content: "\f005";
+     position: relative;
+     left: -6px;
+     top: -2px;
+     -webkit-transition:none !important;
+     -moz-transition:none !important;
+     -o-transition:none !important;
+     transition:none !important;
+     margin: 0;
+     height: auto;
+  }
+
+.drop h1{
+  font-size: 30px;
+  color: #fff;
+}
+
+
+.categories-margin-top{
+  margin-top: 60px;
+  text-align: left;
+  padding-left: 80px;
+  margin-bottom: 123px;
+}
+
+.simply{
+  font-size: 14px;
+  color: #ccc;
+  font-weight: 200;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.explore{
+  background-color: #FF0066;
+  color: #fff;
+  border: none;
+  border-radius: 17px;
+  padding: 5px;
+}
+
+#dropdown-search::-ms-input-placeholder{
+  color: #FF3C89;
+  opacity: 1;
+}
+
+#dropdown-search::-ms-input-placeholder{
+  color: #FF3C89;
+  opacity: 1;
+}
+
+#dropdown-search::-webit-input-placeholder{
+  color: #FF3C89;
+  opacity: 1;
+}
+/* end code for categories dropdown */
+
+/* rotated css */
+
+  .rotated{
+   -webkit-transform: rotate(270deg);
+   -moz-transform: rotate(270deg);
+   -o-transform: rotate(270deg);
+   -ms-transform: rotate(270deg);
+   transform: rotate(270deg);
+   position: fixed;
+   top: 46%;
+   left: 94%;
+   min-height: 200px;
+   display: inline-block;
+   z-index: 5;
+  }
+
+  .run-through{
+    height: 1px;
+    width: 287px;
+    border: 1px solid #000033;
+    position: absolute;
+    z-index: 5;
+    margin-top: 9px;
+    margin-left: 11px;
+  }
+
+  .cabin{
+    font-family: 'Cabin', sans-serif;
+  }
+/* rotated css ends here */
+
+  .top_star{
+    display: block;
+    top: 24px;
+    right: 0px;
+    position: absolute;
+  }
+
+  .top_star img{
+    height: 220px;
+  }
+/* end of top_star css */
+
+.info{
+    background-color: #F5F5F5;
+    height: 60px;
+}
+.check-list{
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 10px;
+}
+
+.logo{
+    width: 150px;
+}
+
+input:focus{
+  border:none;
+  outline:none;
+}
+#search::placeholder{
+  color: #FF3C89;
+}
+
+.btn-none{
+   background-color: transparent;
+   border: 1px solid transparent;
+}
+
+.btn-none{
+  color: #000033;
+}
+
+.btn-none:hover{
+  background-color: white;
+  color: #f22178;
+}
+
+.row{
+  margin: 0px;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    overflow-x: hidden;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    padding-top: 60px;
+    transition: 0.5s;
+}
+
+.sidenav a{
+    color: #000033;
+}
+
+.sidenav a:hover {
+    color: #131;
+    text-decoration: none;
+}
+.sidenav a:active {
+  border-bottom: 2px solid #2a2a;
+  transition: all 3s ease-in;
+}
+
+.sidenav a:visited {
+  text-decoration: none;
+  border-bottom: 1px solid #2a2a2a;
+  transition: all 3s ease-in;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.straight{
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-item{
+  text-decoration: none;
+  color: #000033;
+}
+
+.nav-item:hover{
+  text-decoration: none;
+  color: #FF3C89;
+}
+
+#navbar-large{
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+.none{
+  border-left-color: #fff;
+  /* border-right: 1px solid #FF0066; */
+}
+
+.none-2{
+  border-left-color: 2px #FF0066;
+  border-right-color: #fff;
+}
+
+.purple{
+  background-color: #FF0066!important;
+}
+
+#search::-ms-input-placeholder{
+  color: #FF3C89;
+  opacity: 1;
+}
+
+#search::-webit-input-placeholder{
+  color: #FF3C89;
+  opacity: 1;
+}
+
+.fa-search{
+  color: #fff;
+}
+
+.fa-send{
+  color: #FF0066;
+}
+/* end of header css  */
+
+/* start of footer css */
+.merchant{
+    background-color: #E9EAF9;
+    margin-top: 160px;
+    position: relative;
+    width: 100%;
+
+}
+.become{
+    font-size: 34px;
+    font-family:'Ubuntu', sans-serif;
+    color: #000033;
+    opacity: 100%;
+    margin-top:150px;
+}
+.becoming{
+font-size: 34px;
+font-weight: bold;
+font-family: 'Ubuntu', sans-serif;
+color: #000033;
+opacity: 100%;
+
+}
+.find{
+ font-size: 12px;
+ font-family: 'Ubuntu', sans-serif;
+ color:#000033;
+}
+.lorem{
+    font-size: 12px;
+    font-family: 'Cabin', sans-serif;
+    color:#6f7277;
+}
+.abc{
+    font-size: 12px;
+    font-family: 'Cabin', sans-serif;
+    color: #6f7277
+}
+.video{
+    top:-20px;
+    position: absolute;
+}
+#inspire{
+ font-size: 12px;
+ font-family: 'Cabin', sans-serif;
+ color: #6f7277;
+}
+#share{
+    font-size: 12px;
+    font-family: 'Ubuntu', sans-serif;
+    color:#000033;
+}
+.part1{
+    top: -130px;
+}
+.part2{
+    top: -90px;
+}
+.rated{
+    background-color: #000033;
+}
+.list a{
+    color: #6E6E6E;
+    font-size: 12px;
+    font-family: 'Cabin', sans-serif;
+}
+.list:hover {
+    color: white;
+    text-decoration: none;
+
+
+}
+.category{
+   color: white;
+   font-size: 12px;
+   font-family: 'Cabin', sans-serif;
+   margin-top: 30px;
+   margin-left: 40px;
+}
+.accessory  .list  a:hover{
+    color: white;
+    text-decoration: none;
+}
+.platform{
+    color: #6E6E6E;
+    font-size: 12px;
+    font-family: 'Cabin', sans-serif;
+}
+.categorya{
+    color: white;
+    font-size: 12px;
+    font-family: 'Cabin', sans-serif;
+    margin-top: 30px;
+}
+.accessory  .platform  a:hover{
+    color: white;
+    text-decoration: none;
+}
+.line hr{
+    display: block;
+   margin-top: 30px;
+   margin-bottom: 0.5em;
+   margin-left: 150px;
+   margin-right: 130px;
+   border-style: inset;
+   border-width: 0.8px;
+   border-color: #6E6E6E;
+}
+.line1 input{
+    display: block;
+    margin-left: 40px;
+    margin-bottom: 0.5em;
+    margin-right: 30px;
+    border-style: inset;
+    border-width: 0.8px;
+    border: none;
+    border-bottom: 1px solid #6E6E6E;
+    margin-top: 10px;
+    background-color: transparent;
+}
+#subscribebutton{
+    background-color: #FF0066;
+    border-color: transparent;
+    width: 120px;
+    display: inline-block;
+    font-size: 12px;
+    font-family: 'Cabin', sans-serif;
+    border-radius: 15px;
+    color:white;
+    height: 30px;
+    margin-top: 40px;
+}
+.copyright{
+    font-size: 12px;
+    font-family: 'Cabin', sans-serif;
+    color: #6E6E6E;
+    margin-left:30px;
+    margin-top:20px;
+}
+.nav-link {
+  float: right !important;
+  }
+
+  .circle{
+    border: 1px solid #707070;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    height: 50px;
+    width: 50px;
+  }
+
+  .up{
+    font-size: 17px;
+    color: #707070;
+    align-self: center;
+  }
+}
+
+/*end of footer css*/
+.home{
+    font-size: 12px;
+    font-family: 'Cabin', sans-serif;
+    color: #d1d2d3;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+.top{
+    font-size: 12px;
+    font-family: 'Cabin', sans-serif;
+    color: #000033;
+    margin-top: 10px;
+    font-weight: bold
+    /* margin-left: 20px; */
+}
+.phonesandcomputers{
+    font-size: 34px;
+    color:#000033;
+    text-align: center;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
+    margin-top: 60px;
+}
+.products{
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+    color: #000033;
+    margin-top:30px;
+    background-color: #FCFCFC;
+}
+
+.listitems{
+    margin-left: -40px;
+    margin-top: 7px;
+    list-style: none;
+    background-color: #FCFCFC;
+
+}
+.product-link{
+    font-size: 12px;
+    font-family: 'Cabin', sans-serif;
+    color: #6E6E6E;
+    text-decoration: none;
+}
+.product-link:hover{
+    text-decoration: none;
+    color: #6E6E6E;
+}
+.closet{
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+    color: #000033;
+    margin-top:40px;
+    background-color: #FCFCFC;
+}
+.pages{
+    margin-left: 30px;
+    margin-top: 40px;
+    color: #000033;
+    font-size: 12px;
+    font-family: 'Cabin', sans-serif;
+}
+.otherstores{
+    font-size: 10px;
+    font-family: 'Ubuntu', sans-serif;
+    font-style: italic;
+    color: #FF3C89;
+    margin-top: 5px;
+    font-weight: bold;
+
+}
+.minbutton{
+     background-color: #FFFFFF;
+     color: #969696;
+     border: 1px solid #E9EAF9;
+     border-radius: 8px;
+     width: 70px;
+     font-size: 12px;
+     font-family: 'Cabin', sans-serif;
+     height: 40px;
+     text-align: initial;
+}
+.maxbutton{
+    background-color:#FFFFFF;
+    color: #969696;
+    border: 1px solid #E9EAF9;
+    border-radius: 8px;
+    margin-left: 30px;
+    width: 70px;
+    font-size: 12px;
+    font-family: 'Cabin', sans-serif;
+    height: 40px;
+    text-align: initial;
+}
+.pricerange{
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+    color: #000033;
+}
+.page-ext{
+    /* margin-left: 20px; */
+    margin-top: 40px;
+    font-size: 12px;
+    font-family: 'Cabin', sans-serif;
+    color:#969696;
+}
+.sortbutton{
+    background-color: transparent;
+    border-radius: 7px;
+    border-color: #BFBFBF;
+    margin-top: 30px;
+    margin-left: -30px;
+    height: 30px;
+
+}
+.sort{
+    font-size: 12px;
+    font-family: 'Cabin', sans-serif;
+    color:#969696;
+    margin-top: 3px;
+}
+.lowprice{
+    color: #000033;
+    font-size: 12px;
+    font-family: 'Cabin', sans-serif;
+    margin-top: 3px;
+}
+.star{
+    color:#FF3C89;
+}
+.price{
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+    color: #000033;
+}
+.shop{
+    font-size: 10px;
+    font-family:'Cabin', sans-serif;
+    color:#FF3C89;
+    font-weight: bold;
+    padding-top: -15px;
+}
+.street{
+    font-size: 10px;
+    font-family: 'Cabin', sans-serif;
+    color:#575757;
+    font-weight: bold;
+    padding-top: -17px;
+}
+
+.content p{
+    margin: 0 !important;
+}
+
+
+
+.on-side-3{
+    position: absolute;
+    top: 39%;
+    right: 9%;
+  }
+
+  .on-side-4{
+    position: absolute;
+    top: 39%;
+    right: 9%;
+  }
+
+  .on-side-5{
+    position: absolute;
+    top: 39%;
+    left: 82%;
+  }
+
+  .curve{
+      border-radius: 5px;
+  }
+  .fas-fa-angle-left{
+      margin-left:-15px;
+  }
+  .next{
+      margin-left: 30px;
+  }
+
+  /* start of header media query */
+
+  @media only screen and (min-width: 320px) {
+    #desktop-nav{
+      display: none;
+    }
+
+    #navbar-flex{
+      display: flex;
+    }
+
+    .hide-md{
+      display: inline-block;
+    }
+
+    .hide-sm{
+      display: none;
+    }
+
+    .svglogo {
+      padding-top: 15px;
+
+    }
+      .part1{
+        /* padding-top: 369px; */
+        justify-content: center;
+      }
+
+      .video{
+        top: -81px;
+      }
+      .space{
+        margin-top: 250px;
+      }
+
+      .absolute-on-header{
+        top: 213px;
+        right: 175px;
+        position: absolute;
+      }
+  }
+
+  @media only screen and (min-width: 768px) {
+    .info{
+      display: none;
+    }
+
+    .svglogo {
+      margin-left: -15px;
+
+    }
+
+    #navbar-large{
+      display: flex;
+    }
+
+    .hide-sm{
+      display: none;
+    }
+
+    .hidden-sm{
+      display: block;
+    }
+
+    .hide-md{
+      display: none;
+    }
+
+    ._display{
+      display: flex;
+    }
+    ._center{
+      display: flex;
+      align-self: center;
+      font-size: 23px;
+      color: #FF3C89;
+
+    }
+
+    .on-side-3{
+        position: absolute;
+        top: 39%;
+        right: 46%;
+      }
+
+      .on-side-4{
+        position: absolute;
+        top: 39%;
+        right: 46%;
+      }
+
+      .on-side-5{
+        position: absolute;
+        top: 39%;
+        left: 49%;
+      }
+  }
+
+  @media only screen and (min-width: 1024px){
+    #desktop-nav{
+      display: block;
+    }
+    .info{
+      display: block;
+    }
+    #navbar-large{
+      display: none;
+    }
+
+    .absolute-on-header{
+      position: absolute;
+      top: 30%;
+      left: 50%;
+    }
+
+    .on-side-3{
+        position: absolute;
+        top: 39%;
+        right: 9%;
+      }
+
+      .on-side-4{
+        position: absolute;
+        top: 39%;
+        right: 9%;
+      }
+
+      .on-side-5{
+        position: absolute;
+        top: 39%;
+        left: 82%;
+      }
+  }
+  /* end of header media query */

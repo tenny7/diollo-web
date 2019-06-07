@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{asset('assets/admin/fonts/feather/feather.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/admin/libs/highlight.js/styles/vs2015.css')}}">
     <link rel="stylesheet" href="{{asset('assets/admin/libs/quill/dist/quill.core.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/admin/libs/dataTables/datatables.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/admin/libs/select2/dist/css/select2.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/admin/libs/flatpickr/dist/flatpickr.min.css')}}">
 
@@ -19,6 +20,7 @@
 
     <link rel="stylesheet" href="{{asset('assets/admin/css/theme-dark.min.css')}}" id="stylesheetDark">
 
+    @stack('css')
     <style>
         body {
             display: none;
@@ -34,6 +36,8 @@
 </head>
 
 <body>
+    {{-- Include Notifications Panel --}}
+    @include('layouts.backend.notifications')
     {{-- Include Sidebar --}}
     @include('layouts.backend.sidebar')
 
@@ -54,9 +58,12 @@
     <script src="{{asset('assets/admin/libs/quill/dist/quill.min.js')}}"></script>
     <script src="{{asset('assets/admin/libs/dropzone/dist/min/dropzone.min.js')}}"></script>
     <script src="{{asset('assets/admin/libs/select2/dist/js/select2.min.js')}}"></script>
+    <script src="{{asset('assets/admin/libs/dataTables/datatables.min.js')}}"></script>
 
     <!-- Theme JS -->
     <script src="{{asset('assets/admin/js/theme.min.js')}}"></script>
+
+    @stack('scripts')
 
 </body>
 

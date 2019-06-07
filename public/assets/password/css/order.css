@@ -1,0 +1,51 @@
+
+
+._display{
+  display: flex;
+  border: 1px solid #EEEFFA;
+}
+
+#add-to-cart{
+  background-color: #FF0066;
+  border-color: transparent;
+  width: 120px;
+  display: inline-block;
+  font-size: 12px;
+  font-family: 'Cabin', sans-serif;
+  border-radius: 15px;
+  color:white;
+  height: 30px;
+  margin-right: 20px;
+}
+
+#cancelled{
+  color: #FFB000;
+}
+
+#essential{
+  color: #000033;
+  font-weight: bold;
+  font-family: "Ubuntu", cursive;
+}
+#view-details{
+  color: #FF3C89;
+}
+#completed{
+  color: #52CB9C;
+}
+
+.bd{
+  color: #000333;
+  font-size: 15px;
+}
+.bd:hover{
+  color: #000333;
+  text-decoration: none;
+}
+
+.loc_select_box{
+  width: auto;
+  color: #FF3C89;
+  border-radius: 8px;
+  text-align: center;
+}

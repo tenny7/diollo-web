@@ -6,8 +6,9 @@
             <div class="container-fluid">
 
                 <!-- Form -->
-                <form class="form-inline mr-4 d-none d-md-flex">
-                    <div class="input-group input-group-flush input-group-merge" data-toggle="lists" data-lists-values="[&quot;name&quot;]">
+            <form class="form-inline mr-4 d-none d-md-flex" >
+                @csrf    
+                <div class="input-group input-group-flush input-group-merge" data-toggle="lists" data-lists-values="[&quot;name&quot;]">
 
                         <!-- Input -->
                         <input type="search" class="form-control form-control-prepended dropdown-toggle search" data-toggle="dropdown" placeholder="Search" aria-label="Search">
@@ -581,10 +582,11 @@
                         </div>
                     </div>
 
+                    
                     <!-- Form -->
-                    <form class="mb-4">
+                    <form class="mb-4" method="post" action="{{ route('agent.settings.password.update')}}">
 
-
+                        @csrf
 
                         <div class="row">
                             <div class="col-12 col-md-6 order-md-2">
@@ -621,7 +623,8 @@
 
                             </div>
                             <div class="col-12 col-md-6">
-
+                                    @include('partials.admin.success')
+                                    @include('partials.admin.error')
                                 <!-- Password -->
                                 <div class="form-group">
 
@@ -631,7 +634,7 @@
                     </label>
 
                                     <!-- Input -->
-                                    <input type="password" class="form-control">
+                                    <input type="password" name="old_password" class="form-control">
 
                                 </div>
 
@@ -644,7 +647,7 @@
                     </label>
 
                                     <!-- Input -->
-                                    <input type="password" class="form-control">
+                                    <input type="password" name="new_password" class="form-control">
 
                                 </div>
 
@@ -657,7 +660,7 @@
                     </label>
 
                                     <!-- Input -->
-                                    <input type="password" class="form-control">
+                                    <input type="password" name="c_password" class="form-control">
 
                                 </div>
 

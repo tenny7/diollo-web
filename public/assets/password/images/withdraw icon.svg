@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-4 {
+        fill: none;
+      }
+
+      .cls-1, .cls-2 {
+        stroke: #ffb000;
+        stroke-width: 1.2px;
+      }
+
+      .cls-1 {
+        stroke-linecap: round;
+      }
+
+      .cls-3 {
+        stroke: none;
+      }
+    </style>
+  </defs>
+  <g id="withdraw_icon" data-name="withdraw icon" transform="translate(-632 -372)">
+    <path id="Path_911" data-name="Path 911" class="cls-1" d="M10517.307,7690.5h12.972" transform="translate(-9880.811 -7307.5)"/>
+    <g id="Ellipse_22" data-name="Ellipse 22" class="cls-2" transform="translate(632 372)">
+      <circle class="cls-3" cx="11" cy="11" r="11"/>
+      <circle class="cls-4" cx="11" cy="11" r="10.4"/>
+    </g>
+  </g>
+</svg>

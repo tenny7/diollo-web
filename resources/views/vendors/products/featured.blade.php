@@ -564,24 +564,7 @@
                                 <div class="col">
 
                                     <!-- Nav -->
-                                    <ul class="nav nav-tabs nav-overflow header-tabs">
-                                        <li class="nav-item">
-                                            <a href="products-all.html" class="nav-link ">
-                                              All <span class="badge badge-pill badge-soft-secondary">823</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="products-clearance.html" class="nav-link">
-                                              Clearance <span class="badge badge-pill badge-soft-secondary">24</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="products-featured.html" class="nav-link active">
-                                              Featured <span class="badge badge-pill badge-soft-secondary">3</span>
-                                            </a>
-                                        </li>
-                                        
-                                    </ul>
+                                    @include('partials.admin.tab')
 
                                 </div>
                             </div>
@@ -673,8 +656,8 @@
                                             </a>
                                         </th>
                                         <th>
-                                            <a href="#" class="text-muted sort" data-sort="products-status">
-                                              Status
+                                            <a href="#" class="text-muted sort" data-sort="products-vendor">
+                                              Vendor
                                             </a>
                                         </th>
 
@@ -686,74 +669,88 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody class="list"><tr>
-                                        <td>
-                                            <div class="custom-control custom-checkbox table-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="productsSelect" id="productsSelectOne">
-                                                <label class="custom-control-label" for="productsSelectOne">
-                                                    &nbsp;
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td class="products-product" colspan="2">
-                                            LG 8Kg Washer &amp; 5Kg Dryer Front Load Washing Machine - F4J6TMP8S
-                                        </td>
-                                        <td class="products-code">
-                                            #6520
-                                        </td>
-                                        <td class="products-brand">
-                                            LG
-                                        </td>
-                                        <td class="products-price">
-                                            235,000
-                                        </td>
-
-                                        <td class="products-dprice">
-                                            200,000
-                                        </td>
-                                        <td class="products-quantity">
-                                            20
-                                        </td>
-                                        <td class="products-category">
-                                            Washers and Dryers
-                                        </td>
-                                        <td class="products-status">
-                                            <div class="badge badge-soft-success">
-                                                added
-                                            </div>
-                                        </td>
-                                        <!-- <td class="orders-status">
-                                            <div class="badge badge-soft-success">
-                                                Shipped
-                                            </div>
-                                        </td> -->
-
-                                        <td class="orders-date">
-                                            <time datetime="2018-07-30">07/30/18</time>
-                                        </td>
-
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-boundary="window">
-                                                    <i class="fe fe-more-vertical"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a href="#!" class="dropdown-item">
-                                                        View Product
-                                                    </a>
-                                                    <a href="#!" class="dropdown-item">
-                                                        Edit Product
-                                                    </a>
-                                                    <a href="#!" class="dropdown-item">
-                                                        Add to featured products
-                                                    </a>
-                                                    <a href="#!" class="dropdown-item">
-                                                        Remove from Clearance Sales
-                                                    </a>
+                                <tbody class="list">
+                                        {{-- {{ dd($products)}} --}}
+                                        @foreach($products as $product)
+                                        <tr>
+                                            <td>
+                                                <div class="custom-control custom-checkbox table-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="productsSelect" id="productsSelectOne">
+                                                    <label class="custom-control-label" for="productsSelectOne">
+                                                        &nbsp;
+                                                    </label>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr></tbody>
+                                            </td>
+                                            <td class="products-product" colspan="2">
+                                                {{ $product->name }}
+                                            </td>
+                                            <td class="products-code">
+                                                {{ $product->code }}
+                                            </td>
+                                            <td class="products-brand">
+                                                {{ $product->brand }}
+                                            </td>
+                                            <td class="products-price">
+                                                {{ $product->original_price }}
+                                            </td>
+    
+                                            <td class="products-dprice">
+                                                {{ $product->discount_price }}
+                                            </td>
+                                            <td class="products-quantity">
+                                                {{ $product->qty }}
+                                            </td>
+                                            <td class="products-category">
+                                                @foreach($product->categories as $category)
+                                                    {{ $category->name }}
+                                                @endforeach
+                                            </td>
+                                            <td class="products-vendor">
+                                                {{-- @foreach($product->store as $store) --}}
+                                                @php 
+                                                    $store = \App\Models\Store::where('id',$product->store)->first();
+                                                @endphp
+                                                {{ $store->name }}
+                                                {{-- @endforeach --}}
+                                            </td>
+                                            <!-- <td class="orders-status">
+                                                <div class="badge badge-soft-success">
+                                                    Shipped
+                                                </div>
+                                            </td> -->
+    
+                                            <td class="orders-date">
+                                                {{-- <time datetime="2018-07-30">07/30/18</time> --}}
+                                                {{ $product->created_at->diffForHumans() }}
+                                            </td>
+    
+                                            <td class="text-right">
+                                                <div class="dropdown">
+                                                    <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-boundary="window">
+                                                        <i class="fe fe-more-vertical"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <a href="#!" class="dropdown-item">
+                                                          View Product
+                                                        </a>
+                                                    <a href="{{ route('vendor.products.updateForm', $product->slug) }}" class="dropdown-item">
+                                                          Edit Product
+                                                        </a>
+                                                    <a href="{{ route('vendor.products.addFeatured',$product->slug) }}" class="dropdown-item">
+                                                          Add to featured
+                                                        </a>
+                                                        <a href="{{ route('vendor.products.addClearance',$product->slug) }}" class="dropdown-item">
+                                                          Add to Clearance Sales
+                                                        </a>
+                                                        <a href="{{ route('vendor.products.delete',$product->slug) }}" class="dropdown-item">
+                                                          Delete Product
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
 
                             </table>
                         </div>

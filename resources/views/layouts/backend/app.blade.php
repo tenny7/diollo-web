@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{{asset('assets/admin/css/theme.min.css')}}" id="stylesheetLight">
 
     <link rel="stylesheet" href="{{asset('assets/admin/css/theme-dark.min.css')}}" id="stylesheetDark">
+    <link rel="stylesheet" href="{{ asset('assets/admin/css/toastr.css') }}">
 
     @stack('css')
     <style>
@@ -62,6 +63,9 @@
 
     <!-- Theme JS -->
     <script src="{{asset('assets/admin/js/theme.min.js')}}"></script>
+
+    <script src="{{ asset('assets/admin/js/custom.js')}}"></script>
+    <script src="{{ asset('assets/admin/js/toastr.js')}}"></script>
 
     @stack('scripts')
 

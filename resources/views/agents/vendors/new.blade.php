@@ -161,7 +161,7 @@
 
         <div class="container-fluid">
             <div class="row justify-content-center">
-                <div class="col-12 col-lg-10 col-xl-8">
+                <div class="col-6 col-lg-6 col-xl-6">
 
                     <!-- Header -->
                     <div class="header mt-md-5">
@@ -190,295 +190,182 @@
                         </div>
                     </div>
 
-                    <!-- Form -->
-                    <form class="mb-4">
+                 
+              
+              <!-- Subheading -->
+              <p class="text-muted text-center mb-5">
+                  Select a user
+              </p>
 
-                        <div class="row">
-                            <div class="col-12">
+              {{-- <div class="text-center">
+                  <small class="text-center">
+                  user already registered?, select user from the list
+                  </small>
+              </div> --}}
 
-                                <!-- name -->
-                                <div class="form-group">
+              <div class="form-group">
+      
+                  <!-- Label -->
+                  <label>Users</label>
+                  <!-- Input -->
+                  <select name="user_name" id="" class="form-control">
+                      @foreach($users as $user)
+                        <option value="{{ $user->id }}">{{ $user->fullname }}</option>
+                      @endforeach
+                  </select>
+              </div>
+              
+              
+            <br>
+            <hr>
 
-                                    <!-- Label -->
-                                    <label>
-                                      Business Name
-                                    </label>
+               <!-- Heading -->
+               <h1 class="display-4 text-center mb-3">
+                  Sign Up
+              </h1>
+          
+              {{-- @include('partials.admin.success')
+              @include('partials.admin.error') --}}
+              @if(isset($success))
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <strong>Success! </strong> {{ $success }}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                  </button>
+              </div>
 
-                                    <!-- Input -->
-                                    <input type="text" class="form-control">
+              @endif
+              <!-- Form -->
+              <form action="{{ route('storeVendorAgent') }}" method="POST">
+                  @csrf
 
-                                </div>
+                  <!-- First Name -->
+                  <div class="form-group">
+      
+                      <!-- Label -->
+                      <label>First Name</label>
+                      <!-- Input -->
+                      <input type="text" name="first_name" class="form-control{{ $errors->has('firstname')?' is-invalid':'' }}" placeholder="name@address.com">
+                      @if ($errors->any() && $errors->has('firstname'))
+                          <div class="invalid-feedback">
+                              {{ $errors->first('firstname') }}
+                          </div>
+                      @endif
+                  </div>
 
-                            </div>
-                            <div class="col-12 col-md-6">
+                  <!-- Last Name -->
+                  <div class="form-group">
+      
+                      <!-- Label -->
+                      <label>Last Name</label>
+                      <!-- Input -->
+                      <input type="text" name="last_name" class="form-control{{ $errors->has('lastname')?' is-invalid':'' }}" placeholder="name@address.com">
+                      @if ($errors->any() && $errors->has('lastname'))
+                          <div class="invalid-feedback">
+                              {{ $errors->first('lastname') }}
+                          </div>
+                      @endif
+                  </div>
 
-                                <!-- Phone -->
-                                <div class="form-group">
+                  <!-- Phone Number -->
+                  <div class="form-group">
+      
+                      <!-- Label -->
+                      <label>Phone Number</label>
+                      <!-- Input -->
+                      <input type="text" name="phone" class="form-control{{ $errors->has('phone')?' is-invalid':'' }}" placeholder="name@address.com">
+                      @if ($errors->any() && $errors->has('phone'))
+                          <div class="invalid-feedback">
+                              {{ $errors->first('phone') }}
+                          </div>
+                      @endif
+                  </div>
 
-                                    <!-- Label -->
-                                    <label>
-                                      Business Phone
-                                    </label>
+                  <!-- Email address -->
+                  <div class="form-group">
+      
+                      <!-- Label -->
+                      <label>Email Address</label>
+                      <!-- Input -->
+                      <input type="email" name="email" class="form-control{{ $errors->has('email')?' is-invalid':'' }}" placeholder="name@address.com">
+                      @if ($errors->any() && $errors->has('email'))
+                          <div class="invalid-feedback">
+                              {{ $errors->first('email') }}
+                          </div>
+                      @endif
+                      
+                  </div>
+      
+                  <!-- Password -->
+                  <div class="form-group">
+      
+                      <div class="row">
+                          <div class="col">
+                              
+                              <!-- Label -->
+                              <label>Password</label>
+          
+                          </div>
+                          <div class="col-auto">
+                          
+                              <!-- Help text -->
+                              <a href="#" class="form-text small text-muted">
+                                  Forgot password?
+                              </a>
+          
+                          </div>
+                      </div> <!-- / .row -->
+                      <script>
+                          function showPassword() {
+                              var x = document.getElementById("password");
+                              if (x.type === "password") {
+                                  x.type = "text";
+                              } else {
+                                  x.type = "password";
+                              }
+                          }
+                      </script>
+      
+                      <!-- Input group -->
+                      <div class="input-group input-group-merge">
+          
+                          <!-- Input -->
+                          <input type="password" name="password" class="form-control form-control-appended" id="password" placeholder="Enter your password">
+          
+                          <!-- Icon -->
+                          <div class="input-group-append" onclick="showPassword()">
+                              <span class="input-group-text">
+                                  <i class="fe fe-eye"></i>
+                              </span>
+                          </div>
+                      </div>
+                  </div>
+      
+                  <!-- Submit -->
+                  <button class="btn btn-lg btn-block btn-primary mb-3" type="submit">
+                  Proceed
+                  </button>
+      
+                  <!-- Link -->
+                  
+                  
+              </form>
 
-                                    <!-- Input -->
-                                    <input type="text" class="form-control mb-3" placeholder="(+234)_______-____" data-mask="(+234) 00000000000" autocomplete="off" maxlength="18">
-                                    <!-- <input type="text" class="form-control mb-3" placeholder="(___)____-____" data-mask="(000) 000000000"> -->
+              <hr>
 
-                                </div>
+              
 
-                            </div>
+            {{-- <p>or <span>Select from already existing users</span></p> --}}
 
-                            <div class="col-12 col-md-6">
-
-                                <!-- Phone -->
-                                <div class="form-group">
-
-                                    <!-- Label -->
-                                    <label>
-                                      Business Email
-                                    </label>
-
-                                    <!-- Input -->
-                                    <input type="text" class="form-control">
-
-                                </div>
-
-                            </div>
-                            <div class="col-12">
-
-                                <!-- Email address -->
-                                <div class="form-group">
-
-                                    <!-- Label -->
-                                    <label class="mb-1">
-                                      Business address
-                                    </label>
-
-                                    <!-- Form text -->
-                                    <!-- <small class="form-text text-muted">
-                                      This contact will be shown to others publicly, so choose it carefully.
-                                    </small> -->
-
-                                    <!-- Input -->
-                                    <textarea name="address" class="form-control"></textarea>
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-12">
-
-                                <!-- Phone -->
-                                <div class="form-group">
-
-                                    <!-- Label -->
-                                    <label>
-                                      Country
-                                    </label>
-
-                                    <!-- Input -->
-                                    <select class="form-control select2-hidden-accessible" data-toggle="select" data-select2-id="1" tabindex="-1" aria-hidden="true">
-                                        <option data-select2-id="3">Nigeria</option>
-                                        <option>Ghana</option>
-                                        <option>Togo</option>
-                                    </select>
-                                    
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-12 col-md-6">
-
-                                <!-- Phone -->
-                                <div class="form-group">
-
-                                    <!-- Label -->
-                                    <label>
-                                      State
-                                    </label>
-
-                                    <!-- Input -->
-                                    <select class="form-control select2-hidden-accessible" data-toggle="select" data-select2-id="4" tabindex="-1" aria-hidden="true">
-                                        <option data-select2-id="6">Cross River</option>
-                                        <option>Akwa Ibom</option>
-                                        <option>Kaduna</option>
-                                    </select>
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-12 col-md-6">
-
-                                <!-- Phone -->
-                                <div class="form-group">
-
-                                    <!-- Label -->
-                                    <label>
-                                      Region
-                                    </label>
-
-                                    <!-- Input -->
-                                    <select class="form-control select2-hidden-accessible" data-toggle="select" data-select2-id="7" tabindex="-1" aria-hidden="true">
-                                        <option data-select2-id="9">Calabar</option>
-                                        <option>Akpabuyo</option>
-                                        <option>Ikang</option>
-                                    </select>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <!-- / .row -->
-
-                        <!-- Divider -->
-                        <hr class="mt-4 mb-5">
-
-                        <div class="row">
-                            <div class="col-12">
-                                <label class="mb-1">
-                                  Business Logo
-                                </label>
-                                <small class="form-text text-muted">
-                                  Please use an image no larger than 5MB
-                                </small>
-                                <!-- Single -->
-                                <div class="dropzone dropzone-single mb-3 dz-clickable" data-toggle="dropzone" data-dropzone-url="http://">
-
-                                  
-
-                                  <div class="dz-preview dz-preview-single"></div>
-
-                                <div class="dz-default dz-message"><span>Drop files here to upload</span></div></div>
-                            </div>
-                        </div>
-                        <!-- / .row -->
-
-                        <!-- Divider -->
-                        <hr class="mt-4 mb-5">
-
-                        <div class="row">
-                            <div class="col-12">
-
-                                <!-- Public profile -->
-                                <div class="form-group">
-
-                                    <!-- Label -->
-                                    <label class="mb-1">
-                                       Availability
-                                    </label>
-
-                                    <!-- Form text -->
-                                    <small class="form-text text-muted">
-                                        Making a vendor available means that users can see and make orders from this vendor and the vendor is obligated to attend to them.
-                                    </small>
-
-                                    <div class="row">
-                                        <div class="col-auto">
-
-                                            <!-- Toggle -->
-                                            <div class="custom-control custom-checkbox-toggle">
-                                                <input type="checkbox" class="custom-control-input" id="toggleOne">
-                                                <label class="custom-control-label" for="toggleOne"></label>
-                                            </div>
-
-                                        </div>
-                                        <div class="col ml--2">
-
-                                            <!-- Help text -->
-                                            <small class="text-muted">
-                                              You're currently Unavailable
-                                            </small>
-
-                                        </div>
-                                    </div>
-                                    <!-- / .row -->
-                                </div>
-
-                            </div>
-                        </div>
-                        <!-- / .row -->
-
-                        <hr class="mt-4 mb-5">
-                        <div class="row">
-                                <div class="col-12">
-    
-                                    <!-- name -->
-                                    <div class="form-group">
-    
-                                        <!-- Bank Name -->
-                                        <div class="form-group">
-    
-                                            <!-- Label -->
-                                            <label>
-                                              Bank
-                                            </label>
-    
-                                            <!-- Input -->
-                                            <select class="form-control select2-hidden-accessible" data-toggle="select" data-select2-id="1" tabindex="-1" aria-hidden="true">
-                                                <option data-select2-id="3">Select Bank</option>
-                                                <option>Guaranty trust Bank</option>
-                                                <option>Zenith Bank</option>
-                                                <option>First Bank of Nigeria</option>
-                                            </select>
-    
-                                        </div>
-    
-                                    </div>
-    
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <!-- Account Number -->
-                                    <div class="form-group">
-    
-                                        <!-- Label -->
-                                        <label>
-                                          Account Number
-                                        </label>
-    
-                                        <!-- Input -->
-                                        <input type="text" class="form-control">
-    
-                                    </div>
-    
-                                </div>
-    
-                                <div class="col-12 col-md-6">
-    
-                                    <!-- Account Name -->
-                                    <div class="form-group">
-    
-                                        <!-- Label -->
-                                        <label>
-                                          Account Name
-                                        </label>
-    
-                                        <!-- Input -->
-                                        <input type="text" class="form-control">
-    
-                                    </div>
-    
-                                </div>
-    
-    
-    
-                            </div>
-                            <!-- / .row -->
-
-                            <hr class="mt-4 mb-5">
-
-                            <!-- Submit -->
-                            <button type="submit" class="btn btn-primary">
-                                Save shop settings
-                            </button>
-                            <br><br>
-
-                        </form>
+             
                     </div>
+                    {{-- <div class="form-group"> --}}
+                        
+                    {{-- </div> --}}
 
                 </div>
+
+                
             </div>
     
 @endsection

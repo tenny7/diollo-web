@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrdersTable extends Migration
+class CreateOrderTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,13 +14,11 @@ class CreateOrdersTable extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('order_id')->unique();
-            $table->string('discount_code')->nullable()->default(null);
-            $table->integer('discount_percent')->nullable()->default(null);
-            $table->integer('order_status_id')->unsigned();
+            $table->bigIncrements('id');
+            $table->integer('user_id')->nullable();
+            $table->decimal('total',10,6)->nullable();
+            $table->tinyInteger('status')->nullable();
             $table->timestamps();
-            $table->foreign('order_status_id')->references('id')->on('order_statuses');
         });
     }
 

@@ -119,6 +119,11 @@
                                         </th>
                                         <th>
                                             <a href="#" class="text-muted sort" data-sort="stores-email">
+                                              Promo Type
+                                            </a>
+                                        </th>
+                                        {{-- <th>
+                                            <a href="#" class="text-muted sort" data-sort="stores-email">
                                               Email
                                             </a>
                                         </th>
@@ -126,7 +131,7 @@
                                             <a href="#" class="text-muted sort" data-sort="stores-phone">
                                               Phone
                                             </a>
-                                        </th>
+                                        </th> --}}
                                         <th>
                                             <a href="#" class="text-muted sort" data-sort="stores-state">
                                               State
@@ -134,16 +139,16 @@
                                         </th>
                                         <th>
                                             <a href="#" class="text-muted sort" data-sort="store-start">
-                                                Started
+                                                Start date
                                             </a>
                                         </th>
                                         <th>
                                             <a href="#" class="text-muted sort" data-sort="store-duration">
-                                              Duration
+                                              End date
                                             </a>
                                         </th>
 
-                                        <th>
+                                        {{-- <th>
                                             <a href="#" class="text-muted sort" data-sort="store-impressions">
                                                 Impressions
                                             </a>
@@ -153,7 +158,7 @@
                                             <a href="#" class="text-muted sort" data-sort="store-views">
                                                 Views
                                             </a>
-                                        </th>
+                                        </th> --}}
 
                                         <th>
                                             <a href="#" class="text-muted sort" data-sort="stores-status">
@@ -182,11 +187,11 @@
                                            {{ $store->name }}
                                         </td>
                                         <td class="stores-email">
-                                            {{ $promotion->email }}
+                                            {{ $promotion->promo_type }}
                                         </td>
-                                        <td class="stores-phone">
+                                        {{-- <td class="stores-phone">
                                             {{ $promotion->phone }}
-                                        </td>
+                                        </td> --}}
 
                                         <td class="stores-state">
                                             @php 
@@ -198,17 +203,18 @@
                                             {{date('F j, Y', strtotime($promotion->started)) }}
                                         </td>
                                         <td class="stores-duration">
-                                            {{ $promotion->duration }} Days
+                                                {{date('F j, Y', strtotime($promotion->end_date)) }}
+                                            {{-- {{ $promotion->end_date }}  --}}
                                         </td>
                                         {{-- <td class="vendors-contactemail">
                                             chris@codekago.com
                                         </td> --}}
-                                        <td class="stores-impressions">
+                                        {{-- <td class="stores-impressions">
                                             {{ $promotion->impressions }}
                                         </td>
                                         <td class="stores-views">
                                             {{ $promotion->views }}
-                                        </td>
+                                        </td> --}}
                                         @if($promotion->isActive())
                                         <td class="stores-status">
                                             <div class="badge badge-soft-success">

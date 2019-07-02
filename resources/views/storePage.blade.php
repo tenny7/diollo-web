@@ -1,5 +1,8 @@
 @extends('layouts.frontend.app')
 
+@push('css')
+<link rel="stylesheet" href="{{ asset('assets/admin/css/toastr.css') }}">
+@endpush
 @section('content')
 <div class="top_star">
     <img src="images/path 41.svg" alt="path star">
@@ -33,12 +36,14 @@
         <p class="text">{{ $store->description }}</p>
         <hr style="border-color:#575757; margin-left: 20px;margin-right: 8px; margin-top: 12px;">
         <p class="text2"> Opening Hours <span class="text3"> Selling </span></p>
-        <p class="text4">{{ $store->opening_hours }} <span class="text5">Phones, Tablets, Laptops, laptop accessories</span></p>
+    <p class="text4">{{ $store->opening_hours }} <span class="text5">{{ str_limit($store->description,20,'...')}}</span></p>
         <hr style="border-color:#575757; margin-left: 20px; margin-right: 8px; margin-top: 10px;">
         <p class="text6"> Phone Numbers</p>
         <p class="text7"> {{ $store->phones }} <span class="text8"> <i class="fas fa-star" style="color:white;  padding-left:170px;"></i><i class="fas fa-star" style="color:white; padding-left:8px;"></i><i class="far fa-star" style="color:white;  padding-left:8px;"></i> (Reviews from 400 users)</span></p>
 
-        <button class="productbutton"> Products <span><button class="reviewbutton"> Reviews</button></span></button>
+    <button class="productbutton"> Products <span>
+      {{-- <a href="{{ route('reviews',$store->id)}}" class="btn reviewbutton"> Reviews</a> --}}
+    </span></button>
       </div>
 
     </div>
@@ -74,20 +79,36 @@
 
 <div class="row" style="margin-top:35px;">
   @foreach($products as $product)
-        <div class=" col-xs-6 col-md-3">
+        <div class=" col-xs-6 col-md-3" style="margin-bottom:15px;">
                 <div class="img-block">
-                <a href="{{ route('customer.productPage', $product->id )}}"> <img src="{{ asset('assets/password/images/phone 5.jpg')}}" alt="phone" class="img-responsive img-fluid" style="height:160px"></a>
+                <a href="{{ route('customer.productPage', $product->id )}}"> 
+                    @php
+                    $images = \App\Models\ProductImage::where('product_id', $product->id)->get();
+                    $image_var = json_decode($images);
+                    @endphp
+
+                    @if(is_array($image_var))
+                    @foreach(array_slice($image_var, 0, 1) as $image)
+                        <img src="{{ asset("storage/$image->path")}}" alt="phone" class="img-responsive img-fluid" style="height:160px">
+                    @endforeach
+                    @endif
+                </a>
+                  {{-- <img src="{{ asset('assets/password/images/phone 5.jpg')}}" alt="phone" class="img-responsive img-fluid" style="height:160px"></a> --}}
                       </div>
                         <div class="content">
                           <div class="amount">
-                          <p class="price">&#8358; {{ number_format($product->original_price,2)}}</p>
+                          <p class="price">&#8358; {{ number_format($product->discount_price,2)}}</p>
                               <span><i class="fas fa-star star" style="margin-left:4px;"></i><i class="fas fa-star star" style="margin-left:4px;"></i><i class="far fa-star star" style="margin-left:4px;"></i> </span>
                           </div>
                         </div>
                       <p class="shop"> {{ $store->name }}</p>
                             <p class="street">{{ $store->address }}</p>
-                        </div>
+                            <button type="button" style="border:none; color:#fff; border-radius:15%" class="product_cart_single purple btn btn-xs" data-price="{{ $product->discount_price }}" data-id="{{ $product->id }}">ADD TO CART <i class="fas fa-plus"></i></button>
+                        
+                          </div>
+                          
                         @endforeach
+                        
         {{-- <div class="col-xs-6 col-md-3">
                 <div class="img-block">
                         <a href="#"> <img src="{{ asset('assets/password/images/Product-cat-Jeez-3.jpg')}}" alt="phone" class="img-responsive img-fluid" style="height:160px"></a>
@@ -188,20 +209,35 @@
 
 <!-- clearance sales -->
 <div class="gray">
+  <br>
+    <h1 class="text-center clearance" >Clearance Products</h1>
 <div class="container">
     <div class="row" style="padding-top: 40px; margin: auto; ">
       @foreach($clearances as $clearance)
         <div class="col-xs-6 col-md-2">
           <div class="img-block">
-            <a href="#"> <img src="{{ asset('assets/password/images/clock.png')}}" alt="clock" class="img-responsive img-fluid" style="height:160px"></a>
+            <a href="#"> 
+                @php
+                $images = \App\Models\ProductImage::where('product_id', $clearance->id)->get();
+                $image_var = json_decode($images);
+                @endphp
+
+                @if(is_array($image_var))
+                @foreach(array_slice($image_var, 0, 1) as $image)
+                    <img src="{{ asset("storage/$image->path")}}" alt="phone" class="img-responsive img-fluid" style="height:160px">
+                @endforeach
+                @endif
+              {{-- <img src="{{ asset('assets/password/images/clock.png')}}" alt="clock" class="img-responsive img-fluid" style="height:160px"></a> --}}
             <div class="edit">
               <a style="display: flex; justify-content: flex-end;" href="#"><img src="images/fav appearance selected.svg" style="height: 25px;" alt=""></a>
             </div>
           </div>
             <div class="content">
-                <p class="items"> Vintage Desk Clock</p>
-                <p class="price">&#8358;10,000 <span class="newprice">&#8358;11,000</span></p>
-            </div>
+            <p class="items"> {{ $clearance->name }}</p>
+            <p class="price">&#8358;{{ number_format($clearance->discount_price,2) }} <span class="newprice">&#8358;{{ number_format($clearance->original_price,2)}}</span></p>
+            <button type="button" style="border:none; color:#fff; border-radius:15%" class="product_cart_single purple btn btn-xs" data-price="{{ $clearance->discount_price }}" data-id="{{ $clearance->id }}">ADD TO CART <i class="fas fa-plus"></i></button>  
+          </div>
+          <br>
         </div>
         @endforeach
         
@@ -395,3 +431,8 @@
 </div> --}}
 </div>
 @stop
+
+@push('scripts')
+<script src="{{ asset('assets/admin/js/custom.js')}}"></script>
+<script src="{{ asset('assets/admin/js/toastr.js')}}"></script>
+@endpush

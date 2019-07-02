@@ -16,13 +16,14 @@ class CreatePromotionsTable extends Migration
         Schema::create('promotions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('store_id')->nullable();
-            $table->string('email')->nullable();
-            $table->string('phone')->nullable();
+            // $table->string('email')->nullable();
+            $table->string('promo_type')->nullable();
             $table->string('region_id')->nullable();
             $table->timestamp('started')->nullable();
-            $table->string('duration')->nullable();
-            $table->string('impressions')->nullable();
-            $table->string('views')->nullable();
+            $table->string('end_date')->nullable();
+            $table->string('promo_image')->nullable();
+            // $table->string('impressions')->nullable();
+            // $table->string('views')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
         });

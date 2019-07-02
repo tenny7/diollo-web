@@ -46,8 +46,8 @@
         <label class="text-muted" for="search">What are you looking for?</label> <br>
 
         <div class="input-group">
-          <input type="text" class="form-control" name="search_input" id="search" placeholder="Find the best Electronics, clothes and more...">
-           <div class="input-group-addon purple"><i class="fa fa-search"></i></div>
+          <input type="text" class="form-control" name="search" id="search" placeholder="Find the best Electronics, clothes and more...">
+           {{-- <div class="input-group-addon purple"><i class="fa fa-search"></i></div> --}}
         </div>
 
       </div>
@@ -60,7 +60,7 @@
               <div class="input-group-addon">
                 <i class="fa fa-paper-plane"></i>
               </div>
-              <select name="location" class="mdb-select md-form form-control loc_select_box" searchable="Search here..">
+              <select name="region_id" class="mdb-select md-form form-control loc_select_box" searchable="Search here..">
                 @foreach($regions as $region)
                 @php 
                   $country = \Gerardojbaez\GeoData\Models\Country::where('code', $region->country_code)->first();
@@ -72,12 +72,16 @@
           </div>
         </div>
         <div class="form-group col-md-2">
-          <label class="text-muted" for="Shop">Shop Now!</label>
+          {{-- <label class="text-muted" for="Shop"><small>Shop Now!</small></label> --}}
+          <div class="form-group col-md-4">
          <div class="center_cart-box">
-          <span class="cart-box">
-              <i class="fa fa-shopping-cart fa-2x" style="color: #fff;"></i>
-          </span>
+            <button type="submit" class="purple" style="border-radius:50%; border:none; margin-top:6px;">
+              <span class="cart-box">
+                  <i class="fa fa-shopping-cart fa-2x" style="color: #fff;"></i>
+                </span>
+            </button>
          </div>
+          </div>
         </div>
 
 
@@ -88,6 +92,8 @@
   </div>
 
   <div class="filter"></div>
+
+{{-- {{ dd(geoip($ip = null))}} --}}
 
   <section id="products" style="position: relative; margin-top: 145px; padding-bottom: 50px;">
 
@@ -187,14 +193,38 @@
     </div>
 
     <div class="col-md-9 col-xs-12">
+      {{-- @php 
+          $width = ['159','159','331','159','159','159'];
+          $height = ['163.34','159','163.34','159','159','159'];
+      @endphp --}}
+      {{-- class="first" --}}
      <div class="grid-container">
-        <div class="first">
-            <img src="{{ asset('assets/password/images/Hanger-jungle-logo.jpg')}}" class="img-responsive img-fluid curve" alt="Hanger">
-            <span class="on-top"><br> One stop shop for all the best <br> youtube inspired articles and merch <br> just 0.5km away</span>
-            <span class="pop-up" style="padding-bottom: 20px;"><img src="images/Logo_of_Youtube.png" style="height: 30px;"> <br> POP UP SHOP</span>
-            <div class="on-side"><img src="{{ asset('assets/password/images/reveal button).svg')}}" style="height: 46px;" alt=""></div>
+       @foreach($stores as $store)
+       {{-- @for($i = 0; $i<count($width); $i++) --}}
+        <div>
+          <a href="{{ route('customer.storePage',$store->id)}}">
+            <img src="{{ asset('storage/'.$store->logo)}}" style="width:331px !important; height:163px !important; object-fit:contain;" class="img-responsive img-fluid curve" alt="Hanger">
+            
+          </a>
+          
+            {{-- <span class="on-top"><br> One stop shop for all the best <br> youtube inspired articles and merch <br> just 0.5km away</span>
+            <span class="pop-up" style="padding-bottom: 20px;"><img src="images/Logo_of_Youtube.png" style="height: 30px;"> <br> POP UP SHOP</span> --}}
+            {{-- <div class="on-side"><img src="{{ asset('assets/password/images/reveal button).svg')}}" style="height: 46px;" alt=""></div> --}}
         </div>
-        <div class="second">
+        
+        {{-- @endfor --}}
+        {{-- @for($j=0; $j<=count($allDis); $j++) --}}
+         {{-- {{ $allDis[$j] }} --}}
+        {{-- @endfor --}}
+        {{-- {{ dd($allDis) }} --}}
+        {{-- @foreach($allDis as $dist)
+          {{ $dist }}
+        @endforeach --}}
+        {{-- {{ $distance_data[$store->name]}} --}}
+
+        @endforeach
+        
+        {{-- <div class="second">
             <img src="{{ asset('assets/password/images/store-square-2.jpg')}}" class="img-responsive img-fluid curve"  alt="">
             <div class="on-side-last"><img src="{{ asset('assets/password/images/reveal button).svg')}}" style="height: 46px;" alt=""></div>
         </div>
@@ -214,7 +244,7 @@
         <div class="sixth">
              <img src="{{ asset('assets/password/images/store-square-4.jpg')}}" class="img-responsive img-fluid curve" alt="">
              <div class="on-side-5"><img src="{{ asset('assets/password/images/reveal button).svg')}}" style="height: 46px;" alt=""></div>
-        </div>
+        </div> --}}
 
     </div>
 

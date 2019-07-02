@@ -2,9 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
+use App\Models\Brand;
+use App\Models\Store;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Response;
+use App\Notifications\ProductNotification;
+use Illuminate\Support\Facades\Notification;
 
 class ProductsController extends Controller
 {
@@ -16,9 +23,125 @@ class ProductsController extends Controller
     public function index()
     {
         $products = Product::all();
-        // dd($products);
-       
         return view('admin.products.all', compact('products'));
+    }
+
+    public function allBrands()
+    {
+        $brands = Brand::all();
+        return view('admin.brands.all', compact('brands'));
+    }
+
+    public function all()
+    {
+        $categories = Category::all();
+        return view('admin.category.all', compact('categories'));
+    }
+
+    public function showBrandPage()
+    {
+        $brands = Brand::all();
+        // $levels = Brand::where(['parent_id' => null])->get();
+        return view('admin.brands.add', compact('brands'));
+    }
+
+    public function showCategoryPage()
+    {
+        $categories = Category::all();
+        $levels = Category::where(['parent_id' => null])->get();
+        return view('admin.category.add', compact('categories','levels'));
+    }
+
+    public function showBrandUpdateForm($id)
+    {
+        $brand = Brand::find($id);
+        return view('admin.brands.update', compact('brand'));
+    }
+
+    public function showCategoryUpdateForm($id)
+    {
+        $category = Category::find($id);
+        $levels = Category::where(['parent_id' => $category->id])->get();
+        return view('admin.category.update', compact('category','levels'));
+    }
+
+    public function addBrand(Request $request)
+    {
+        $validatedData = $this->validate($request,[
+            'name'              => 'required|string',
+        ]);
+
+        $brand =  new Brand;
+        $brand->fill($validatedData);
+       
+        
+        if($brand->save())
+        {
+            return redirect()->back()->with(['success' => 'brand added']);   
+        }
+        
+    }
+    public function updateBrand(Request $request,$id)
+    {
+        $validatedData = $this->validate($request,[
+            'name'              => 'required|string',
+        ]);
+
+        
+        $brand = Brand::find($id);
+        $brand->fill($validatedData);
+       
+        
+        if($brand->save())
+        {
+            return redirect()->back()->with(['success' => 'brand updated']);   
+        }
+        
+    }
+    public function addCategory(Request $request)
+    {
+        $validatedData = $this->validate($request,[
+            'name'              => 'required|string',
+            'meta_title'        => 'required|string',
+            'meta_description'  => 'required|string',
+            'parent_id'         => 'required',
+        ]);
+
+        $category =  new Category;
+        $category->fill($validatedData);
+        $category->slug         = $validatedData['name'];
+        $category->parent_id    = $validatedData['parent_id'];
+       
+        
+        $levels = Category::where(['parent_id' => 0])->get();
+        if($category->save())
+        {
+            return redirect()->back()->with(['success' => 'category added']);   
+        }
+        
+    }
+
+    public function updateCategory(Request $request,$id)
+    {
+        $validatedData = $this->validate($request,[
+            'name' => 'required|string',
+            'meta_title' => 'required|string',
+            'meta_description' => 'required|string',
+        ]);
+
+        
+        $category = Category::find($id);
+        $category->fill($validatedData);
+        $category->slug = $validatedData['name'];
+
+        $levels = Category::where(['parent_id' => 0])->get();
+
+        if($category->save())
+        {
+            $success = 'category added';
+            return redirect()->back()->with(['success' => 'category updated']);  
+        }
+        
     }
 
     /**
@@ -73,8 +196,13 @@ class ProductsController extends Controller
 
        if($product->save())
         {
+            
+            $product->categories()->attach($request->category);
+           
+            
             $adminUser = User::where('role', User::ROLE_ADMIN)->get();
             Notification::send($adminUser, new ProductNotification($product));
+            // dd('shd');
             return redirect()->back()->with(['success' => 'Product Saved Successfully']); 
         }
         return redirect()->back()->with(['error' => 'Failed to save product']);
@@ -159,9 +287,10 @@ class ProductsController extends Controller
     public function new()
     {
         $brands = Brand::all();
+        $categories = Category::all();
         $agents = User::where('role', User::ROLE_AGENT)->get();
         $stores = Store::all();
-        return view('agents.products.new', compact('brands','stores','agents'));
+        return view('admin.products.new', compact('brands','stores','agents','categories'));
     }
 
     /**
@@ -243,4 +372,17 @@ class ProductsController extends Controller
         }
 
     }
+
+    public function bulkProductDelete(Request $request)
+    {
+        $ids = $request->id;
+        // return Response::json(['success' => 'success']);
+        $products = Product::whereIn('id',$ids)->delete();
+        if($products)
+        {
+            return response()->json(['success' => 'Product Deleted']);  
+        }
+    }
+
+    
 }

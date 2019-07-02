@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Agent;
 
 use App\Models\User;
+use App\Models\Store;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -17,6 +18,18 @@ class VendorsController extends Controller
     {
         $vendors = User::where('role',User::ROLE_VENDOR)->get();
         return view('agents.vendors.all', compact('vendors'));
+    }
+
+    // public function addVendorForm()
+    // {
+        
+    // }
+
+    public function addVendor()
+    {
+        return 'added';
+        // $vendors = User::where('role',User::ROLE_VENDOR)->get();
+        // return view('agents.vendors.all', compact('vendors'));
     }
 
     /**
@@ -46,7 +59,10 @@ class VendorsController extends Controller
      */
     public function new()
     {
-        return view('agents.vendors.new');
+        $users = User::all();
+        // dd($users);
+        return view('agents.vendors.new', compact('users'));
+        // return view('agents.vendors.new');
     }
 
     /**

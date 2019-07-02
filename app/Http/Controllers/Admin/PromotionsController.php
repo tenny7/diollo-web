@@ -59,27 +59,29 @@ class PromotionsController extends Controller
         // dd($request->all());
         $validatedData = $this->validate($request,[
             'store_id'  => 'required',
-            'phone'     => 'required',
-            'email'     => 'required',
-            'duration'  => 'required',
-            'impressions' => 'required',
+            // 'phone'     => 'required',
+            // 'email'     => 'required',
+            'end_date'  => 'required',
+            'promo_type'  => 'required',
+            // 'impressions' => 'required',
             'started'   => 'required',
-            'views'     => 'required',
+            // 'views'     => 'required',
             'status'    => 'required',
             'region_id' => 'required',
         ]);
 
         // dd($validatedData);
+        $imageName = $request->promo_image;
+        $folder = 'store/Promo';
+        $BannerName = $imageName->getClientOriginalName();
+        $BannerPath = $imageName->storeAs($folder,$BannerName,'public');
 
         $promotion = new Promotion;
         $promotion->fill($validatedData);
         // dd($validatedData['duration']);
-        preg_match('/([0-9])/',$validatedData['duration'],$match);
-        $promotion->duration = $match[0];
+        // preg_match('/([0-9])/',$validatedData['duration'],$match);
+        $promotion->promo_image = $BannerPath;
         $promotion->save();
-        // dd($validatedData);
-
-        // $duration = str_replace() $validatedData['duration'];
         if($promotion->save())
         {
             return back()->with(['success' => 'Promotion added']);

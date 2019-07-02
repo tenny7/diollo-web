@@ -203,10 +203,10 @@
                     <!-- Navigation -->
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="#vendors" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="vendors">
+                            <a class="nav-link" href="#stores" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="vendors">
                                 <i class="fe fe-briefcase"></i> Stores
                              </a>
-                            <div class="collapse {{ Request::is('admin/stores*') ? 'show' : '' }}" id="vendors">
+                            <div class="collapse {{ Request::is('admin/stores*') ? 'show' : '' }}" id="stores">
                                 <ul class="nav nav-sm flex-column">
                                     
                                         {{-- 'agent.stores.index' --}}
@@ -344,21 +344,23 @@
                     
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('vendor.dashboard')}}" role="button" aria-expanded="true" aria-controls="sidebarDashboards">
+                            <a class="nav-link" href="{{route('admin.dashboard')}}" role="button" aria-expanded="true" aria-controls="sidebarDashboards">
                                 <i class="fe fe-home"></i> Dashboard
                             </a>
                         </li>
                     </ul>
                     <!-- Divider -->
                     <hr class="navbar-divider my-3">
+
+                    
     
                     <!-- Navigation -->
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="#vendors" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="vendors">
+                            <a class="nav-link" href="#stores" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="vendors">
                                 <i class="fe fe-briefcase"></i> Stores
                              </a>
-                            <div class="collapse {{ Request::is('admin/stores*') ? 'show' : '' }}" id="vendors">
+                            <div class="collapse {{ Request::is('admin/stores*') ? 'show' : '' }}" id="stores">
                                 <ul class="nav nav-sm flex-column">
                                     
                                     
@@ -382,6 +384,50 @@
                             </div>
                         </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link" href="#brand" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="products">
+                                <i class="fe fe-box"></i> Brands
+                                </a>
+                            <div class="collapse " id="brand">
+                                <ul class="nav nav-sm flex-column">
+                                    
+                                    
+                                    <li class="nav-item">
+                                    <a href="{{route('admin.brand.all')}}" class="nav-link {{ Request::is('admin/brand/all*') ? 'active' : '' }}">
+                                            All
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                    <a href="{{route('admin.brand.showBrandAdd')}}" class="nav-link {{ Request::is('admin/brand/show-add-form*') ? 'active' : '' }}">
+                                            Add
+                                        </a>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#category" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="products">
+                                <i class="fe fe-box"></i> Category
+                                </a>
+                            <div class="collapse " id="category">
+                                <ul class="nav nav-sm flex-column">
+                                    
+                                    
+                                    <li class="nav-item">
+                                    <a href="{{route('admin.category.all')}}" class="nav-link {{ Request::is('admin/category/all*') ? 'active' : '' }}">
+                                            All
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                    <a href="{{route('admin.category.showCategoryAdd')}}" class="nav-link {{ Request::is('admin/category/show-add-form*') ? 'active' : '' }}">
+                                            Add
+                                        </a>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#products" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="products">
                                 <i class="fe fe-box"></i> Products
@@ -476,11 +522,31 @@
                                             All Promotions
                                         </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="{{route('admin.promotions.active')}}" class="nav-link {{ Request::is('*suspended') ? 'active' : '' }}">
-                                            Active Promotions
+                                    {{-- <li class="nav-item">
+                                    <a href="{{route('admin.promotions.index')}}" class="nav-link {{ Request::is('admin/promotions/all*') ? 'active' : '' }}">
+                                            Top Selling
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                    <a href="{{route('admin.promotions.index')}}" class="nav-link {{ Request::is('admin/promotions/all*') ? 'active' : '' }}">
+                                            Home Slider
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{route('admin.promotions.active')}}" class="nav-link {{ Request::is('*suspended') ? 'active' : '' }}">
+                                            Top Selling
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{route('admin.promotions.active')}}" class="nav-link {{ Request::is('*suspended') ? 'active' : '' }}">
+                                            New Stock
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                    <a href="{{route('admin.promotions.index')}}" class="nav-link {{ Request::is('admin/promotions/all*') ? 'active' : '' }}">
+                                            Store Banners
+                                        </a>
+                                    </li> --}}
                                     <li class="nav-item">
                                         <a href="{{route('admin.promotions.complete')}}" class="nav-link {{ Request::is('admin/promotions/applications*') ? 'active' : '' }}">
                                             Completed Promotions

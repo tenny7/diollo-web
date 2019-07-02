@@ -2,6 +2,8 @@
 
 namespace App\Listeners;
 
+use Exception;
+use App\Models\Commitment;
 use App\Models\ReferralLink;
 use App\Events\VendorReferred;
 use App\Models\ReferralRelationship;
@@ -30,14 +32,29 @@ class RewardAffiliate
     {
 
         $referral = ReferralLink::find($event->referralId);
+        // dd($referral);
         if (!is_null($referral)) {
             ReferralRelationship::create(['referral_link_id' => $referral->id, 'user_id' => $event->user->id]);
 
             // Example...
-            if ($referral->program->name === 'Sign-up Bonus') {
+            if ($referral->program->name === 'Affiliate link') {
                 // User who was sharing link
                 $provider = $referral->user;
-                $provider->addCredits(10000);
+                
+                $payment_info = Commitment::where('user_id', $event->user->id)->first();
+                try
+                {
+                    $affiliate_commission = $payment_info->amount * 0.2;
+                    $provider->addCredits($affiliate_commission);
+                }
+                catch(Exception $e)
+                {
+                    dd($e);
+                }
+                    
+                
+                
+                
                 // User who used the link
                 // $user = $event->user;
                 // $user->addCredits(20);

@@ -6,10 +6,13 @@ use App\Models\User;
 use App\Models\Store;
 use Illuminate\Http\Request;
 
+use Spatie\Geocoder\Geocoder;
 use App\Http\Controllers\Controller;
 use Gerardojbaez\GeoData\Models\City;
 use Gerardojbaez\GeoData\Models\Region;
 use Gerardojbaez\GeoData\Models\Country;
+use Illuminate\Support\Facades\Response;
+use Victorybiz\GeoIPLocation\GeoIPLocation;
 
 class StoresController extends Controller
 {
@@ -168,10 +171,6 @@ class StoresController extends Controller
         $countries = Country::all();
         $agents = User::where('role',User::ROLE_AGENT)->get();
         $vendors = User::where('role',User::ROLE_VENDOR)->get();
-        // $regions = Region::where('country_code', $country->code)->get();
-        // $region = Region::where('country_code', $country->code)->first();
-        // $cities = City::where('region_id', $region->id)->get();
-        // , 'regions'=>$regions, 'cities'=>$cities
         return view('admin.stores.new')->with([
             'countries' => $countries,
             'agents'    => $agents,
@@ -179,61 +178,96 @@ class StoresController extends Controller
             ]);
     }
 
-    // public function addStore(Request $request)
-    // {
-    //     $rules = [
-    //         'bussiness_name'        => 'required|string',
-    //         'bussiness_phone'       => 'required|string',
-    //         'bussiness_address'     => 'required|string',
-    //         'bussiness_description' => 'required|string',
-    //         'opening_hours'         => 'required|string',
-    //         'country_code'          => 'required|exists:countries,code',
-    //         'region_id'             => 'required|exists:regions,id',
-    //         'city_id'               => 'required',
-    //         'street_address'        => 'required|string',
-    //         'bussiness_logo'        => 'required|string|image|mimes:jpeg,png,jpg,gif|max:2048',
-    //         'availability'          => 'required|numeric',
-    //         'store_background_color'=> 'required|string',
-    //         'vendor_id'             => 'required|string',
-    //         'agent_id'              => 'required|numeric',
-    //         ];
+    public function addStore(Request $request)
+    {
+        $rules = [
+            'bussiness_name'        => 'required|string',
+            'bussiness_phone'       => 'required|string',
+            'bussiness_email'       => 'required|string',
+            'bussiness_description' => 'required|string',
+            'opening_hours'         => 'required|string',
+            'country_code'          => 'required|exists:countries,code',
+            'region_id'             => 'required|exists:regions,id',
+            'city_id'               => 'required',
+            'street_address'        => 'required|string',
+            'bussiness_logo'        => 'required|mimes:jpeg,jpg,png,bmp,gif,svg|max:2043',
+            'availability'          => 'nullable',
+            'store_background_color'=> 'required|string',
+            'vendor_id'             => 'required|numeric',
+            'agent_id'              => 'required|numeric',
+            ];
+            
+            $this->validate($request, $rules);
 
-    //         $this->validate($request, $rules);
+            // dd('hello');
+            // $ip_address = $request->ip();
+        // $geoip = new GeoIPLocation();
+        // $ipaddr = $geoip->getIP();
+        // dd($ipaddr);
+        // echo $geoip->getLatitude(); // Return client IP Latitude (null if none)
 
-    //         $logo = $request->file('bussiness_logo');
-    //         $folder = 'store/bussinessLogo/';
-    //         $logoName = time().$logo->getClientOriginalName();
-    //         $logoPath = $logo->storeAs($folder,$logoName,'public');
+    // echo $geoip->getLongitude();
+        // $ip_address = $geoip->getLocation();
+       
+        // $ip_address = '41.57.122.201';
+            // $userData = geoip($ip_address);
+            // $ip_address = $request->ip();
+            // dd($ip_address);
+            // $userIP = $request->geoip($ipaddr);
+            $logo = $request->bussiness_logo;
+            // dd($logo);
+            $folder = 'store/bussinessLogo';
+            $logoName = $logo->getClientOriginalName();
+            $logoPath = $logo->storeAs($folder,$logoName,'public');
 
-    //     $data = [
-    //         'bussiness_name'        => $request->bussiness_name,
-    //         'bussiness_phone'       => $request->bussiness_phone,
-    //         'bussiness_address'     => $request->bussiness_address,
-    //         'bussiness_description' => $request->bussiness_description,
-    //         'opening_hours'         => $request->opening_hours,
-    //         'country_code'          => $request->country_code,
-    //         'region_id'             => $request->region_id,
-    //         'city_id'               => $request->city_id,
-    //         'street_address'        => $request->street_address,
-    //         'bussiness_logo'        => $logoPath,
-    //         'availability'          => $request->availability,
-    //         'store_background_color'=> $request->store_background_color,
-    //         'vendor_name'           => $request->vendor_name,
-    //         'agent_name'            => $request->agent_name,
-    //         ];
+            // $city = City::where('name', $request->city_id)->first();
+            $city = City::where('region_id', $request->region_id)->first();
 
-    //         $agentStore = Store::firstOrcreate($data);
+            // dd($city);
 
-    //         return redirect()->back()->with(
-    //             [
-    //                 'success' => 'Store Added Successfully'
-    //             ]
-    //         );
-        
-        
+            
+            $client = new \GuzzleHttp\Client();
 
-        
-    // }
+            $geocoder = new Geocoder($client);
+
+            $geocoder->setApiKey('AIzaSyC9EOguEuOmLUDK_QbG01n2FLMFxEQH4pc');
+
+            $geocoder->setCountry('NG');
+
+            // $city = Region::find($city->id);
+            // dd($city);
+
+            $cityDetails = $geocoder->getCoordinatesForAddress($city->name);
+            // dd($cityDetails);
+            $data = [
+                'name'              => $request->bussiness_name,
+                'phones'            => $request->bussiness_phone,
+                'email'             => $request->bussiness_email,
+                'description'       => $request->bussiness_description,
+                'opening_hours'     => $request->opening_hours,
+                'country_code'      => $request->country_code,
+                'region_id'         => $request->region_id,
+                'city_id'           => $city->id,
+                'address'           => $request->street_address,
+                'logo'              => $logoPath,
+                'availability'      => $request->availability == 'on'? 1 : 0,
+                'color'             => $request->store_background_color,
+                'vendor_id'         => $request->vendor_id,
+                'agent_id'          => $request->agent_id,
+                'latitude'          => $cityDetails['lat'],
+                'longitude'          =>$cityDetails['lng'],
+                ];
+
+            $agentStore = Store::firstOrcreate($data);
+
+            // dd('uee');
+            return redirect()->back()->with(
+                [
+                    'success' => 'Store Added Successfully'
+                ]
+            );
+                
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -299,5 +333,14 @@ class StoresController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function bulkDelete(Request $request)
+    {
+        $ids = $request->id;
+        $stores = Store::whereIn('id',$ids)->delete();
+        if($stores)
+        {
+            return response()->json(['success' => 'Store Deleted']);  
+        }
     }
 }

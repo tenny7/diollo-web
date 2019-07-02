@@ -9,14 +9,19 @@
     "license": "MIT",
     "require": {
         "php": "^7.1.3",
+        "alexpechkarev/google-maps": "1.0.9",
         "consoletvs/charts": "*",
         "fideloper/proxy": "*",
         "gerardojbaez/geodata": "*",
-        "laravel/framework": "5.7.*",
+        "laravel/framework": "5.8.7",
         "laravel/tinker": "*",
         "ramsey/uuid": "*",
         "silber/bouncer": "*",
+        "spatie/geocoder": "^3.5",
+        "spatie/laravel-searchable": "^1.3",
+        "torann/geoip": "^1.0",
         "unicodeveloper/laravel-paystack": "*",
+        "victorybiz/geoip-location": "^1.0",
         "yajra/laravel-datatables-oracle": "*"
     },
     "require-dev": {

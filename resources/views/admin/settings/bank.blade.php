@@ -72,9 +72,9 @@
 
                                         <!-- Input -->
                                         <select name="bank" class="form-control select2-hidden-accessible" data-toggle="select" data-select2-id="1" tabindex="-1" aria-hidden="true">
-                                            <option data-select2-id="3">Select Bank</option>
+                                            {{-- <option data-select2-id="3">Select Bank</option> --}}
                                             @foreach($banks as $bank)
-                                                <option value="{{ $bank->bank }}">{{ $bank->bank}}</option>
+                                                <option value="{{ $bank->bank }}" {{($bank->bank === $user->bank)? 'selected':''}}>{{ $bank->bank}}</option>
                                         
                                             @endforeach
                                            

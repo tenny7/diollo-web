@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Mail\VerifyMail;
-use App\Models\VerifyUser;
+use App\Jobs\SendEmailJob;
 // use App\Jobs\SendVerificationEmail;
+use App\Models\VerifyUser;
 use Illuminate\Http\Request;
 use App\Events\VendorReferred;
 use Illuminate\Support\Facades\Auth;
@@ -87,6 +88,7 @@ class CustomLoginController extends Controller
             // $this->guard()->login($user);
             return redirect()->intended(Auth::user()->redirectTo());
         }
+        // dd(redirect()->intended($this->redirectPath()));
         return redirect()->intended();
     }
 
@@ -113,18 +115,29 @@ class CustomLoginController extends Controller
         'role'          => User::ROLE_AFFILIATE,
         'password'      => Hash::make($request->password),
     ];
+    // dd($data);
 
         $user = User::firstOrCreate($data);
-        $this->guard()->login($user);
+        // $this->guard()->login($user);
 
+        // dd($user->role);
         $adminUser = User::where('role', User::ROLE_ADMIN)->get();
         Notification::send($adminUser, new CustomerNotification($user));
         // $adminUser->notify(new CustomerNotification($user));
-        event(new VendorReferred(request()->cookie('ref'), $user));
+        // event(new VendorReferred(request()->cookie('ref'), $user));
 
         // event(new Registered($user));
-        dispatch(new SendVerificationEmail($user));
+        // dispatch(new SendVerificationEmail($user));
+        // Mail::to($request->email)->send(new VerifyMail($user));
+        // dd($user);
+        $verifyUser = VerifyUser::create([
+            'user_id' => $user->id,
+            'token' => sha1(time())
+          ]);
 
+        SendEmailJob::dispatch($user);
+
+        // dd('hds');
         return $this->registered($request, $user)
                         ?: view('verification');
         
@@ -148,7 +161,7 @@ class CustomLoginController extends Controller
         'last_name'     => $request->lastname,
         'email'         => $request->email,
         'phone'         => $request->phone,
-        'role'          => User::ROLE_VENDOR,
+        // 'role'          => User::ROLE_VENDOR,
         'password'      => Hash::make($request->password),
     ];
 
@@ -158,7 +171,8 @@ class CustomLoginController extends Controller
         $adminUser = User::where('role', User::ROLE_ADMIN)->get();
         Notification::send($adminUser, new CustomerNotification($user));
         // $adminUser->notify(new CustomerNotification($user));
-        event(new VendorReferred(request()->cookie('ref'), $user));
+        // event(new VendorReferred(request()->cookie('ref'), $user));
+        SendEmailJob::dispatch($user);
 
         return $this->registered($request, $user)
                         ?: view('welcome');
@@ -197,7 +211,8 @@ class CustomLoginController extends Controller
         $adminUser = User::where('role', User::ROLE_ADMIN)->get();
         Notification::send($adminUser, new CustomerNotification($user));
         // $adminUser->notify(new CustomerNotification($user));
-        event(new VendorReferred(request()->cookie('ref'), $user));
+        // event(new VendorReferred(request()->cookie('ref'), $user));
+         SendEmailJob::dispatch($user);
 
         
         //   dd('sjhdjs');
@@ -214,7 +229,9 @@ class CustomLoginController extends Controller
                 'user_id' => $user->id,
                 'token' => sha1(time())
               ]);
-              Mail::to($request->email)->send(new VerifyMail($user));
+              SendEmailJob::dispatch($user);
+              
+            //   Mail::to($request->email)->send(new VerifyMail($user));
               return view('verification');
                 // return $this->registered($request, $user)
                 //         ?: view('verification');
@@ -260,9 +277,6 @@ class CustomLoginController extends Controller
                
                
                 $verifyUser->user->save();
-                // dd($email_verified_at);
-                
-                // dd('hi');
                 $status = "Your e-mail is verified. You can now login.";
                 return redirect()->intended(route('signin'))->with(['status' => $status]);
             } else {
@@ -289,8 +303,8 @@ class CustomLoginController extends Controller
     protected function registered(Request $request, $user)
     {
         
-        // $this->guard()->logout();
-        // return redirect('/signin')->with('status', 'We sent you an activation code. Check your email and click on the link to verify.');
+        $this->guard()->logout();
+        return redirect('/signin')->with('status', 'We sent you an activation code. Check your email and click on the link to verify.');
     }
 
     /**
@@ -302,11 +316,11 @@ class CustomLoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        // if (!$user->verified) {
-        //     auth()->logout();
-        //     return back()->with('warning', 'You need to confirm your account. We have sent you an activation code, please check your email.');
-        //   }
-        //   return redirect()->intended($this->redirectPath());
+        if (!$user->verified) {
+            auth()->logout();
+            return back()->with('warning', 'You need to confirm your account. We have sent you an activation code, please check your email.');
+          }
+          return redirect()->intended($this->redirectPath());
         return redirect()->intended();
     }
 

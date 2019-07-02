@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Passward</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
@@ -47,22 +48,28 @@
                   <a href="{{ route('affiliate.signup')}}" type="button" class="btn btn-none" name="button">BECOME AN AFFILIATE</a>
                     <a href="{{ route('signup')}}" type="button" class="btn btn-none" name="button">SIGN UP</a>
                     <a href="{{ route('signin')}}" type="button" class="btn btn-none" name="button">LOG IN</a>
-                    <a href="#" type="button" class="btn btn-none" name="button">MY CART</a><a href="#"><i class="fa fa-shopping-bag" style="margin-top: 5px; font-size: 20px;"></i></a>
-                   @else 
+                    <a href="{{ route('orders.orderPage') }}" type="button" class="btn btn-none" name="button">MY CART</a><a href="#"><i class="fa fa-shopping-bag" style="margin-top: 5px; font-size: 20px;"></i></a>
+                   @else
+                   {{-- <a href="{{ route('orders.orderPage') }}" type="button" class="btn btn-none" name="button">MY CART <i class="fa fa-shopping-bag" style="margin-top: 5px; font-size: 10px;"></i></a>  --}}
                     @if (!Auth::user()->isVendor())
+                    {{-- <a href="{{ route('orders.orderPage') }}" type="button" class="btn btn-none" name="button">MY CART</a><a href="#"><i class="fa fa-shopping-bag" style="margin-top: 5px; font-size: 20px;"></i></a> --}}
                     {{-- <a href="{{ route('vendor.signup')}}" type="button" class="btn btn-none" name="button">BECOME A VENDOR</a> --}}
                     @endif
                     @if (!Auth::user()->isAffiliate())
+                    {{-- <a href="{{ route('orders.orderPage') }}" type="button" class="btn btn-none" name="button">MY CART</a><a href="#"><i class="fa fa-shopping-bag" style="margin-top: 5px; font-size: 20px;"></i></a> --}}
                     {{-- <a href="{{ route('affiliate.signup')}}" type="button" class="btn btn-none" name="button">BECOME AN AFFILIATE</a> --}}
                     @endif
 
                     @if (Auth::user()->isAdmin())
+                    <a href="{{ route('orders.orderPage') }}" type="button" class="btn btn-none" name="button">MY CART <i class="fa fa-shopping-bag" style="margin-top: 5px; font-size: 10px;"></i></a>
                     <a href="{{ route('admin.dashboard')}}" type="button" class="btn btn-none" name="button">DASHBOARD</a>
                     @endif
                     @if (Auth::user()->isAgent())
+                    <a href="{{ route('orders.orderPage') }}" type="button" class="btn btn-none" name="button">MY CART <i class="fa fa-shopping-bag" style="margin-top: 5px; font-size: 10px;"></i></a>
                     <a href="{{ route('agent.dashboard')}}" type="button" class="btn btn-none" name="button">DASHBOARD</a>
                     @endif
                     @if (Auth::user()->isVendor())
+                    <a href="{{ route('orders.orderPage') }}" type="button" class="btn btn-none" name="button">MY CART <i class="fa fa-shopping-bag" style="margin-top: 5px; font-size: 10px;"></i></a>
                     <a href="{{ route('vendor.dashboard')}}" type="button" class="btn btn-none" name="button">DASHBOARD</a>
                     @endif
 
@@ -76,9 +83,9 @@
                         <img src="{{ asset('assets/password/images/face.jpg')}}" style="height: 40px; border-radius: 100%; padding-right: 10px;" class="img-responsive img-fluid" alt="profile"></a>
                         <ul class="dropdown-menu pull-right text-center">
                         <li><a href="{{ route('customer.accountInfo') }}"><i class="far fa-user">&nbsp;&nbsp;</i> Profile</a></li>
-                        <li><a href="{{ route('orders.orderPageEmpty') }}"><img src="{{ asset('assets/password/images/shopping bag.png') }}" alt="bag">&nbsp;&nbsp;&nbsp;&nbsp;Orders</a></li>
+                        <li><a href="{{ route('orders.viewOrders') }}"><img src="{{ asset('assets/password/images/shopping bag.png') }}" alt="bag">&nbsp;&nbsp;&nbsp;&nbsp;Orders</a></li>
                         <li><a href="#" @if(isset(auth()->wallet_balance)) {{ auth()->wallet_balance}} @endif><img src="{{ asset('assets/password/images/wallet-outline.png')}}" alt="wallet">&nbsp;&nbsp;&nbsp;&nbsp;Wallet</a></li>
-                        <li><a href="saved items(empty).html"><i class="fa fa-heart">&nbsp;&nbsp;&nbsp;</i> Saved Items</a></li>
+                        <li><a href="{{ route('saved.item')}}"><i class="fa fa-heart">&nbsp;&nbsp;&nbsp;</i> Saved Items</a></li>
                         <li><a href="{{ route('customer.logout')}}"><i class="fas fa-sign-out-alt">&nbsp;&nbsp;&nbsp;</i>Logout</a></li>
                         </ul>
                   @endguest
@@ -109,53 +116,48 @@
              <ul class="nav navbar-nav navbar-right" style="display: flex;">
                  <a class="nav-item dropdown-toggle" id="dropdownMenu1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" style="padding-top: 15px;">CATEGORIES</a>
               <ul class="dropdown-menu categories row" aria-labelledby="dropdownMenu1">
-                <div class="col-md-12 drop">
+                <div class="col-md-12 drop" >
                   <h3 style="color: #fff;">All Shopping Categories</h3>
                   <hr style="width: 10%;">
-                  <div class="col-md-4 categories-margin-top">
-                      <li><a href="#"><h1>Women's Clothing</h1></a></li>
-                      <li><a href="#"><h1>Men's Clothing</h1></a></li>
-                      <li><a href="#"><h1>Beauty and Hair</h1></a></li>
-                      <!-- <li role="separator" class="divider"></li> -->
-                      <li><a href="#"><h1>Jewelry</h1></a></li>
-                      <li><a href="#"><h1>Baby and Kids</h1></a></li>
+                  @php 
+                      $categories = \App\Models\Category::all();
+                      
+                    @endphp
+                    <br>
+                    <br>
+                    @foreach($categories as $category)
+                  <div class="col-md-4">
+                    <li>
+                    <a href="{{ route('category.search',$category->id )}}"><h1>{{ $category->name }}</h1></a>
+                     </li>
                     </div>
-                    <div class="col-md-4 categories-margin-top">
-                      <li><a href="#"><h1>Groceries</h1></a></li>
-                      <li><a href="#"><h1>Home Appliances</h1></a></li>
-                      <li><a href="#"><h1>Kitchen</h1></a></li>
-                      <li><a href="#"><h1>Electronics</h1></a></li>
-                      <li><a href="#"><h1>Phones and Computers</h1></a></li>
-                    </div>
-                    <div class="col-md-4 categories-margin-top">
-                      <li><a href="#"><h1>Sport Gear</h1></a></li>
-                      <li><a href="#"><h1>Security</h1></a></li>
-                      <li><a href="#"><h1>Automobiles</h1></a></li>
-                    </div>
-                    <div class="row categories-margin-top">
-                      <div class="col-md-4 col-md-offset-4">
-                        <div class="input-group">
-                          <input type="email" class="form-control" id="dropdown-search" placeholder="Search for anything you want" style="background-color: transparent;">
-                           <div class="input-group-addon purple"><i class="fa fa-search"></i></div>
+                    @endforeach
+                    <div class="row categories-margin-top" >
+                        <div class="col-md-4 col-md-offset-4">
+                          <div class="input-group">
+                            <input type="email" class="form-control" id="dropdown-search" placeholder="Search for anything you want" style="background-color: transparent;">
+                             <div class="input-group-addon purple"><i class="fa fa-search"></i></div>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="col-md-6" style="padding-top: 7px;">
+                            <span class="simply">OR SIMPLY</span>
+                        </div>
+                        <div class="col-md-6">
+                        <button  type="button" class="explore">EXPLORE &nbsp;<img src="{{ asset('assets/password/images/Union 2 view all arrow.svg')}}" style="height: 9px;" alt="explore button"></button>
+                        </div>
                         </div>
                       </div>
-                      <div class="col-md-4">
-                        <div class="col-md-6" style="padding-top: 7px;">
-                          <span class="simply">OR SIMPLY</span>
-                      </div>
-                      <div class="col-md-6">
-                        <button  type="button" class="explore">EXPLORE &nbsp;<img src="images/Union 2 view all arrow.svg')}}" style="height: 9px;" alt="explore button"></button>
-                      </div>
-                      </div>
-                    </div>
+                   
+                    
                 </div>
               </ul>
 
                <ul class="other-menu nav navbar-nav navbar-right">
-                 <li class="nav-link top"><a class="nav-item" href="#">ABOUT</a></li>
-                 <li class="nav-link top"><a class="nav-item" href="#">NEW STOCK</a></li>
+               <li class="nav-link top"><a class="nav-item" href="{{ route('about.us')}}">ABOUT</a></li>
+                 <li class="nav-link top"><a class="nav-item" href="{{ route('new.stock')}}">NEW STOCK</a></li>
                <li class="nav-link top"><a class="nav-item" href="{{ route('customer.stores')}}">STORES</a></li>
-                <li class="nav-link top"><a  class="nav-item" href="#">TOP SELLING</a></li>
+                <li class="nav-link top"><a  class="nav-item" href="{{ route('top.selling') }}">TOP SELLING</a></li>
                </ul>
                <ul class="nav navbar-nav">
                  <li class="nav-link top"><a href="#"><i class="fa fa-bars fa-2x" id="tog-btn" style="font-size: 21px;"></i> </a></li>
@@ -188,8 +190,8 @@
              <ul class="navbar-nav list-inline straight">
               <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
               <li class=" top"><a href="#">CATEGORIES</a></li>
-              <li class=" top"><a href="#">NEW STOCK</a></li>
-              <li class=" top"><a href="#">TOP SELLING</a></li>
+              <li class=" top"><a href="{{ route('new.stock')}}">NEW STOCK</a></li>
+             <li class=" top"><a href="{{ route('top.selling') }}">TOP SELLING</a></li>
               <li class=" top"><a href="#">STORIES</a></li>
               <li class=" top"><a href="#">ABOUT</a></li>
             </ul>
@@ -294,9 +296,9 @@
   <div class="line"><hr>
   <div class=" container list" style="margin-top:20px;">
     <div class="col-xs-12 col-md-3">
-      <ul><a href="#">Help </a></ul>
+    <ul><a href="{{ route('help')}}">Help </a></ul>
       <ul><a href="#">Privacy Policy </a></ul>
-      <ul><a href="#">Frequently Asked Questions
+      <ul><a href="{{ route('faq')}}">Frequently Asked Questions
          </a></ul>
   </div>
   <div class="col-xs-12 col-md-3">
@@ -346,6 +348,7 @@
 
 </div>
 <script src="{{ asset('assets/password/js/jquery.js') }}"></script>
+@stack('scripts')
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- <script src="js/bootstrap.min.js" type="text/javascript"></script> -->
@@ -420,7 +423,7 @@ $(document).ready(function(){
 });
 </script>
 
-@stack('scripts')
+
 
 
 </body>

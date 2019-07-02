@@ -57,7 +57,7 @@ class AgentController extends Controller
         // $registration_data = $request->all();
         $agent = new User();
         $agent->fill($validatedData);
-        $agent->role = User::ROLE_AGENT;
+        $agent->role = User::ROLE_CUSTOMER;
         $agent->status = User::STATUS_INACTIVE;
         $agent->password = Hash::make($request->input('password'));
         $request->session()->put('agent', $agent);
@@ -181,11 +181,12 @@ class AgentController extends Controller
                     // dd($agent->city_id);
                     
                     $user = User::firstOrCreate($data);
-                    // dd($user);      
+                    // $agent = session()->get('agent');
+                    // dd($user->id);      
                   $application = new AgentApplication();
                 // $application = AgentApplication::firstOrCreate($validatedData);
                       $application->fill($validatedData);
-                    //   $application->user_id = session()->get('id');
+                      $application->user_id = $user->id;
                     $application->save();
                     // $agent->save();
                 

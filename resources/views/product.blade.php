@@ -1,5 +1,9 @@
 @extends('layouts.frontend.app')
 
+@push('css')
+<link rel="stylesheet" href="{{ asset('assets/admin/css/toastr.css') }}">
+@endpush
+
 @section('content')
 <br>
 <br>
@@ -29,51 +33,93 @@
   <div class="row">
     <div class="col-xs-12 col-md-6">
       <div class="img-loved">
-          <img src="{{ asset('assets/password/images/hitcase-pro-for-iphone-x-case-13904579.jpg')}}" class="img-responsive img-fluid" alt="iphone Xs Pro">
+          @php
+          $images = \App\Models\ProductImage::where('product_id', $product->id)->get();
+          $image_var = json_decode($images);
+          @endphp
+
+          @if(is_array($image_var))
+          @foreach(array_slice($image_var, 0, 1) as $image)
+              <img src="{{ asset("storage/$image->path")}}" alt="phone" class="img-responsive img-fluid" >
+          @endforeach
+          @endif
+          {{-- <img src="{{ asset('assets/password/images/hitcase-pro-for-iphone-x-case-13904579.jpg')}}" class="img-responsive img-fluid" alt="iphone Xs Pro"> --}}
           <div class="edit">
-            <a href="#" style="padding: 10px;"><img src="{{ asset('assets/password/images/fav appearance selected.svg')}}" style="height: 25px;" alt="favorited"></a>
+            <a href="#" data-id="{{ $product->id }}" style="padding: 10px;" id="productId" class="productId"><img src="{{ asset('assets/password/images/fav appearance selected.svg')}}" style="height: 25px;" alt="favorited"></a>
           </div>
       </div>
     </div>
+
+    
     <div class="col-xs-12 col-md-6">
+      {{-- @include('partials.admin.success')
+      @include('partials.admin.error') --}}
       <div class="row">
           <div class="col-md-6">
             <p><span class="text-light">Apple Product (ID:</span>112A66668)</p>
           </div>
           <div class="col-md-6"></div>
       </div>
+      @include('partials.admin.success')
+      @include('partials.admin.error')
       <div class="row">
           <div class="col-md-12">
-            <h4 class="text-bold" style="font-size: 23px;">iPhone Xs pro with Air shield technology 5-Inch QHD (1.5GB, 8GB ROM) 8MP + 5MP Dual SIM 4G Smartphone</h4>
+          <h4 class="text-bold" style="font-size: 23px;">{{ $product->name }}</h4>
             <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><span style="font-weight: bold; font-family:Ubuntu;">(Reviews from 223 Users)</span>
           </div>
       </div>
       <div class="row">
           <div class="col md-12" style="margin-left: 20px;">
-            <span class="price">&#8358;99,999</span>
-            <span class="product_newprice"><del>&#8358;100,000</del></span>
-            <button class="span-round"><span class="span1" id="btn1"><i class="fas fa-minus"></i></span>&nbsp;&nbsp;<span
-                id="number">1</span>&nbsp;&nbsp;<span class="span2" id="btn2"><i class="fas fa-plus"></i></span>&nbsp;</button>
-            <button type="button" class="product_cart">ADD TO CART <i class="fas fa-plus"></i></button>
+          <form action="{{ route('cart.add',$product->id)}}" method="post" >
+            @csrf
+            <span class="price">&#8358;{{ $product->discount_price }}</span>
+            <input id="price" type="hidden" name="price" class="price" value="{{ $product->discount_price }}">
+            
+            <span class="product_newprice" style="font-size:14px;"><del>&#8358;</del> {{ $product->original_price }}</span>
+            
+            <input type="number" id="qty" name="qty" style="width:50px; border:solid 1px #333; border-radius:7px;" min="0" placeholder="0">
+            <input type="hidden" id="productId" value="{{ $product->id }}">
+                <button type="button" class="product_cart">ADD TO CART <i class="fas fa-plus"></i></button>
+            </form>
           </div>
       </div>
       <div class="row">
           <div class="col-md-6">
+            <br>
             <p class="text-light">QUICK DESCRIPTION</p>
           <p class="text-light">{{ $product->quick_description }}</p>
           </div>
           <div class="col-md-6"></div>
 
       </div>
+      <br>
       <div class="row">
-          <div class="col-md-12"><p class="text-light">If you cannot pick up this item immediately you can also <span style="color: #FF3C89;">Reserve Item for 24 hours</span></p></div>
+          <div class="col-md-12"><p class="text-light">If you cannot pay for this item immediately you can also <span style="color: #FF3C89;"><a href="#">Reserve Item for 24 hours</a></span></p></div>
       </div>
       <div class="row">
+
+          {{-- {{ route('save.item',$product->id)}} --}}
+      <button type="button" id="productId" class="purple productId" data-id="{{ $product->id }}" style="border:none; border-radius:25px; color:#fff;">
+            <svg height="14" viewBox="0 0 16 14" width="16" class="" 
+            name="love">
+            <path d="M14.3 1.3A4.22 4.22 0 0 0 11.254.01c-1.15 0-2.232.46-3.047 1.293l-.425.436-.432-.443A4.242 4.242 0 0 0 4.3 0C3.152 0 2.07.46 1.26 1.29A4.418 4.418 0 0 0 0 4.409a4.43 4.43 0 0 0 1.266 3.116l6.194 6.34a.443.443 0 0 0 .313.135.44.44 0 0 0 .313-.132l6.206-6.33a4.435 4.435 0 0 0 1.264-3.119 4.415 4.415 0 0 0-1.257-3.12z" 
+              fill="#d8d8d8" 
+              fill-rule="nonzero">
+            </path>
+            </svg>
+          Save for later
+        </button>
           <div class="col-md-4">
             <div class="slot-border">
               <p class="text-center text-light">SOLD BY:</p>
-              <img src="{{ asset('assets/password/images/Slot_Logo_latest.PNG')}}" class="img-responsive img-fluid center-block" style="height: 30px;" alt="Slot logo">
+              <a href="{{ route('customer.storePage',$product->store)}}">
+                {{-- @foreach($product->pivot as $store)
+{{ dd( asset("storage/$store->logo"))}}
+                @endforeach --}}
+                
+              <img src="" class="img-responsive img-fluid center-block" style="height: 30px;" alt="Slot logo">
               <p class="text-center text-light">Nwaniba Rd.</p>
+              </a>
             </div>
           </div>
           <div class="col-md-8"></div>
@@ -88,6 +134,7 @@
     <div class="col-md-6"></div>
     <div class="col-xs-12 col-md-6">
 
+      <br>
       <ul class="nav nav-tabs">
         <li class="active "><a href="#reviews-content" data-toggle="tab" >Reviews</a></li>
         <li ><a href="#description-content" data-toggle="tab" >Description</a></li>
@@ -115,7 +162,7 @@
       <div class="col-md-7 col-offset-md-2">
         <div class="col-md-3 rating">
           <div class="circle-star">
-            <img src="images/star full.svg" style="height: 30px;" alt="rating star">
+          <img src="{{ asset('assets/password/images/star_full.svg')}}" style="height: 30px;" alt="rating star">
             <p style="flex-direction: column; align-self: center; justify-content: center;">2 star</p>
           </div>
         </div>
@@ -148,12 +195,14 @@
         </div>
         <div class="col-md-12" style="padding-top: 20px;">Did you like this store? Help rate it immediately</div>
         <div class="col-md-12">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
+        <i class="fa fa-star reviewbutton1" data-id="{{ $product->id }}"></i>
+          <i class="fa fa-star reviewbutton1" data-id="{{ $product->id }}"></i>
+          <i class="fa fa-star reviewbutton1" data-id="{{ $product->id }}"></i>
          <a href="product_review.html"> <span style="color: #FF0066;">Add a Comment</span></a>
           </div>
       </div>
+
+     
 
       </div>
 
@@ -295,5 +344,10 @@
 
     </div>
     @stop 
+
+    @push('scripts')
+      <script src="{{ asset('assets/admin/js/custom.js')}}"></script>
+      <script src="{{ asset('assets/admin/js/toastr.js')}}"></script>
+    @endpush
 
   

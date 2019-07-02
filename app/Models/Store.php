@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Product;
+// use Spatie\Searchable\Searchable;
 use Gerardojbaez\GeoData\Traits\HasCity;
 use Gerardojbaez\GeoData\Traits\HasRegion;
 use Gerardojbaez\GeoData\Traits\HasCountry;
@@ -49,6 +50,8 @@ class Store extends BaseModel implements HasCountryContract, HasRegionContract, 
         'region_id',
         'city_id',
         'country_code',
+        'latitude',
+        'longitude',
         'agent_id',
         'vendor_id',
         'affiliate_id',

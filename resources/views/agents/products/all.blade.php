@@ -601,12 +601,10 @@
 
                                     <div class="dropdown">
                                         <button class="btn btn-sm btn-white dropdown-toggle" type="button" id="bulkActionDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Bulk action
-                      </button>
+                                            Bulk action
+                                        </button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="bulkActionDropdown">
-                                            <a class="dropdown-item" href="#!">Action</a>
-                                            <a class="dropdown-item" href="#!">Another action</a>
-                                            <a class="dropdown-item" href="#!">Something else here</a>
+                                            <button class="dropdown-item agentProductDeleteAction" id="deleteAction">Delete</button>
                                         </div>
                                     </div>
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use App\Models\Store;
 use Illuminate\Http\Request;
+use App\Models\AgentApplication;
 use App\Http\Controllers\Controller;
 
 class AgentsController extends Controller
@@ -14,9 +15,27 @@ class AgentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $agents = User::where('role',User::ROLE_AGENT)->get();
+        if ($request->ajax()) {
+
+            $agents = User::where('role',User::ROLE_AGENT)->get();
+
+            return Datatables::of($data)
+            ->addIndexColumn()
+            ->addColumn('action', function($row){
+                $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+                return $btn;
+
+            })->rawColumns(['action'])
+            ->make(true);
+
+        }
+
+      
+
+        // return view('users');
         return view('admin.agents.all', compact('agents'));
     }
 
@@ -27,7 +46,8 @@ class AgentsController extends Controller
      */
     public function applications()
     {
-        return view('admin.agents.applications');
+        $applications = AgentApplication::all();
+        return view('admin.agents.applications', compact('applications'));
     }
 
     /**
@@ -114,6 +134,8 @@ class AgentsController extends Controller
         //
     }
 
+    
+
     /**
      * Update the specified resource in storage.
      *
@@ -135,5 +157,29 @@ class AgentsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function approve($id)
+    {
+        $application = AgentApplication::find($id);
+        // dd($$application->user_)
+        $application->status = AgentApplication::STATUS_APPROVED;
+        $user = User::find($application->user_id);
+        $user->role = User::ROLE_AGENT;
+        $user->save();
+        $application->save();
+
+        return redirect()->back()->with(['success' => 'Approved']);
+    }
+    public function reject($id)
+    {
+        $application = AgentApplication::find($id);
+        $application->status = AgentApplication::STATUS_DENIED;
+        $user = User::find($application->user_id);
+        $user->role = User::ROLE_CUSTOMER;
+        $user->save();
+        $application->save();
+
+        return redirect()->back()->with(['success' => 'Rejected']);
     }
 }

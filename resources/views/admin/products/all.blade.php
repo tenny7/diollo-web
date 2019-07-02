@@ -558,7 +558,7 @@
                                 <div class="col-auto">
 
                                     <!-- Button -->
-                                <a href="{{ route('agent.products.new')}}" class="btn btn-primary">
+                                <a href="{{ route('admin.products.new')}}" class="btn btn-primary">
                                         New Product
                                     </a> 
 
@@ -600,15 +600,13 @@
                                     <!-- Button -->
 
                                     <div class="dropdown">
-                                        <button class="btn btn-sm btn-white dropdown-toggle" type="button" id="bulkActionDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Bulk action
-                      </button>
-                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="bulkActionDropdown">
-                                            <a class="dropdown-item" href="#!">Action</a>
-                                            <a class="dropdown-item" href="#!">Another action</a>
-                                            <a class="dropdown-item" href="#!">Something else here</a>
+                                            <button class="btn btn-sm btn-white dropdown-toggle" type="button" id="bulkActionDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Bulk action
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="bulkActionDropdown">
+                                                <button class="dropdown-item admindeleteProductAction" id="admindeleteProductAction">Delete</button>
+                                            </div>
                                         </div>
-                                    </div>
 
                                 </div>
                             </div>
@@ -616,17 +614,14 @@
                         </div>
                         
                         <div class="table-responsive">
-                            <table class="table table-sm table-nowrap card-table">
+                            <table class="table table-sm table-nowrap card-table" id="tableId">
                             <!-- <table class="table table-sm card-table"> -->
                                 <thead>
                                     <tr>
                                         <th>
-                                            <div class="custom-control custom-checkbox table-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="productsSelect" id="productsSelectAll">
-                                                <label class="custom-control-label" for="productsSelectAll">
-                            &nbsp;
-                          </label>
-                                            </div>
+                                                <div class="custom-control custom-checkbox table-checkbox">
+                                                        checkbox
+                                                    </div>
                                         </th>
                                         <th colspan="2">
                                             <a href="#" class="text-muted sort" data-sort="products-product">
@@ -682,12 +677,9 @@
                                     @foreach($products as $product)
                                     <tr>
                                         <td>
-                                            <div class="custom-control custom-checkbox table-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="productsSelect[]" id="productsSelectOne">
-                                                <label class="custom-control-label" for="productsSelectOne">
-                                                    &nbsp;
-                                                </label>
-                                            </div>
+                                                <div class="custom-control custom-checkbox table-checkbox">
+                                                    <input type="checkbox" class="productIDs" value="{{ $product->id }}" name="product[]" id="productId">
+                                                </div>
                                         </td>
                                         <td class="products-product" colspan="2">
                                             {{ $product->name }}

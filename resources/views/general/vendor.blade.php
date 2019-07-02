@@ -27,7 +27,7 @@
                         <!-- Label -->
                         <label>First Name</label>
                         <!-- Input -->
-                        <input type="text" name="firstname" class="form-control{{ $errors->has('firstname')?' is-invalid':'' }}" placeholder="name@address.com">
+                        <input type="text" name="first_name" class="form-control{{ $errors->has('firstname')?' is-invalid':'' }}" placeholder="name@address.com">
                         @if ($errors->any() && $errors->has('firstname'))
                             <div class="invalid-feedback">
                                 {{ $errors->first('firstname') }}
@@ -41,7 +41,7 @@
                         <!-- Label -->
                         <label>Last Name</label>
                         <!-- Input -->
-                        <input type="text" name="lastname" class="form-control{{ $errors->has('lastname')?' is-invalid':'' }}" placeholder="name@address.com">
+                        <input type="text" name="last_name" class="form-control{{ $errors->has('lastname')?' is-invalid':'' }}" placeholder="name@address.com">
                         @if ($errors->any() && $errors->has('lastname'))
                             <div class="invalid-feedback">
                                 {{ $errors->first('lastname') }}
@@ -75,6 +75,7 @@
                                 {{ $errors->first('email') }}
                             </div>
                         @endif
+                        
                     </div>
         
                     <!-- Password -->
@@ -124,13 +125,13 @@
         
                     <!-- Submit -->
                     <button class="btn btn-lg btn-block btn-primary mb-3" type="submit">
-                    Sign up
+                    Proceed
                     </button>
         
                     <!-- Link -->
                     <div class="text-center">
                         <small class="text-muted text-center">
-                        Aalready have an account? <a href="{{ route('signin') }}">Sign in</a>.
+                        Already have an account? <a href="{{ route('signin') }}">Sign in</a>.
                         </small>
                     </div>
                     

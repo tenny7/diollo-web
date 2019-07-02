@@ -41,6 +41,8 @@ class CreateStoresTable extends Migration
             $table->char('country_code', 2)->nullable();
             $table->integer('region_id')->unsigned()->nullable();
             $table->integer('city_id')->unsigned()->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
             
             $table->foreign('country_code')->references('code')->on('countries')->onDelete('cascade');
             $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');

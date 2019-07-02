@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->integer('status')->default(1);
             $table->integer('role')->nullable();
             $table->integer('gender')->nullable();
-            $table->decimal('wallet_balance', 10, 6)->nullable()->default(null);
+            $table->decimal('wallet_balance', 10, 2)->nullable()->default(null);
             $table->char('country_code', 2)->nullable();
             $table->integer('region_id')->unsigned()->nullable();
             $table->integer('city_id')->unsigned()->nullable();

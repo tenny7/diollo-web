@@ -1,5 +1,8 @@
 @extends('layouts.forms.app')
 
+@push('css')
+<link rel="stylesheet" href="{{ asset('assets/admin/css/toastr.css') }}">
+@endpush
 @section('content')
     <!-- CONTENT
     ================================================== -->
@@ -230,3 +233,8 @@
         });
     </script>
 @endpush --}}
+
+@push('scripts')
+{{-- <script src="{{ asset('assets/admin/js/custom.js')}}"></script> --}}
+<script src="{{ asset('assets/admin/js/toastr.js')}}"></script>
+@endpush

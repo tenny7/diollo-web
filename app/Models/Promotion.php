@@ -11,7 +11,8 @@ class Promotion extends Model
     const STATUS_COMPLETED = 2;
 
     protected $fillable = [
-        'store_id', 'email', 'phone', 'region_id', 'started', 'duration', 'status', 'impressions', 'views'
+        'store_id', 'region_id', 'started', 'status','end_date',
+        'promo_type','promo_image'
     ];
 
     public function isActive()

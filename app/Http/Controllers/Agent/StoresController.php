@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 use Gerardojbaez\GeoData\Models\City;
+use Spatie\Geocoder\Facades\Geocoder;
 use Gerardojbaez\GeoData\Models\Region;
 use Gerardojbaez\GeoData\Models\Country;
 
@@ -88,6 +89,8 @@ class StoresController extends Controller
             $this->validate($request, $rules);
 
             // dd('hello');
+            $ip_address = $request->ip();
+            $userIP = $request->geoip($ip_address);
             $logo = $request->bussiness_logo;
             // dd($logo);
             $folder = 'store/bussinessLogo';
@@ -96,7 +99,17 @@ class StoresController extends Controller
 
             $city = City::where('name', $request->city_id)->first();
 
-            // dd($logoPath);
+            $client = new \GuzzleHttp\Client();
+
+            $geocoder = new Geocoder($client);
+
+            $geocoder->setApiKey('AIzaSyC9EOguEuOmLUDK_QbG01n2FLMFxEQH4pc');
+
+            $geocoder->setCountry('NG');
+
+            $city = City::find($city->id);
+            dd($city);
+            dd($geocoder->getCoordinatesForAddress($city->name));
             $data = [
                 'name'              => $request->bussiness_name,
                 'phones'            => $request->bussiness_phone,
@@ -112,6 +125,8 @@ class StoresController extends Controller
                 'color'             => $request->store_background_color,
                 'vendor_id'         => $request->vendor_id,
                 'agent_id'          => $request->agent_id,
+                'latitude'          => $userIP->lat,
+                'longitude'          =>$userIP->lon,
                 ];
 
             $agentStore = Store::firstOrcreate($data);

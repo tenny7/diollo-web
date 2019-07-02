@@ -66,6 +66,8 @@
               </div>
             </div>
 
+            @include('partials.admin.success')
+            @include('partials.admin.error')
             <!-- Card -->
             <div class="card" data-toggle="lists" data-lists-values="[&quot;orders-order&quot;, &quot;orders-product&quot;, &quot;orders-date&quot;, &quot;orders-total&quot;, &quot;orders-status&quot;, &quot;orders-method&quot;]">
               <div class="card-header">
@@ -135,7 +137,7 @@
                       </th>
                       <th>
                         <a href="#" class="text-muted sort" data-sort="sales-total">
-                          Total
+                          Price
                         </a>
                       </th>
                       <th>
@@ -150,7 +152,13 @@
                       </th>
                     </tr>
                   </thead>
-                  <tbody class="list"><tr>
+                  <tbody class="list">
+                    @foreach($orderProducts as $orderProduct)
+                    @php 
+                      $order = \App\Models\Order::find($orderProduct->order_id);
+                    @endphp
+        
+                    <tr>
                       <td>
                         <div class="custom-control custom-checkbox table-checkbox">
                           <input type="checkbox" class="custom-control-input" name="ordersSelect" id="ordersSelectOne">
@@ -160,26 +168,57 @@
                         </div>
                       </td>
                       <td class="sales-onumber">
-                        #6520
+                        # {{ $order->id }}
                       </td>
                       <td colspan="2" class="sales-user">
-                          Christian Jombo
+                         {{ $order->user->fullname }}
                       </td>
                       <td colspan="2" class="sales-product">
-                          LG 8Kg Washer &amp; 5Kg Dryer Front Load Washing Machine - F4J6TMP8S <br>
-                          Scanfrost Front Loader 8kg Wash And Dry (full Automatic ) <br>
-                          Hisense AUTOMATIC WASHING MACHINE FRONT LOADER <br>
+                        @php 
+                          foreach($order->products as $product)
+                          {
+                            // dd($product->pivot->price);
+                            $data['name']       = $product->name;
+                            $data['created_at'] = $product->created_at;
+                            $data['price']      = $product->pivot->price;
+                            $data['status']     = $product->status;
+                          }
+                        @endphp
+                          {{ $data['name'] }}
+                          {{-- {} --}}
                       </td>
                       <td class="sales-date">
-                        <time datetime="2018-07-30">07/30/18</time>
+                        <time datetime="2018-07-30">
+                          {{ $order->created_at->diffForHumans() }}
+                        </time>
                       </td>
                       <td class="sales-total">
-                        $55.25
+                        {{-- N {{ $order->total }} --}}
+                        {{-- $data['price'] --}}
+                        {{ $orderProduct->price }}
                       </td>
                       <td class="sales-status">
-                        <div class="badge badge-soft-success">
-                          Delivered
-                        </div>
+                        
+                          @if($order->isReserved())
+                          <div class="badge badge-soft-success">
+                          Reserved
+                          </div>
+                          @endif
+                          {{-- @if($order->isReturned())
+                          <div class="badge badge-soft-warning">
+                          Returned
+                          </div>
+                          @endif --}}
+                          @if($order->isPaid())
+                          <div class="badge badge-soft-primary">
+                          Paid
+                          </div>
+                          @endif
+                          {{-- @if($data['status'] == 1) --}}
+                            
+                          {{-- @endif --}}
+                          {{-- {{  }} --}}
+                        
                       </td>
                       <td class="sales-method">
                         Card
@@ -193,16 +232,18 @@
                             <a href="#!" class="dropdown-item">
                               View Invoice
                             </a>
-                            <a href="#!" class="dropdown-item">
+                          <a href="{{ route('admin.orders.markReturned', $order->id)}}" class="dropdown-item"> 
                               Mark as Returned
                             </a>
-                            <a href="#!" class="dropdown-item">
+                           <a href="{{ route('admin.orders.markReserved', $order->id)}}" class="dropdown-item">
                               Mark as Reserved
-                            </a>
+                           </a>
                           </div>
                         </div>
                       </td>
-                    </tr></tbody>
+                    </tr>
+                  @endforeach
+                  </tbody>
                 </table>
               </div>
             </div>

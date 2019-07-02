@@ -40,7 +40,7 @@
                     </div>
 
                     <!-- Form -->
-                <form class="mb-4" method="post" action="{{ route('agent.stores.add')}}" enctype="multipart/form-data">
+                <form class="mb-4" method="post" action="{{ route('admin.stores.add')}}" enctype="multipart/form-data">
                     @csrf 
                     <div class="row">
                             <div class="col-12">
@@ -359,8 +359,11 @@
       
                                     <!-- Input -->
                                     <select name="vendor_id" class="form-control select2-hidden-accessible" data-toggle="select" data-select2-id="1" tabindex="-1" aria-hidden="true">
-                                        <option value="1">Christian Jombo</option>
-                                        <option value="2">Nduke-abasi Sam</option>
+                                        @foreach($vendors as $vendor)
+                                       {{-- {{ dd($key)}} --}}
+                                    <option value="{{$vendor->id}}">{{$vendor->fullname}}</option>
+                                        @endforeach
+                                        {{-- <option value="2">Nduke-abasi Sam</option> --}}
                                         
                                     </select>
 

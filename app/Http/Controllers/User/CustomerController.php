@@ -16,6 +16,19 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function about()
+    {
+        return view('about');
+    }
+    public function help()
+    {
+        return view('help');
+    }
+    public function faq()
+    {
+        return view('faq');
+    }
+    
     public function showAccountInfo()
     {
         $user = Auth::user();
@@ -27,10 +40,11 @@ class CustomerController extends Controller
     public function showStores()
     {
         $stores = Store::all();
+        // dd('sand');
         return view('stores', compact('stores'));
     }
 
-    public function showProductPage($product_id)
+    public function showProductPage($product_id) 
     {
         $product = Product::find($product_id);
         return view('product', compact('product'));
@@ -38,9 +52,11 @@ class CustomerController extends Controller
 
     public function showStorePage($store_id)
     {
+        // dd('helol');
         $store = Store::find($store_id);
         $products = Product::where('store', $store_id)->get();
-        $clearances = Product::where('status', Product::CLEARANCE_PRODUCT)->get();
+        $clearances = Product::where('status', Product::CLEARANCE_PRODUCT)->where('store',$store_id)->get();
+        
         return view('storePage', compact('store','products','clearances'));
     }
 

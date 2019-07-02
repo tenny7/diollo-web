@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class OrdersController extends Controller
@@ -14,15 +16,11 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        return view('admin.orders.all');
-    }
-
-    public function addOrder(Request $request)
-    {
-    //    $validatedData = $this->validate($request,[
+        // $orders = Order::all();
+        $orderProducts = DB::table('order_product')->get();
+        // dd($orderProducts);
         
-    //    ]);
-        // return view('admin.orders.all');
+        return view('admin.orders.all', compact('orderProducts'));
     }
 
     /**
@@ -33,6 +31,27 @@ class OrdersController extends Controller
     public function returns()
     {
         return view('admin.orders.returns');
+    }
+
+    public function markAsReturned($order_id)
+    {
+        $order = Order::find($order_id);
+        $order->status = Order::STATUS_RETURNED;
+        if($order->save())
+        {
+            return redirect()->back()->with(['success' => 'action completed']);
+        }
+        
+    }
+      
+    public function markAsReserved($order_id)
+    {
+        $order = Order::find($order_id);
+        $order->status = Order::STATUS_RESERVED;
+        if($order->save())
+        {
+            return redirect()->back()->with(['success' => 'action completed']);
+        }
     }
 
     /**

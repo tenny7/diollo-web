@@ -1,3 +1,4 @@
+
 @extends('layouts.frontend.app')
 
 @section('content')
@@ -53,9 +54,11 @@
 
             <p class="closet"> New Closet Stores</p>
             <ul class="listitems">
-                    <li> <a href="#" class="product-link">Abuma Tech (1km)</a></li>
-                    <li> <a href="#" class="product-link">Dantata Visuals (5km)</a></li>
-                    <li> <a href="#" class="product-link">Viewnet (5.6km) </a></li>
+              @foreach($stores as $store)
+            <li> <a href="{{ route('search.geo.location',$store->id)}}" class="product-link">{{ $store->name }} (1km)</a></li>
+            @endforeach
+                    {{-- <li> <a href="#" class="product-link">Dantata Visuals (5km)</a></li>
+                    <li> <a href="#" class="product-link">Viewnet (5.6km) </a></li> --}}
             </ul>
             <a href="#" class="product-link"><p class="otherstores"> see other stores</p></a>
         </div>
@@ -84,24 +87,30 @@
                     @foreach($stores as $store)
                     <div class="col-xs-12 col-md-6 selected">
                                   <div class="img-block">
-                                  <a href="{{ route('customer.storePage',$store->id)}}"> <img src="{{ asset('assets/password/images/Abumatech-long@2x.jpg')}}" alt="Abumatech stores" class="img-responsive img-fluid" style="height:160px"></a>
-                                    <button type="button" class="shopnow">SHOP NOW</button>
+                                  <a href="{{ route('customer.storePage',$store->id)}}" style="text-decoration:none;"> 
+                                     <img src="{{ asset("storage/$store->logo")}}" alt="phone" class="img-responsive img-fluid" style="height:160px">
+                                     
+                                    <button class="btn shopnow">SHOP NOW</button>
+                                  </a>
                                   </div>
                                     <div class="content">
-                                        <p class="shop"> Abumatech Nigeria LTD</p>
-                                        <p class="street"><strong>1042B, Gwarimkpa Estate</strong></p>
+                                    <p class="shop"> {{ $store->name }}</p>
+                                    @php 
+                                      $region = \Gerardojbaez\GeoData\Models\Region::find($store->region_id);
+                                    @endphp
+                                        <p class="street"><strong>{{ $store->address }}</strong></p>
                                     <a href="#"><img src="{{ asset('assets/password/images/fav appearance selected.svg')}}" class="fav" alt="favorite"></a>
 
 
                                         <div class="details">
                                           <div class="hours">
                                             <p>Opening Hours</p>
-                                            <p>8am - 6pm, Monday to Saturday</p>
+                                            <p>{{ $store->opening_hours }}</p>
                                           </div>
 
                                           <div class="selling">
                                             <p>Selling</p>
-                                            <p>Phones, Tablets, Laptops …</p>
+                                            <p>{{ str_limit($store->description,20,'...') }}</p>
                                           </div>
                                         </div>
                                     </div>

@@ -18,9 +18,33 @@
                 @php 
                     $completed = \App\Models\Promotion::where('status', \App\Models\Promotion::STATUS_COMPLETED)->get()
                 @endphp
-              Completed <span class="badge badge-pill badge-soft-secondary">{{ count($completed) }}</span>
+              Home sliders <span class="badge badge-pill badge-soft-secondary">{{ count($completed) }}</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="{{route('admin.promotions.complete')}}" class="nav-link">
+                @php 
+                    $completed = \App\Models\Promotion::where('status', \App\Models\Promotion::STATUS_COMPLETED)->get()
+                @endphp
+              Top Selling <span class="badge badge-pill badge-soft-secondary">{{ count($completed) }}</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{route('admin.promotions.complete')}}" class="nav-link">
+                @php 
+                    $completed = \App\Models\Promotion::where('status', \App\Models\Promotion::STATUS_COMPLETED)->get()
+                @endphp
+              New Stock <span class="badge badge-pill badge-soft-secondary">{{ count($completed) }}</span>
+            </a>
+        </li>
+        <li class="nav-item">
+                <a href="{{route('admin.promotions.complete')}}" class="nav-link">
+                    @php 
+                        $completed = \App\Models\Promotion::where('status', \App\Models\Promotion::STATUS_COMPLETED)->get()
+                    @endphp
+                  Store Banners <span class="badge badge-pill badge-soft-secondary">{{ count($completed) }}</span>
+                </a>
+            </li>
         <!-- <li class="nav-item">
             <a href="products-promoted.html" class="nav-link">
               Promoted <span class="badge badge-pill badge-soft-secondary">71</span>

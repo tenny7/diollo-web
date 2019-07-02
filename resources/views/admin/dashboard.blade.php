@@ -544,7 +544,10 @@
 
                         <!-- Pretitle -->
                         <h6 class="header-pretitle">
-              Overview
+                        <img src="{{asset('assets/password/images/user.png')}}" alt="" width="60" height="60">
+                        @if(Auth::user()->isAdmin())
+                                    Role: Super Admin
+                        @endif
             </h6>
 
                         <!-- Title -->
@@ -588,7 +591,7 @@
 
                                 <!-- Heading -->
                                 <span class="h2 mb-0">
-                  ₦24,500
+                  ₦ {{ \App\Models\Order::sales() }}
                 </span>
 
                                 <!-- Badge -->
@@ -765,10 +768,23 @@
 
                     </div>
                     <div class="card-body">
-
+                            
                         <!-- Chart -->
-                        <div class="chart"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
-                            <canvas id="ordersChart" class="chart-canvas chartjs-render-monitor" height="600" width="1374" style="display: block; height: 300px; width: 687px;"></canvas>
+                        <div class="chart">
+                            <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+                                <div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                    <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0">
+                                    </div>
+                                </div>
+                                <div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                    <div style="position:absolute;width:200%;height:200%;left:0; top:0">
+                                    </div>
+                                </div>
+                            </div>
+                            {!! $chart->container() !!} 
+                            {{-- <canvas id="ordersChart" class="chart-canvas chartjs-render-monitor" height="600" width="1374" style="display: block; height: 300px; width: 687px;">
+                                      
+                            </canvas> --}}
                         </div>
 
                     </div>
@@ -811,11 +827,14 @@
 
                     </div>
                     <div class="card-body">
-
+                           
+                       
                         <!-- Chart -->
                         <div class="chart chart-appended"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
-                            <canvas id="devicesChart" class="chart-canvas chartjs-render-monitor" data-target="#devicesChartLegend" height="482" width="614" style="display: block; height: 241px; width: 307px;"></canvas>
+                        {{-- {!! $donut->container() !!}     --}}
+                        <canvas id="devicesChart" class="chart-canvas chartjs-render-monitor" data-target="#devicesChartLegend" height="482" width="614" style="display: block; height: 241px; width: 307px;"></canvas>
                         </div>
+                        
 
                         <!-- Legend -->
                         <div id="devicesChartLegend" class="chart-legend"><span class="chart-legend-item"><i class="chart-legend-indicator" style="background-color: #2C7BE5"></i>Desktop</span><span class="chart-legend-item"><i class="chart-legend-indicator" style="background-color: #A6C5F7"></i>Tablet</span><span class="chart-legend-item"><i class="chart-legend-indicator" style="background-color: #D2DDEC"></i>Mobile</span></div>
@@ -832,3 +851,9 @@
 
 </div>
 @endsection
+
+@push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
+{!! $chart->script() !!}
+{{-- {!! $donut->script() !!} --}}
+@endpush

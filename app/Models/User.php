@@ -2,19 +2,21 @@
 
 namespace App\Models;
 
+use App\Models\Order;
 use App\Models\Wishlist;
+use App\Models\Commitment;
 use App\Models\VerifyUser;
+
 use App\Models\ReferralLink;
 use App\Models\ReferralProgram;
-
 use App\Models\AgentApplication;
 use App\Models\ReferralRelationship;
 use Gerardojbaez\GeoData\Traits\HasCity;
 use Illuminate\Notifications\Notifiable;
 use Gerardojbaez\GeoData\Traits\HasRegion;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Gerardojbaez\GeoData\Traits\HasCountry;
 use Illuminate\Database\Eloquent\SoftDeletes;
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Gerardojbaez\GeoData\Contracts\HasCityContract;
 use Gerardojbaez\GeoData\Contracts\HasRegionContract;
 use Gerardojbaez\GeoData\Contracts\HasCountryContract;
@@ -50,6 +52,7 @@ class User extends Authenticatable implements HasCountryContract, HasRegionContr
         'birthday', 'image_path', 'valid_id', 'gender', 'status', 'delete_due_date',
         'street', 'city_id', 'region_id', 'country_code', 
         'tax_no', 
+        'role',
         'wallet_balance',
         'bank',
         'account_name',
@@ -111,6 +114,11 @@ class User extends Authenticatable implements HasCountryContract, HasRegionContr
     public function agentApplications()
     {
         return $this->hasOne(AgentApplication::class)->latest();
+    }
+
+    public function commitment()
+    {
+        return $this->hasOne(Commitment::class);
     }
 
     /**
@@ -339,6 +347,7 @@ class User extends Authenticatable implements HasCountryContract, HasRegionContr
     public function addCredits($value)
     {
         $this->wallet_balance = $value;
+        // dd($this->wallet_balance);
         return $this->save();
     }
 

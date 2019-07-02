@@ -23,10 +23,10 @@ class CreateProductsTable extends Migration
             $table->text('quick_description')->nullable()->default(null);
             $table->text('waranty')->nullable()->default(null);
             $table->tinyInteger('status')->nullable()->default(null);
-            $table->decimal('qty', 10, 6)->nullable();
+            $table->decimal('qty', 10, 0)->nullable();
             $table->tinyInteger('is_taxable')->nullable()->default(null);
-            $table->decimal('original_price', 10, 6)->nullable()->default(null);
-            $table->decimal('discount_price', 10, 6)->nullable()->default(null);
+            $table->decimal('original_price', 25, 2)->nullable()->default(null);
+            $table->decimal('discount_price', 25, 2)->nullable()->default(null);
 
             $table->string('meta_title')->nullable()->default(null);
             $table->string('meta_description')->nullable()->default(null);

@@ -16,8 +16,12 @@
                     <div class="col">
 
                         <!-- Pretitle -->
+                        
                         <h6 class="header-pretitle">
-                            Overview
+                            <img src="{{asset('assets/password/images/user.png')}}" alt="" width="60" height="60">
+                        @if(Auth::user()->isAgent())
+                                   Role: Agent
+                        @endif
                         </h6>
 
                         

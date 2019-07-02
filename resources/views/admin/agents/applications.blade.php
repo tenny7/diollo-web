@@ -1,3 +1,4 @@
+
 @extends('layouts.backend.app')
 @section('content')
     <div class="main-content">
@@ -54,6 +55,8 @@
                         </div>
                     </div>
 
+                    @include('partials.admin.success')
+                    @include('partials.admin.error')
                     <!-- Card -->
                     <div class="card" data-toggle="lists" data-lists-values="[&quot;orders-order&quot;, &quot;orders-product&quot;, &quot;orders-date&quot;, &quot;orders-total&quot;, &quot;orders-status&quot;, &quot;orders-method&quot;]">
                         <div class="card-header">
@@ -143,6 +146,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="list">
+                                    @foreach($applications as $application)
                                     <tr>
                                         <td>
                                             <div class="custom-control custom-checkbox table-checkbox">
@@ -153,26 +157,39 @@
                                             </div>
                                         </td>
                                         <td class="agents-name" colspan="2">
-                                            Christian Jombo
+                                            {{ $application->user->fullname }}
                                         </td>
                                         <td class="agents-email">
-                                            chris@codekago.com
+                                                {{ $application->user->email }}
                                         </td>
                                         <td class="agents-phone">
-                                            08066128880
+                                                {{ $application->user->phone }}
                                         </td>
                                         <td class="agents-gender">
-                                            Female
+                                            @if($application->user->gender == 1)
+                                            Male 
+                                            @else 
+                                            Female 
+                                            @endif
+                                                {{-- {{ $application->user->gender }} --}}
                                         </td>
                                         <td class="agents-street">
-                                            40 Oron Road
+                                                {{ $application->user->street }}
                                         </td>
                                         <td class="agents-city">
-                                            Uyo
+                                            @php 
+                                                $city = \Gerardojbaez\GeoData\Models\City::find($application->user->city_id);
+                                            @endphp
+                                            {{ $city->name }}
+                                                {{-- {{ $application->user->fullname }} --}}
                                         </td>
 
                                         <td class="agents-state">
-                                            Akwa Ibom State
+                                            @php 
+                                                $region = \Gerardojbaez\GeoData\Models\Region::find($application->user->region_id);
+                                            @endphp
+                                            {{ $region->name }}
+                                            {{-- Akwa Ibom State --}}
                                         </td>
 
                                         <!-- <td class="orders-status">
@@ -192,76 +209,19 @@
                                                     <a href="#!" class="dropdown-item">
                                                         View Application
                                                     </a>
-                                                    <a href="#!" class="dropdown-item">
+                                                <a href="{{ route('admin.agents.approve',$application->id)}}" class="dropdown-item">
                                                         Approve Application
                                                     </a>
-                                                    <a href="#!" class="dropdown-item">
+                                                    <a href="{{ route('admin.agents.reject',$application->id)}}" class="dropdown-item">
                                                         Reject Application
                                                     </a>
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
+                                    @endforeach
 
-                                    <tr>
-                                        <td>
-                                            <div class="custom-control custom-checkbox table-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="productsSelect" id="productsSelectOne">
-                                                <label class="custom-control-label" for="productsSelectOne">
-                                                    &nbsp;
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td class="agents-name" colspan="2">
-                                            Divine Nate
-                                        </td>
-                                        <td class="agents-email">
-                                            nate@codekago.com
-                                        </td>
-                                        <td class="agents-phone">
-                                            07031216674
-                                        </td>
-                                        <td class="agents-gender">
-                                            Male
-                                        </td>
-                                        <td class="agents-street">
-                                            127 Ikpa Road
-                                        </td>
-                                        <td class="agents-city">
-                                            Uyo
-                                        </td>
-
-                                        <td class="agents-state">
-                                            Akwa Ibom State
-                                        </td>
-
-                                        <!-- <td class="orders-status">
-                                            <div class="badge badge-soft-success">
-                                                Shipped
-                                            </div>
-                                        </td> -->
-
-
-
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-boundary="window">
-                                                    <i class="fe fe-more-vertical"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a href="#!" class="dropdown-item">
-                                                        View Application
-                                                    </a>
-                                                    <a href="#!" class="dropdown-item">
-                                                        Approve Application
-                                                    </a>
-                                                    <a href="#!" class="dropdown-item">
-                                                        Reject Application
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    
                                 </tbody>
                             </table>
                         </div>

@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\Cart;
 use App\Models\Brand;
-use App\Models\Order;
 
+use App\Models\Order;
 use App\Models\Store;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use App\Models\ProductImage;
 use App\Traits\UploadableTrait;
+// use Spatie\Searchable\Searchable;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 // use Illuminate\Notifications\Notifiable;
@@ -42,7 +44,7 @@ class Product extends BaseModel
      */
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class)->withTimestamps();
     }
 
     /**
@@ -82,7 +84,7 @@ class Product extends BaseModel
      */
     public function images()
     {
-        return $this->hasMany(ProductImage::class);
+        return $this->hasMany(ProductImage::class,'product_id');
     }
 
     /**
@@ -90,9 +92,19 @@ class Product extends BaseModel
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
+    // public function orders()
+    // {
+    //     return $this->hasMany(Order::class);
+    // }
     public function orders()
     {
-        return $this->hasMany(Order::class);
+        return $this->belongsToMany(Order::class)->withPivot('price', 'qty');
+        // , 'tax_amount'
+    }
+
+    public function carts()
+    {
+        return $this->belongsToMany(Cart::class);
     }
 
     /**

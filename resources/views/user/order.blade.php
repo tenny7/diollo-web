@@ -20,7 +20,7 @@
       <div class="col-md-4 col-sm-12 " style="padding-top: 20px;">
         <div class="_display">
           <div class="">
-        <i class="far fa-user">&nbsp;&nbsp;</i>
+        <i class="far fa-user" style="font-size:20px;">&nbsp;&nbsp;</i>
           </div>
           <div>
             <a class="bd" href="#">My Profile</a>
@@ -29,7 +29,7 @@
         </div>
         <div class="_display">
           <div class="">
-      <img src="images/wallet-outline.png" alt="wallet">&nbsp;&nbsp;
+          <img src="{{ asset('assets/password/images/wallet-outline.png') }}" alt="wallet">&nbsp;&nbsp;
           </div>
           <div>
             <a class="bd" href="#">My Wallet</a>
@@ -38,7 +38,7 @@
         </div>
         <div class="_display">
           <div class="">
-            <img src="images/shopping bag.png" alt="bag">
+            <img src="{{ asset('assets/password/images/shopping bag.png')}}" alt="bag">
           </div>
           <div>
             <a class="bd" href="#">My Orders</a>
@@ -46,10 +46,11 @@
           </div>
         </div>
       </div>
-
+      @include('partials.admin.success')
+      @include('partials.admin.error')
       <div class="col-md-8">
-        <h3>My Orders</h3>
-        <div class="row">
+        <h3>My Cart</h3>
+        {{-- <div class="row">
           <div class="col-md-8 col-sm-8">
               <h4>Orders</h4>
           </div>
@@ -68,19 +69,101 @@
                   </div>
               </div>
         </div>
-        </div>
+        </div> --}}
         <hr>
+        
         <div class="whole-table">
+          {{-- <form action="{{ route('pay')}}" method="post">
+          @csrf
+          
+          <table class="table table-hover table-bordered table-condensed">
+            <thead>
+              <th width="10%">Product</th>
+              <th width="20%">Store</th>
+              <th width="20%">Buyer</th>
+              <th>Payment</th>
+              <th >Qty</th>
+              <th>Price/unit</th>
+              <th>Subtotal</th>
+              <th>Action</th>
+            </thead>
+              @php 
+              $total = 0;
+              @endphp
+              @foreach($carts as $cart)
+                  @php 
+                          $subtotal = $cart->price * $cart->qty;
+                          
+                          $total += $subtotal;
+                      // dd($subtotal);
+                  @endphp
+              <tr>
+                @php
+                    $product = \App\Models\Product::find($cart->product_id);
+                @endphp
+                @php
+                    $store = \App\Models\Store::find($product->store);
+                @endphp
 
-        <div class="row" style="border-bottom: 1px solid #ccc;">
+                <td>
+                  {{$product->name }}
+                </td>
+                <td>
+                  {{$store->name }}
+                </td>
+                <td>
+                  {{Auth::user()->fullname }}
+                </td>
+                <td>
+                  {{ ('Paystack') }}
+                </td>
+                <td>
+                  {{$cart->qty }}
+                  
+                </td>
+                <td>
+                    ₦ {{ number_format($cart->price,2) }}
+                </td>
+                <td>
+                    ₦ {{ number_format($subtotal,2) }}
+                </td>
+                <td>
+                  <a href="" class="btn btn-danger btn-sm">Remove</a>
+                </td>
+              </tr>
+              @endforeach
+            </tbody>
+            <tfoot>
+              <tr>
+                  <td colspan="5"></td>
+                  
+                  <td>
+                    <strong>₦ {{ number_format($total,2) }}</strong>
+                  <input type="hidden" name="total" value="{{ $total }}">
+                  </td>
+                  
+              </tr> 
+            </tfoot>
+      
+          
+          </table>
+
+          <button type="submit" class="btn btn-success btn-md btn-block" style="border-radius:25px;">Checkout</button>
+        </form> --}}
+
+          
+{{-- start row --}}
+@foreach($orderProducts as $orderProduct)
+<div class="row" style="border:solid #555 1px;">
+         <div class="row" style="border-bottom: 1px solid #ccc;">
             <div class="col-md-2">Orders</div>
             <div class="col-md-2">112A66668</div>
             <div class="col-md-2">12-10-2018</div>
             <div class="col-md-2">Total: N90,999</div>
             <div class="col-md-2" id="completed">Completed</div>
             <div class="col-md-2">View Details <span class="caret sr-only"></span></div>
-        </div>
-        <div class="row" >
+        </div>  
+         <div class="row" >
           <div class="col-md-2">
               <div class="col-md-12" style="padding: 10px;">Order</div>
               <div class="col-md-12" style="padding: 10px;">Product</div>
@@ -92,9 +175,9 @@
             <div class="row">
               <div class="col-md-8">
                   <div class="row" style="padding: 10px;">
-                    <div class="col-md-4" id="essential">112A66669</div>
-                    <div class="col-md-4">12-10-2018</div>
-                    <div class="col-md-4">Total: <span id="essential">N30,999</span></div>
+                  <div class="col-md-4" id="essential">{{ $orderProduct->id }}</div>
+                  <div class="col-md-4">{{ $orderProduct->created_at}}</div>
+                  <div class="col-md-4"><span id="essential">{{ $orderProduct->price }}</span></div>
                   </div>
                   <div class="row" style="padding: 10px;">
                     <div class="col-md-12">iPhone Xs pro with Air shield technology 5-Inch QHD (1.5GB, 8GB ROM) 8MP + … Dual SIM 4G Smartphone</div>
@@ -116,25 +199,30 @@
                     <div class="col-md-6" id="view-details">View Details</div>
                   </div>
                   <div class="row" style="padding: 10px;">
-                      <div class="col-md-6"><img src="images/hitcase-pro-for-iphone-x-case-13904579.jpg" style="height: 60px;" class="img-responsive img-fluid" alt="iPhone case"></div>
+                      <div class="col-md-6"><img src="{{ asset('assets/password/admin/images/hitcase-pro-for-iphone-x-case-13904579.jpg')}}" style="height: 60px;" class="img-responsive img-fluid" alt="iPhone case"></div>
                       <div class="col-md-6">N30,999</div>
                   </div>
               </div>
               <div class="col-md-12">
                 <div class="row" style="display: flex; justify-content: flex-end;">
-                  <div class="col-md-12" style=" display: flex; justify-content: flex-end;">
+                  {{-- <div class="col-md-12" style=" display: flex; justify-content: flex-end;">
                     <button type="button" class="btn-md btn-secondary" id="add-to-cart" name="button">ADD TO CART <i class="fa fa-plus"></i></button>
-                  </div>
+                  </div> --}}
                 </div>
               </div>
           </div>
       </div>
-      </div>
+      </div> 
+</div>
+@endforeach
+<br>
+<br>
+{{-- end row --}}
 
 
 
       </div>
-          <div class="other-table">
+           {{-- <div class="other-table">
             <div class="row">
               <div class="col-md-2">Orders</div>
               <div class="col-md-2" id="essential">112A66678</div>
@@ -143,7 +231,7 @@
               <div class="col-md-2" id="cancelled">Cancelled</div>
               <div class="col-md-2" id="view-details">View Details</div>
             </div>
-          </div>
+          </div>  --}}
      </div>
    </div>
  </div>

@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Charts\CategoryCount;
+use App\Charts\AdminOrderCount;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -14,7 +18,69 @@ class AdminController extends Controller
      */
     public function dashboard()
     {
-        return view('admin.dashboard');
+        $user = Auth::user();
+        
+        $orders = DB::table('orders')
+                ->select(DB::raw('count(*) as count, MONTH(created_at) as month'))
+                ->where('user_id', '=', $user->id)
+                ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"))
+                ->get()->toArray();
+                
+
+        $months = range(1, 12);
+        
+        
+        $month_values = [];
+
+        foreach ($months as $month) {
+            
+            $month_values[$month] = 0;
+            
+        }
+
+        foreach ($orders as $key => $value) {
+            
+            $month_values[$value->month] = $value->count;
+        }
+
+        $chart = new AdminOrderCount;
+        $chart->labels(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]);
+        
+        $chart->dataset('Orders', 'bar', collect(array_values($month_values)))->options([
+            'color' => '#ff0000',
+            'backgroundColor' => '#ff0066',
+            'fill' => '#ff0066',
+            'borderColor' => '',
+            'borderWidth' => 1,
+        ]);
+
+        // $categories = DB::table('categories')
+        //         ->select(DB::raw('count(*) as count, name as name'))
+        //         ->groupBy(DB::raw("name"))
+        //         ->get()->toArray();$cat_values = [];
+        // $cat_names = [];
+
+        // foreach ($categories as $key => $value) {
+        //     $cat_values[$value->name] = $value->count;
+        //     array_push($cat_names,$value->name);
+        // }
+
+        // $donut = new CategoryCount;
+        // $donut->labels($cat_names);
+        
+        // $donut->dataset('Categories', 'bar', collect(array_values($cat_values)))->options([
+        //     'color' => '#ff0000',
+        //     'backgroundColor' => ['#ff0066','#727cf5','#fd7e14','#02a8b5','#3b506c','#ff0066','#727cf5','#ff0066','#727cf5','#fd7e14','#02a8b5'],
+        //     'fill' => '#ff0066',
+        //     'borderColor' => '',
+        //     'borderWidth' => 1,
+        // ]);
+
+        
+
+        
+
+        return view('admin.dashboard',compact('chart','donut'));
     }
 
     /**

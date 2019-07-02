@@ -1,3 +1,4 @@
+
 @extends('layouts.backend.app')
 @section('content')
     <div class="main-content">
@@ -194,7 +195,7 @@
                     @include('partials.admin.success')
                     @include('partials.admin.error')
                     <!-- Form -->
-                <form class="mb-4" method="post" action="{{ route('admin.promotions.addPromotion') }}">
+                <form class="mb-4" method="post" action="{{ route('admin.promotions.addPromotion') }}" enctype="multipart/form-data">
                     @csrf
                         <div class="row">
                             <div class="col-12">
@@ -218,27 +219,33 @@
                                 </div>
 
                             </div>
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-md-12">
 
                                 <!-- Phone -->
                                 <div class="form-group">
 
                                     <!-- Label -->
                                     <label>
-                                      Phone
+                                      Promo Type
                                     </label>
 
                                     <!-- Input -->
-                                    <input type="text" id="phone" name="phone" class="form-control mb-3" placeholder="(+234)_______-____" data-mask="(+234) 00000000000" autocomplete="off" maxlength="18">
+                                    <select name="promo_type" class="form-control">
+                                    <option value="slider">Homepage Slide</option>
+                                    <option value="topselling">Topselling</option>
+                                    <option value="newstock">Newstock</option>
+                                    <option value="store">Store</option>
+                                    </select>
+                                    {{-- <input type="text" id="phone" name="phone" class="form-control mb-3" placeholder="(+234)_______-____" data-mask="(+234) 00000000000" autocomplete="off" maxlength="18"> --}}
 
                                 </div>
 
                             </div>
 
-                            <div class="col-12 col-md-6">
+                            {{-- <div class="col-12 col-md-6"> --}}
 
                                 <!-- Phone -->
-                                <div class="form-group">
+                                {{-- <div class="form-group">
 
                                     <!-- Label -->
                                     <label>
@@ -248,9 +255,9 @@
                                     <!-- Input -->
                                     <input type="text" id="email" class="form-control" name="email">
 
-                                </div>
+                                </div> --}}
 
-                            </div>
+                            {{-- </div> --}}
 
                             <div class="col-6">
                                 <!-- Email address -->
@@ -258,7 +265,7 @@
 
                                     <!-- Label -->
                                     <label class="mb-1">
-                                        Started
+                                        Start date
                                     </label>
 
                                     <!-- Input -->
@@ -275,18 +282,18 @@
 
                                     <!-- Label -->
                                     <label class="mb-1">
-                                        Duration
+                                        End Date
                                     </label>
 
                                     <!-- Input -->
-                                    <input type="text" class="form-control" name="duration" placeholder="E.g 21 days">
+                                    <input type="text" class="form-control" name="end_date" data-toggle="flatpickr" required>
                                     {{-- <textarea name="state" class="form-control" placeholder="Our affordability, fast and reliable delivery, and the fact that you will always be able to find the phone that you are looking for in our offer, have made us stand out in the market.
 
                                     "></textarea> --}}
                                 </div>
                             </div>
 
-                            <div class="col-12">
+                            {{-- <div class="col-12">
                                 <!-- Business Opening Hours -->
                                 <div class="form-group">
                                     <!-- Label -->
@@ -295,12 +302,12 @@
                                     </label>
                                     <input type="text" class="form-control" placeholder="Impressions" name="impressions">
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="col-6">
+                            {{-- <div class="col-6"> --}}
 
                                 <!-- Phone -->
-                                <div class="form-group">
+                                {{-- <div class="form-group">
 
                                     <!-- Label -->
                                     <label>
@@ -309,18 +316,14 @@
 
                                     <!-- Input -->
                                     <input type="text" name="views" placeholder="Views" class="form-control">
-                                    {{-- <select class="form-control select2-hidden-accessible" data-toggle="select" data-select2-id="1" tabindex="-1" aria-hidden="true"> --}}
-                                        
-                                        {{-- <option value="{{$country->code}}">{{$country->name}}</option> --}}
-                                        
-                                    {{-- </select> --}}
+                                    
                                     
 
-                                </div>
+                                </div> --}}
 
-                            </div>
+                            {{-- </div> --}}
 
-                            <div class="col-6 col-md-6">
+                            <div class="col-6 col-md-12">
 
                                 <!-- Phone -->
                                 <div class="form-group">
@@ -334,8 +337,11 @@
                                     {{-- <input type="text" name="region_id" id="region" class="form-control"> --}}
                                     <select name="region_id" id="region" class="form-control select2-hidden-accessible" data-toggle="select" data-select2-id="4" tabindex="-1" aria-hidden="true">
                                         {{-- @foreach ($regions as $region) --}}
-                                            {{-- <option value="{{$region->id}}">{{$region->name}}</option> --}}
-                                        {{-- @endforeach --}}
+                                        @php 
+                                            $region = \Gerardojbaez\GeoData\Models\Region::find($store->region_id);
+                                        @endphp
+                                            <option value="{{$region->id}}">{{$region->name}}</option>
+                                         {{-- @endforeach --}}
                                     </select>
 
                                 </div>
@@ -363,16 +369,16 @@
                             </div>
 
 
-                            {{-- <div class="col-12">
+                            <div class="col-6">
                                 <!-- Business Street address -->
                                 <div class="form-group">
                                     <!-- Label -->
                                     <label class="mb-1">
-                                        Street Address
+                                        Image
                                     </label>
-                                    <input type="text" class="form-control" placeholder="229 Maitama">
+                                    <input type="file" class="form-control" name="promo_image">
                                 </div>
-                            </div> --}}
+                            </div>
 
                         </div>
                         <!-- / .row -->

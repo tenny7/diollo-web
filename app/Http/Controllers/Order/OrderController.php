@@ -2,14 +2,33 @@
 
 namespace App\Http\Controllers\Order;
 
+use App\Models\Cart;
+use App\Models\Order;
+use App\Models\OrderProduct;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
     public function showOrderPage()
     {
-        return view('user.order');
+        $carts = Cart::where('user_id', Auth::id())->get();
+        $total = Cart::where('user_id', Auth::id())->sum('price') ;
+        $orders = Order::all();
+        return view('user.shoppingcart', compact('carts', 'total','orders'));
+    }
+
+    public function viewOrders()
+    {
+        // $orders = Order::all();
+        $orderProducts = DB::table('order_product')->get();
+        // $orderProducts = Order::where('user_id',Auth::id())->get();
+        // dd($orderProducts);
+        
+        
+        return view('user.order', compact('orderProducts'));
     }
 
     public function showOrderEmptyPage()
@@ -25,8 +44,19 @@ class OrderController extends Controller
             'tax_amount' => 'nullable',
             'product_id' => 'required',
         ]);
+        $order = Order::firstOrCreate([
 
-        $order = new OrderProduct();
+        ]);
+
+        foreach ($product_id as $product)
+        {
+            $orederProduct = OrderProduct::firstOrCreate([
+                'product_id' => $product['id']
+                // 'order' => $product['id']
+            ]);
+        }
+
+        // $order = new OrderProduct();
         $order->fill($validatedData);
         
     }

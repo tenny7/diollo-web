@@ -16,24 +16,24 @@ class OrderController extends Controller
     {
         $carts = Cart::where('user_id', Auth::id())->get();
         $total = Cart::where('user_id', Auth::id())->sum('price') ;
-        $orders = Order::all();
+        $orders = Order::where('user_id',Auth::id())->get();
         return view('user.shoppingcart', compact('carts', 'total','orders'));
     }
 
     public function viewOrders()
     {
         // $orders = Order::all();
-        $orderProducts = DB::table('order_product')->get();
-        // $orderProducts = Order::where('user_id',Auth::id())->get();
-        // dd($orderProducts);
+        // $orderProducts = DB::table('order_product')->get();
+        $orders = Order::where('user_id',Auth::id())->distinct('order_id')->get();
         
         
-        return view('user.order', compact('orderProducts'));
+        
+        return view('user.order', compact('orders'));
     }
-
-    public function showOrderEmptyPage()
+    public function listOrders($id)
     {
-        return view('user.orderEmpty');
+        $orderProducts = DB::table('order_product')->where('user_id',Auth::id())->where('order_id',$id)->get();
+        return view('user.orderlist', compact('orderProducts'));
     }
 
     public function addOrder(Request $request)

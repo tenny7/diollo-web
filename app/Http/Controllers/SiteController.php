@@ -2,12 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Bank;
+use App\Models\Role;
+use App\Models\User;
 use App\Models\Store;
+use App\Models\Wallet;
+// use Spatie\Geocoder\Facades\Geocoder;
+use App\Models\Product;
+use App\Models\Promotion;
 use App\Models\OrderStatus;
 use Illuminate\Http\Request;
 use Spatie\Geocoder\Geocoder;
-// use Spatie\Geocoder\Facades\Geocoder;
+use App\Models\CommitmentWallet;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Gerardojbaez\GeoData\Models\City;
 use Gerardojbaez\GeoData\Models\Region;
 use Illuminate\Support\Facades\Response;
@@ -15,6 +24,14 @@ use Victorybiz\GeoIPLocation\GeoIPLocation;
 
 class SiteController extends Controller
 {
+
+    public function makeAdmin()
+    {
+        $user = User::find(Auth::id());
+        $user->role = User::ROLE_ADMIN;
+        $user->save();
+        return back();
+    }
     public function getBanks()
     {
         $ch = curl_init();
@@ -81,44 +98,60 @@ class SiteController extends Controller
     }
 
 
+    
+
     public function welcome(Request $request)
     {
         // $ip_address = $request->ip();
         $stores = Store::all();
+
         $geoip = new GeoIPLocation();
-        // dd($geoip);
+        
         $fromLat = $geoip->getLatitude();
         $fromLon = $geoip->getLongitude();
         $col;
+        // $data = [];
+        // $allDis = collect();
         $allDis = [];
+        
         //dd($stores);
         foreach($stores as $key => $store)
         {
             
             
-        $distance = $this->getDistance($store->id,$fromLat,$fromLon,'K');
-        $allDis[] = $distance;
-            // dd($distance);
-            // $col = collect($distance);
-            // dd($col);
-
-           // array_push($distance_data,$distance);
-
-            
+            $region = Region::find($store->region_id);
+           
+            // dd($region->name);
+            $distance = $this->getDistance($store->id,$fromLat,$fromLon,'K');
+           
+            $allDis[] = $distance;
+            // $allDis['place'] = $region->name;
         }
         // dd($allDis);
-        // dd($distance);
+       
         $region = Region::where('name',$geoip->getCity())->first();
-            // dd($city);
-        $stores = Store::where('region_id',$region->id)->get();
-        
-        // dd($stores);
-
-
-        // dd(count($distance_data));
-        // dd($distance_data[0]);
         $regions = Region::where('country_code', 'NG')->orderBy('name', 'ASC')->get();
-        return view('welcome', compact('regions','stores','allDis'));
+
+        $featuredProducts = Product::where('status',Product::FEATURED_PRODUCT)->get();
+        $clearanceProducts = Product::where('status',Product::CLEARANCE_PRODUCT)->get();
+        
+        $topSellingProducts = DB::table('order_product')
+            ->select('product_id', DB::raw('count(*) as total'))
+            ->groupBy('product_id')
+            ->orderBy('total', 'desc')
+            ->get();
+        // dd($clearanceProducts);
+        $newStocks = Product::where('created_at', '>', Carbon::now()->subDays(7))->get();
+        $homeSliders = Promotion::where('promo_type','slider')->where('status',Promotion::STATUS_ACTIVE)->orderByRaw('RAND()')->get();
+        // dd($homeSliders);
+        // foreach($promotions as $promotion)
+        // {
+        //     dd($promotion->photos);
+        // }
+        
+
+
+        return view('welcome', compact('regions','stores','allDis','featuredProducts','clearanceProducts','newStocks','topSellingProducts','homeSliders'));
     }
     public function getStarted()
     {
@@ -137,6 +170,20 @@ class SiteController extends Controller
             ['name' => 'Affiliate', 'is_default' => 0],
             ['name' => 'Admin', 'is_default' => 0],
         ]);
+
+        Wallet::firsteOrCreate(
+            [
+                'name' => 'Passward Account',
+                'amount' => 0.00
+            ]
+        );
+
+        CommitmentWallet::firsteOrCreate(
+            [
+                'name' => 'Commitment Account',
+                'amount' => 0.00
+            ]
+        );
     
         return 'All Okay!';
     }

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Payments;
 
 use App\Models\User;
+use App\Models\Wallet;
 use App\Jobs\SendEmailJob;
 use App\Models\Commitment;
 use App\Models\VerifyUser;
 use Illuminate\Http\Request;
 use App\Events\VendorReferred;
+use App\Models\CommitmentWallet;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -168,15 +170,17 @@ class VendorPayment extends Controller
                 $user->role = User::ROLE_VENDOR;
                 $user->save();
                 
-                
-                
-                // dd('done');
-
                 $payment_data = [
                     'user_id'   => $user->id,
                     'amount'    => $amountPaid,
                     'status'    => Commitment::STATUS_COMMITED,
                 ];
+
+                // $commitmentWallet = CommitmentWallet::find(1);
+
+                $commitmentWallet = CommitmentWallet::find(1);
+                $commitmentWallet->amount += $amountPaid;
+                $commitmentWallet->save();
 
                 $commitment = Commitment::firstOrCreate($payment_data);
                 // ref_key

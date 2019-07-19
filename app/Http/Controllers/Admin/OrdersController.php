@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Order;
+use App\Models\OrderProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -137,8 +138,18 @@ class OrdersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function bulkOrdersDelete(Request $request)
     {
-        //
+        $ids = $request->id;
+        // return response()->json(['success' => $ids]); 
+        $aa = OrderProduct::whereIn('order_id',$ids)->get();
+        // $orders = Order::whereIn('id',$ids)->delete();
+        return response()->json(['success' => $aa]);  
+        // $orderProduct = OrderProduct::whereIn('order_id',$ids)->delete();
+        if($orders)
+        {
+            return response()->json(['success' => 'Order(s) Deleted']);  
+        }
     }
+    
 }

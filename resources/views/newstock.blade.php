@@ -34,7 +34,20 @@
                 {{-- <div class="container"> --}}
                         <div class="row">
                             <div class="col-xs-12 col-md-12">
-                            <img src="{{ asset('assets/password/images/Banner-for-new-stock-passward@2x.jpg')}}" alt="banner" class=" img-responsive img-fluid">
+                              @if(!empty($promotion))
+                                @php
+                                    $image_var = json_decode($promotion->photos);
+                                @endphp
+                                @if(is_array($image_var))
+                                    @foreach(array_slice($image_var, 0, 1) as $image)
+                                        <img src="{{asset("storage/$image->path")}}" alt="banner" class=" img-responsive img-fluid">
+                                    @endforeach
+                                
+                                {{-- <img src="{{ asset('storage/'.$promotion->promo_image)}}" alt="banner" class=" img-responsive img-fluid"> --}}
+                                @else 
+                                <img src="{{ asset('assets/password/images/Banner-for-new-stock-passward@2x.jpg')}}" alt="banner" class=" img-responsive img-fluid">
+                                @endif
+                                @endif
                             </div>
                         </div>
                       {{-- </div> --}}
@@ -46,20 +59,22 @@
                       <ul class="listitems">
                          
                        
-                        @foreach($categories as $category)
+                        @forelse($categories as $category)
                           <li> 
                             <a href="{{ route('category.search',$category->id )}}" class="product-link">{{ $category->name }}</a>
                           </li>
-                        @endforeach
+                          @empty 
+                          No category
+                        @endforelse
                       </ul>
   
-                      <p class="closet"> New Closet Stores</p>
+                      {{-- <p class="closet"> New Closet Stores</p>
                       <ul class="listitems">
                               <li> <a href="#" class="product-link">Abuma Tech (1km)</a></li>
                               <li> <a href="#" class="product-link">Dantata Visuals (5km)</a></li>
                               <li> <a href="#" class="product-link">Viewnet (5.6km) </a></li>
                       </ul>
-                      <a href="#" class="product-link"><p class="otherstores"> see other stores</p></a>
+                      <a href="#" class="product-link"><p class="otherstores"> see other stores</p></a> --}}
                   </div>
                   </div>
   
@@ -67,7 +82,7 @@
                               <div class="row">
   
                                   <div class="col-md-3 col-xs-12 col-sm-12">
-                                      <p class="pages"> 1-20 <span class="page-ext"> of 2,334 results</span></p>
+                                      {{-- <p class="pages"> 1-20 <span class="page-ext"> of 2,334 results</span></p> --}}
                                   </div>
   
   
@@ -83,7 +98,7 @@
                                           </div>
                           </div>
                           <div class="row" style="margin-top: 35px;">
-                            @foreach($newStocks as $newStock)
+                            @forelse($newStocks as $newStock)
                             <div class="col-xs-6 col-md-3">
                               <div class="img-block">
                                 <a href="{{ route('customer.productPage', $newStock->id )}}"> 
@@ -118,12 +133,16 @@
                                         <br>
                               </div>
                             </div>
-                            @endforeach
+                            @empty 
+
+                                  No new products
+                            @endforelse
                             
                            
                       </div>
                   </div>
                 </div>
+          </div>
   
               {{-- <div class="container">
                 <div class="row">
@@ -133,7 +152,7 @@
                 </div>
               </div> --}}
   
-                  <div class="container">
+                  {{-- <div class="container"> --}}
                       {{-- <div class="row">
                         <div class="col-md-3"></div>
                         <div class="col-xs-12 col-md-9">
@@ -285,7 +304,7 @@
                           </div>
                         </div>
                     </div> --}}
-                  </div>
+                  {{-- </div> --}}
   
     
 @stop

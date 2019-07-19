@@ -81,6 +81,17 @@ class User extends Authenticatable implements HasCountryContract, HasRegionContr
         'password', 'remember_token',
     ];
 
+    public static function boot() {
+        parent::boot();
+
+        static::deleting(function($user) { // before delete() method call this
+             $user->vendorProducts()->delete();
+             $user->commitment()->delete();
+             $user->orders()->delete();
+             // do the rest of the cleanup...
+        });
+    }
+
     public function getFullNameAttribute()
     {
         return $this->attributes['first_name'] . ' ' . $this->attributes['last_name'];
@@ -202,26 +213,6 @@ class User extends Authenticatable implements HasCountryContract, HasRegionContr
         }
     }
 
-    // public function role($role)
-    // {
-    //     switch ($role) {
-    //         case self::ROLE_ADMIN:
-    //             return 'admin';
-    //             break;
-    //         case self::ROLE_AGENT:
-    //             return 'agent';
-    //             break;
-    //         case self::ROLE_VENDOR:
-    //             return 'vendor';
-    //             break;
-    //         case self::ROLE_AFFILIATE:
-    //             return 'affiliate';
-    //             break;
-    //         default:
-    //             return 'customer';
-    //             break;
-    //     }
-    // }
 
     public function redirectTo()
     {
@@ -317,44 +308,23 @@ class User extends Authenticatable implements HasCountryContract, HasRegionContr
         });
     }
 
-
     public function refferalrelationships()
     {
         return $this->hasMany(ReferralRelationship::class);
     }
-    // public function getReferralRelationship()
-    // {
-    //     return ReferralRelationship::all()->map(function ($referredUser) 
-    //     {
-    //         // return $referredUser->user_id;
-    //         $data = [
-    //             'id' => $referredUser->user_id
-    //         ];
-    //         $users = User::whereIn('id', $data)->get();
-    //         // dd($users);
-    //         return $users;
-    //     });
-    // }
-
-    // public function showReferredUser($userId)
-    // {
-    //     // dd($userId);
-    //     //  $users = User::whereIn('id', $userId)->get();
-    //     // //  dd($users);
-    //     //  return $users;
-    // }
+    
 
     public function addCredits($value)
     {
-        $this->wallet_balance = $value;
+        $this->wallet_balance += $value;
         // dd($this->wallet_balance);
         return $this->save();
     }
 
-    // public function referrals()
-    // {
-    //     return $this->hasOne(ReferralRelationship::class, 'referree_user_id');
-    // }
+    public function referrals()
+    {
+        return $this->hasOne(ReferralRelationship::class, 'referree_user_id');
+    }
 
     public function verifyUser()
     {

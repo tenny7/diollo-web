@@ -32,9 +32,17 @@
         {{-- <div class="row">
                 
         </div> --}}
+
+        @include('partials.admin.success')
+        @include('partials.admin.error')
+
+        {{-- @if(Session::has('success'))
+        <p class="alert {{ session()->get('alert-class', 'alert-info') }}">{{ session()->get('message') }}</p>
+        @endif --}}
         <div class="row">
             
         <div class="col-md-8 col-md-offset--2 col-sm-12 col-xs-12">
+            
                 <table class="table" style="margin-top: 50px;" id="tableId">
                    
                        <thead>
@@ -79,7 +87,7 @@
                                                 <img src="{{ asset("storage/$image->path")}}" alt="phone" class="img-responsive img-fluid" style="height:80px; object-fit:contain;">
                                             @endforeach
                                             @endif
-                                        {{-- <img src="images/new phone.jpg" alt="newphone" style=" height:80px;  object-fit:contain;"> --}}
+                                        
                                     </div>
 
                                     <div>
@@ -105,7 +113,7 @@
                                     <button type="submit" class="purple"  data-id="{{ $product->id }}" id="update-qty" style="border:none; color:#fff;" >update </button>
                                     
                                 </form>
-                                    {{-- <button class="span-round"><span class="span1" id="btn1"><i class ="fas fa-minus"></i></span>&nbsp;&nbsp;<span id="number">1</span>&nbsp;&nbsp;<span class="span2" id="btn2"><i class="fas fa-plus"></i></span>&nbsp;</button> --}}
+                                    
                                 </td>
 
                                 <td class="price">
@@ -170,6 +178,9 @@
             </p>
           <center>
             <button type="submit" id="proceedbutton">PROCEED TO CHECKOUT</button>
+          </form>
+        {{-- <form action="{{ route('pay.from.wallet')}}" method="get"> --}}
+        <a href="{{ route('customer.pay.from.wallet',$total) }}" id="proceedbutton" style="background-color: #555;">PAY FROM WALLET</a>
           </form>
             <p class="or">
                 or

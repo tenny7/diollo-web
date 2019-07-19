@@ -37,7 +37,22 @@
 </div>
     <div class="container">
 
-    <img src="{{ asset('assets/password/images/Banner-for-new-stock-passward-long@2x.jpg')}}" alt="banner" class=" img-responsive img-fluid">
+{{-- {{ dd($promotion->promo_image)}} --}}
+@foreach($promotion as $promo)
+    @php
+    $images = \App\Models\Image::where('promotion_id', $promo->id)->get();
+    // dd($images);
+    $image_var = json_decode($images);
+    @endphp
+
+    @if(is_array($image_var))
+    @foreach(array_slice($image_var, 0, 1) as $image)
+    {{-- <img src="{{ asset('storage/'.$promotion->photos->path)}}" alt="banner" class=" img-responsive img-fluid" style="width:100%; height:250px; object-fit:fill;"> --}}
+        <img src="{{ asset("storage/$image->path")}}" alt="banner" class=" img-responsive img-fluid" style="width:100%; height:250px; object-fit:fill;">
+    @endforeach
+    @endif
+@endforeach
+    {{-- <img src="{{ asset('storage/'.$promotion->photos->path)}}" alt="banner" class=" img-responsive img-fluid" style="width:100%; height:250px; object-fit:fill;"> --}}
 
 
        <div class="row">
@@ -52,13 +67,13 @@
                       @endforeach
                 </ul>
 
-                <p class="closet"> New Closet Stores</p>
+                {{-- <p class="closet"> New Closet Stores</p>
                 <ul class="listitems">
                         <li> <a href="#" class="product-link">Abuma Tech (1km)</a></li>
                         <li> <a href="#" class="product-link">Dantata Visuals (5km)</a></li>
                         <li> <a href="#" class="product-link">Viewnet (5.6km) </a></li>
                 </ul>
-                <a href="#" class="product-link"><p class="otherstores"> see other stores</p></a>
+                <a href="#" class="product-link"><p class="otherstores"> see other stores</p></a> --}}
             </div>
             </div>
 
@@ -66,7 +81,7 @@
                         <div class="row">
 
                             <div class="col-md-3 col-xs-12 col-sm-12">
-                                <p class="pages"> 1-20 <span class="page-ext"> of 2,334 results</span></p>
+                                {{-- <p class="pages"> 1-20 <span class="page-ext"> of 2,334 results</span></p> --}}
                             </div>
 
 
@@ -82,7 +97,8 @@
                                     </div>
                     </div>
                     <div class="row">
-                        @foreach($topSellingProducts as $topSellingProduct)
+                      @if(isset($topSellingProducts))
+                        @forelse($topSellingProducts as $topSellingProduct)
                         <div class="col-md-3 col-xs-6 col-sm-6">
                                       <div class="img-block">
                                         <a href="{{ route('customer.productPage', $topSellingProduct->product_id )}}"> 
@@ -100,6 +116,7 @@
                                       </div>
                                       @php 
                                         $product = \App\Models\Product::find($topSellingProduct->product_id);
+                                        // dd($product);
                                         // if(isset($product->store)){
                                         $store = \App\Models\Store::find($product->store);
                                         // }
@@ -119,7 +136,11 @@
                                     </div>
                                   <br>
                         </div>
-                        @endforeach
+                        @empty 
+
+                        No product to display
+                        @endforelse
+                        @endif
                        
                     <div class="row" style="margin-top:35px;">
                                     <div class="col-md-3 col-sm-6 col-xs-6">
@@ -143,17 +164,17 @@
                         
 
                         <div class="row" style="margin-top:35px;">
-                                <div class="col-md-3 col-xs-6 col-sm-6">
+                                {{-- <div class="col-md-3 col-xs-6 col-sm-6">
                                         <p class="pages"> 1-20 <span class="page-ext"> of 233,456 results</span></p>
-                                </div>
+                                </div> --}}
 
                             <div class="col-md-3 col-xs-12 col-sm-12"> </div>
 
                         <div class="col-md-3 col-xs-12 col-sm-12"> </div>
 
-                    <div class="col-md-3 col-xs-6 col-sm-6" style="margin-top:35px;">
+                    {{-- <div class="col-md-3 col-xs-6 col-sm-6" style="margin-top:35px;">
                             <a href="#" style="text-decoration:none;"> <p> <i class="fas fa-angle-left" style="margin-right: 15px;"></i> PREV <span class="next"> NEXT</span> <i class="fas fa-angle-right" style="margin-left:15px;"></i></p> </a>
-                    </div>
+                    </div> --}}
 
                     </div>
 
@@ -161,6 +182,7 @@
             </div>
         </div>
      </div>
+    </div>
 
 @stop
 

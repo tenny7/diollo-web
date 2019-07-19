@@ -114,16 +114,7 @@
                                               Store
                                             </a>
                                         </th>
-                                        <th>
-                                            <a href="#" class="text-muted sort" data-sort="stores-email">
-                                              Email
-                                            </a>
-                                        </th>
-                                        <th>
-                                            <a href="#" class="text-muted sort" data-sort="stores-phone">
-                                              Phone
-                                            </a>
-                                        </th>
+                                       
                                         <th>
                                             <a href="#" class="text-muted sort" data-sort="stores-state">
                                               State
@@ -135,22 +126,11 @@
                                             </a>
                                         </th>
                                         <th>
-                                            <a href="#" class="text-muted sort" data-sort="store-duration">
-                                              Duration
+                                            <a href="#" class="text-muted sort" data-sort="store-start">
+                                                End date
                                             </a>
                                         </th>
-
-                                        <th>
-                                            <a href="#" class="text-muted sort" data-sort="store-impressions">
-                                                Impressions
-                                            </a>
-                                        </th>
-
-                                        <th>
-                                            <a href="#" class="text-muted sort" data-sort="store-views">
-                                                Views
-                                            </a>
-                                        </th>
+                                       
 
                                         <th>
                                             <a href="#" class="text-muted sort" data-sort="stores-status">
@@ -178,12 +158,12 @@
                                                 @endphp
                                                {{ $store->name }}
                                             </td>
-                                            <td class="stores-email">
+                                            {{-- <td class="stores-email">
                                                 {{ $promotion->email }}
                                             </td>
                                             <td class="stores-phone">
                                                 {{ $promotion->phone }}
-                                            </td>
+                                            </td> --}}
     
                                             <td class="stores-state">
                                                 @php 
@@ -194,18 +174,19 @@
                                             <td class="stores-start">
                                                 {{date('F j, Y', strtotime($promotion->started)) }}
                                             </td>
+
                                             <td class="stores-duration">
-                                                {{ $promotion->duration }}
+                                                    {{date('F j, Y', strtotime($promotion->end_date)) }}
                                             </td>
                                             {{-- <td class="vendors-contactemail">
                                                 chris@codekago.com
                                             </td> --}}
-                                            <td class="stores-impressions">
+                                            {{-- <td class="stores-impressions">
                                                 {{ $promotion->impressions }}
                                             </td>
                                             <td class="stores-views">
                                                 {{ $promotion->views }}
-                                            </td>
+                                            </td> --}}
                                             @if($promotion->isActive())
                                             <td class="stores-status">
                                                 <div class="badge badge-soft-success">
@@ -220,7 +201,7 @@
                                                 </div>
                                             </td>
                                             @endif
-                                            @if($promotion->isCompleted())
+                                            @if($promotion->isCompleted() || $promotion->end_date < \Carbon\Carbon::now())
                                             <td class="stores-status">
                                                 <div class="badge badge-soft-primary">
                                                     completed

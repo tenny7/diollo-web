@@ -8,6 +8,7 @@ use App\Models\Store;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Wishlist;
+use App\Models\Promotion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -17,6 +18,26 @@ use Illuminate\Support\Facades\Response;
 
 class SearchController extends Controller
 {
+    public function search(Request $request)
+    {
+
+        
+        $products= DB::table('stores')
+                    ->join('products', 'stores.id', '=', 'products.store')
+                    // ->whereIn('products.store', $store_data)
+                    ->Where('products.name','LIKE', '%'.$request->search.'%')
+                    ->groupBy('products.id')
+                    ->get();
+
+        if($products)
+        {
+            // dd(count($products)); 
+            $categories = Category::all();
+            return view('product-search',compact('products','categories'));
+        }
+        
+    }
+
     public function searchQuery(Request $request)
     {
 
@@ -36,17 +57,9 @@ class SearchController extends Controller
 
         if($products)
         {
-            // dd(count($products)); 
             $categories = Category::all();
             return view('product-search',compact('products','categories'));
         }
-        // else 
-        // {
-        //     $products = Product::inRandomOrder()->get();
-        //     // dd($products);
-        //     $categories = Category::all();
-        //     return view('product-search',compact('products','categories'));
-        // }
         
     }
 
@@ -57,20 +70,19 @@ class SearchController extends Controller
             ->groupBy('product_id')
             ->orderBy('total', 'desc')
             ->get();
-
-        // $products = Product::whereHas('order_product', function ($query) use($id) {
-        //     $query->where('category_id', $id);
-        // })->get();
-        // dd($topSellingProducts);
+        $promotion = Promotion::where('promo_type', 'topselling')->where('status',Promotion::STATUS_ACTIVE)->orderByRaw('RAND()')->take(1)->get();
+    
         $categories = Category::all();
-        return view('topselling', compact('topSellingProducts','categories'));
+        return view('topselling', compact('topSellingProducts','categories','promotion'));
     }
+
     public function newStock()
     {
-        $newStocks = Product::where('created_at', '<', Carbon::now()->subDays(7))->get();
+        $newStocks = Product::where('created_at', '>', Carbon::now()->subDays(7))->get();
         $categories = Category::all();
-        // dd($categories);
-        return view('newstock', compact('newStocks','categories'));
+        $promotion = Promotion::inRandomOrder('created_at', 'DSC')->where('promo_type', 'newstock')->where('status','<>',Promotion::STATUS_COMPLETED)->take(1)->first();
+        
+        return view('newstock', compact('newStocks','categories','promotion'));
     }
 
     public function searchByCategory($id)
@@ -87,7 +99,6 @@ class SearchController extends Controller
         $products = Wishlist::where('user_id', Auth::id())->get();
         return view('user.saveItem', compact('products'));
     }
-    // <div class="c1256_3sLN7 c318a_VEdJw"><button class="d0846_2WotE" name="decrement" type="submit" value="0">-</button><div class="a03ba_1Zj-T">1</div><button class="c4079_DW1vB" name="increment" type="submit" value="1">+</button></div>
     
     public function saveItem(Request $request)
     {
@@ -161,10 +172,10 @@ class SearchController extends Controller
         // returns the distance of a particular job from the users location
     }
 
-    public function reviews($id)
+    public function reviews($id,$rating)
     {
         $product= Product::find($id);
-        return view('addcomment', compact('product'));
+        return view('addcomment', compact('product','rating'));
     }
 
 

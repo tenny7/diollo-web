@@ -223,39 +223,32 @@
                                 </div>
 
                             </div>
-                            <div class="col-12 col-md-6">
+
+                            <div class="col-12 col-md-12">
 
                                 <!-- Phone -->
                                 <div class="form-group">
 
                                     <!-- Label -->
                                     <label>
-                                      Phone
+                                      Promo Type
                                     </label>
 
                                     <!-- Input -->
-                                    <input type="text" id="phone" name="phone" class="form-control mb-3" value="{{ $promotion->phone }}" placeholder="(+234)_______-____" data-mask="(+234) 00000000000" autocomplete="off" maxlength="18">
+                                    <select name="promo_type" class="form-control">
+                                    <option value="slider">Homepage Slide</option>
+                                    <option value="topselling">Topselling</option>
+                                    <option value="newstock">Newstock</option>
+                                    <option value="store">Store</option>
+                                    </select>
+                                    {{-- <input type="text" id="phone" name="phone" class="form-control mb-3" placeholder="(+234)_______-____" data-mask="(+234) 00000000000" autocomplete="off" maxlength="18"> --}}
 
                                 </div>
 
                             </div>
+                            
 
-                            <div class="col-12 col-md-6">
-
-                                <!-- Phone -->
-                                <div class="form-group">
-
-                                    <!-- Label -->
-                                    <label>
-                                      Email
-                                    </label>
-
-                                    <!-- Input -->
-                                    <input type="text" id="email" class="form-control" value="{{ $promotion->email }}" name="email">
-
-                                </div>
-
-                            </div>
+                            
 
                             <div class="col-6">
                                 <!-- Email address -->
@@ -280,51 +273,15 @@
 
                                     <!-- Label -->
                                     <label class="mb-1">
-                                        Duration
+                                        End Date
                                     </label>
 
                                     <!-- Input -->
-                                    <input type="text" class="form-control" value="{{ $promotion->duration }}" name="duration" placeholder="E.g 21 days">
-                                    {{-- <textarea name="state" class="form-control" placeholder="Our affordability, fast and reliable delivery, and the fact that you will always be able to find the phone that you are looking for in our offer, have made us stand out in the market.
-
-                                    "></textarea> --}}
-                                </div>
-                            </div>
-
-                            <div class="col-12">
-                                <!-- Business Opening Hours -->
-                                <div class="form-group">
-                                    <!-- Label -->
-                                    <label class="mb-1">
-                                        Impressions
-                                    </label>
-                                    <input type="text" class="form-control" value="{{ $promotion->impressions }}" placeholder="Impressions" name="impressions">
-                                </div>
-                            </div>
-
-                            <div class="col-6">
-
-                                <!-- Phone -->
-                                <div class="form-group">
-
-                                    <!-- Label -->
-                                    <label>
-                                      Views
-                                    </label>
-
-                                    <!-- Input -->
-                                    <input type="text" name="views" value="{{ $promotion->views }}" placeholder="Views" class="form-control">
-                                    {{-- <select class="form-control select2-hidden-accessible" data-toggle="select" data-select2-id="1" tabindex="-1" aria-hidden="true"> --}}
-                                        
-                                        {{-- <option value="{{$country->code}}">{{$country->name}}</option> --}}
-                                        
-                                    {{-- </select> --}}
+                                    <input type="text" class="form-control" value="{{ $promotion->end_date }}" name="end_date" data-toggle="flatpickr" required>
                                     
-
                                 </div>
-
                             </div>
-
+                            
                             <div class="col-6 col-md-6">
 
                                 <!-- Phone -->

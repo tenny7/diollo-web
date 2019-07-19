@@ -4,15 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use App\Models\Store;
-use Illuminate\Http\Request;
+use App\Models\Product;
 
+use App\Models\Promotion;
+use Illuminate\Http\Request;
+// use Spatie\Geocoder\Facades\Geocoder;
 use Spatie\Geocoder\Geocoder;
 use App\Http\Controllers\Controller;
 use Gerardojbaez\GeoData\Models\City;
 use Gerardojbaez\GeoData\Models\Region;
 use Gerardojbaez\GeoData\Models\Country;
 use Illuminate\Support\Facades\Response;
-use Victorybiz\GeoIPLocation\GeoIPLocation;
+// use Victorybiz\GeoIPLocation\GeoIPLocation;
 
 class StoresController extends Controller
 {
@@ -193,42 +196,26 @@ class StoresController extends Controller
             'bussiness_logo'        => 'required|mimes:jpeg,jpg,png,bmp,gif,svg|max:2043',
             'availability'          => 'nullable',
             'store_background_color'=> 'required|string',
-            'vendor_id'             => 'required|numeric',
+            'vendor_id'             => 'numeric',
             'agent_id'              => 'required|numeric',
             ];
             
             $this->validate($request, $rules);
 
-            // dd('hello');
-            // $ip_address = $request->ip();
-        // $geoip = new GeoIPLocation();
-        // $ipaddr = $geoip->getIP();
-        // dd($ipaddr);
-        // echo $geoip->getLatitude(); // Return client IP Latitude (null if none)
-
-    // echo $geoip->getLongitude();
-        // $ip_address = $geoip->getLocation();
-       
-        // $ip_address = '41.57.122.201';
-            // $userData = geoip($ip_address);
-            // $ip_address = $request->ip();
-            // dd($ip_address);
-            // $userIP = $request->geoip($ipaddr);
             $logo = $request->bussiness_logo;
-            // dd($logo);
+         
             $folder = 'store/bussinessLogo';
             $logoName = $logo->getClientOriginalName();
             $logoPath = $logo->storeAs($folder,$logoName,'public');
 
-            // $city = City::where('name', $request->city_id)->first();
+           
             $city = City::where('region_id', $request->region_id)->first();
-
-            // dd($city);
 
             
             $client = new \GuzzleHttp\Client();
 
             $geocoder = new Geocoder($client);
+            // dd($client);
 
             $geocoder->setApiKey('AIzaSyC9EOguEuOmLUDK_QbG01n2FLMFxEQH4pc');
 
@@ -269,60 +256,7 @@ class StoresController extends Controller
                 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+  
 
     /**
      * Remove the specified resource from storage.
@@ -330,15 +264,37 @@ class StoresController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($product_slug)
     {
-        //
+        $product = Product::where('slug',$product_slug)->first();
+        $products = \DB::table('order_product')->where('product_id',$product->id)->delete();;
+        
+        if($product->delete())
+        {
+            return redirect()->back()->with([
+                'success' => $product->name.' '.'has been deleted '
+                ]);
+        }
+        else
+        {
+            return redirect()->back()->with([
+                'error' => 'something went wrong'
+                ]);
+        }
+
     }
+    
     public function bulkDelete(Request $request)
     {
         $ids = $request->id;
-        $stores = Store::whereIn('id',$ids)->delete();
-        if($stores)
+        // return response()->json($ids);
+
+        $stores = Store::whereIn('id',$ids);
+        
+        $deletePromotions = Promotion::whereIn('store_id',$ids)->delete();
+        $deleteProducts = Product::whereIn('store',$ids)->delete();
+        
+        if($stores->delete())
         {
             return response()->json(['success' => 'Store Deleted']);  
         }

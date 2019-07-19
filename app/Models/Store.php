@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Product;
 // use Spatie\Searchable\Searchable;
+use App\Models\Promotion;
 use Gerardojbaez\GeoData\Traits\HasCity;
 use Gerardojbaez\GeoData\Traits\HasRegion;
 use Gerardojbaez\GeoData\Traits\HasCountry;
@@ -63,6 +64,9 @@ class Store extends BaseModel implements HasCountryContract, HasRegionContract, 
     public function products(){
         return $this->hasMany(Product::class);
     }
+    public function promotions(){
+        return $this->hasMany(Promotion::class);
+    }
 
     public function affiliate(){
         return $this->belongsTo(User::class, 'affiliate_id');
@@ -110,6 +114,35 @@ class Store extends BaseModel implements HasCountryContract, HasRegionContract, 
     {
         return ($this->status == self::STATUS_INACTIVE)?true:false;
     }
+
+    // public static function boot()
+    // {
+    //     static::deleting(function()
+    //     {
+    //         foreach ($this->products as $product)
+    //         {
+    //             dd($product);
+    //             // $product->deleteImage($product->id);
+    //         }
+    //     });
+    // }
+    // public static function boot()
+    // {
+        // parent::boot();
+        
+        // Attach event handler, on deleting of the user
+        // Store::deleting(function($store)
+        // {   
+            // Delete all tricks that belong to this user
+            // foreach ($store->products as $product) {
+            //     $product->delete();
+            // }
+            // foreach ($store->products as $product) {
+            //     $product->delete();
+            // }
+    //     });
+    // }
+    
 
     
 }

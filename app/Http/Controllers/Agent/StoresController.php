@@ -6,9 +6,10 @@ use App\Models\User;
 use App\Models\Store;
 use Illuminate\Http\Request;
 
+use Spatie\Geocoder\Geocoder;
 use App\Http\Controllers\Controller;
+// use Spatie\Geocoder\Facades\Geocoder;
 use Gerardojbaez\GeoData\Models\City;
-use Spatie\Geocoder\Facades\Geocoder;
 use Gerardojbaez\GeoData\Models\Region;
 use Gerardojbaez\GeoData\Models\Country;
 
@@ -22,7 +23,7 @@ class StoresController extends Controller
     public function index()
     {
         $stores = Store::all();
-        return view('admin.stores.all',compact('stores'));
+        return view('agents.stores.all',compact('stores'));
     }
 
     /**
@@ -32,7 +33,7 @@ class StoresController extends Controller
      */
     public function complete()
     {
-        return view('admin.stores.complete');
+        return view('agents.stores.complete');
     }
 
     /**
@@ -42,7 +43,7 @@ class StoresController extends Controller
      */
     public function incomplete()
     {
-        return view('admin.stores.incomplete');
+        return view('agents.stores.incomplete');
     }
 
     /**
@@ -58,12 +59,15 @@ class StoresController extends Controller
         $regions = Region::where('country_code', $country->code)->get();
         $region = Region::where('country_code', $country->code)->first();
         $cities = City::where('region_id', $region->id)->get();
-        return view('admin.stores.new')->with([
+        $vendors = User::where('role', User::ROLE_VENDOR)->get();
+
+        return view('agents.stores.new')->with([
             'country'=>$country, 
             'regions'=>$regions, 
             'cities'=>$cities,
             'countries' => $countries,
             'agents' => $agents,
+            'vendors' => $vendors,
             ]);
     }
 
@@ -89,8 +93,10 @@ class StoresController extends Controller
             $this->validate($request, $rules);
 
             // dd('hello');
-            $ip_address = $request->ip();
-            $userIP = $request->geoip($ip_address);
+            // $ip_address = $request->ip();
+            
+            // $userIP = $request->geoip($ip_address);
+            // dd($userIP);
             $logo = $request->bussiness_logo;
             // dd($logo);
             $folder = 'store/bussinessLogo';
@@ -106,10 +112,14 @@ class StoresController extends Controller
             $geocoder->setApiKey('AIzaSyC9EOguEuOmLUDK_QbG01n2FLMFxEQH4pc');
 
             $geocoder->setCountry('NG');
+            $regionName = $geocoder->setRegion($city->name);
+           
+            $cityDetails = $geocoder->getCoordinatesForAddress($city->name);
+            // dd($cityDetails);
 
-            $city = City::find($city->id);
-            dd($city);
-            dd($geocoder->getCoordinatesForAddress($city->name));
+            // $city = City::find($city->id);
+            // dd($city);
+            // dd($geocoder->getCoordinatesForAddress($city->name));
             $data = [
                 'name'              => $request->bussiness_name,
                 'phones'            => $request->bussiness_phone,
@@ -125,8 +135,8 @@ class StoresController extends Controller
                 'color'             => $request->store_background_color,
                 'vendor_id'         => $request->vendor_id,
                 'agent_id'          => $request->agent_id,
-                'latitude'          => $userIP->lat,
-                'longitude'          =>$userIP->lon,
+                'latitude'          => $cityDetails['lat'],
+                'longitude'          =>$cityDetails['lng'],
                 ];
 
             $agentStore = Store::firstOrcreate($data);
@@ -196,8 +206,9 @@ class StoresController extends Controller
     {   
         $countries = Country::all();
         $agents = User::where('role', User::ROLE_AGENT)->get();
+        $vendors = User::where('role', User::ROLE_VENDOR)->get();
         $store = Store::findOrFail($store_id);
-        return view('admin.stores.update', compact('store','countries','agents'));
+        return view('agents.stores.update', compact('store','countries','agents','vendors'));
     }
 
     public function viewStore()

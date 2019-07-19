@@ -16,7 +16,8 @@ class CreateOrderTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id')->nullable();
-            $table->decimal('total',10,6)->nullable();
+            $table->integer('store_id')->nullable();
+            $table->decimal('total',25,2)->nullable();
             $table->tinyInteger('status')->nullable();
             $table->timestamps();
         });

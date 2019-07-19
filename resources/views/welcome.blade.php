@@ -15,7 +15,30 @@
         <img src="{{ asset('assets/password/images/path 41.svg')}}" alt="path star">
       </div>
       <div class="container">
+        {{-- homepage banner --}}
         <div class="banner">
+        @foreach($homeSliders as $key => $homeSlider)
+         <a href="#">
+                  @php
+                  $images = \App\Models\Image::where('promotion_id', $homeSlider->id)->get();
+                  // dd($images);
+                  $image_var = json_decode($images);
+                  @endphp
+        
+                  @if(is_array($image_var)) 
+                  @foreach(array_slice($image_var, 0, 1) as $image)
+                  
+                    <div class="">
+                        <img src="{{ asset("storage/$image->path")}}" alt="banner" class="img-fluid img-responsive banner">
+                      
+                    </div>
+                  @endforeach
+                  @endif
+              </a>
+          
+          @endforeach
+        </div>
+        {{-- <div class="banner">
           <div class="">
             <a href="#">
               <img src="{{ asset('assets/password/images/Banner-for-passward.jpg')}}" alt="banner" class="img-fluid img-responsive banner">
@@ -31,7 +54,10 @@
             <img src="{{ asset('assets/password/images/Banner-for-passward.jpg')}}" alt="banner" class="img-fluid img-responsive banner">
             </a>
           </div>
-        </div>
+        </div> --}}
+        {{-- @foreach($promotion->photos as $photo)
+                <img src="{{ asset('storage/'.$photo->path)}}" alt="banner" class="img-fluid img-responsive banner">
+              @endforeach --}}
 
 
       </div>
@@ -93,87 +119,53 @@
 
   <div class="filter"></div>
 
-{{-- {{ dd(geoip($ip = null))}} --}}
+  {{-- <div class="alert alert-success">
+    hello world
+  </div> --}}
+  @if(count($featuredProducts) > 0)
+  <section id="products" style="position: relative; margin-top: 145px; mmargin-bottom:70px; padding-bottom: 50px;">
 
-  <section id="products" style="position: relative; margin-top: 145px; padding-bottom: 50px;">
-
-      <h1 class="text-center clearance" >Featured Products</h1>
+      <h1 class="text-center clearance" >Featured Products </h1>
       <p class="text-center">THE BEST CLOTHING ITEMS CLOSEST TO YOU, FIND YOUR ALL YOUR SHOPPING NEEDS</p>
 
 
 
       <div class="wrapper">
-        <div class="carousel" style="display: flex; align-items: center; " >
+        
+        <div class="carousel" style="display:flexbox. align-items:inline-flex">
+            {{-- style="display: flex; align-items: center;" --}}
+          @foreach($featuredProducts as $key => $featuredProduct)
+          
           <div class="slider col-md-3 col-sm-6 col-xs-6">
             <div class="zoom">
-            <a href="#"><img src="{{ asset('assets/password/images/Product-cat-Jeez.jpg')}}" class="img-responsive img-fluid curve ">
-              <div class="overlay-1">
-                <h6>Zephyrane Beauty</h6> <p>Beauty and Hair</p>
-              </div>
-            </a>
-            </div>
-          </div>
-        <div class="slider col-md-3 col-sm-6 col-xs-6">
-            <div class="zoom">
-              <a href="#"><img src="{{ asset('assets/password/images/Product-cat-Jeez-2.png')}}" class="img-responsive img-fluid curve">
-                <div class="overlay-2">
-                  <h6>Full Tower Home Set</h6> <p>Kitchen</p>
+              <a href="{{ route('customer.productPage', $featuredProduct->id )}}">
+                    @php
+                  $images = \App\Models\ProductImage::where('product_id', $featuredProduct->id)->get();
+                  // dd($images);
+                  $image_var = json_decode($images);
+                  @endphp
+        
+                  @if(is_array($image_var)) 
+                  @foreach(array_slice($image_var, 0, 1) as $image)
+                      <img src="{{ asset("storage/$image->path")}}" alt="phone" class="img-responsive img-fluid" >
+                  @endforeach
+                  @endif
+                <div class="overlay- {{ $key }}">
+                <h6>{{$featuredProduct->name}}</h6> <p>Beauty and Hair</p>
                 </div>
               </a>
             </div>
-        </div>
-        <div class="slider col-md-3 col-sm-6 col-xs-6">
-            <div class="zoom">
-              <a href="#"><img src="{{ asset('assets/password/images/Product-cat-Jeez-3.jpg')}}" class="img-responsive img-fluid curve">
-              <div class="overlay-3">
-                <h6>iPhone 8</h6> <p>Phone and Computers</p>
-              </div>
-              </a>
-            </div>
-        </div>
-        <div class="slider col-md-3 col-sm-6 col-xs-6 ">
-            <div class="zoom">
-              <a href="#"><img src="{{ asset('assets/password/images/Product-cat-Jeez-4.jpg')}}" class="img-responsive img-fluid curve"></a>
-              <div class="overlay-4">
-                <h6>Zara Cut Outdoor Suit</h6> <p>Women's Clothing</p>
-              </div>
-            </div>
-            </a>
           </div>
-          <div class="slider col-md-3 col-sm-6 col-xs-6 ">
-            <div class="zoom">
-            <a href="#"><img src="{{ asset('assets/password/images/Product-cat-Jeez.jpg')}}" class="img-responsive curve img-fluid curve ">
-              <div class="overlay-5">
-                <h6>Zephyrane Beauty</h6> <p>Beauty and Hair</p>
-              </div>
-            </a>
-            </div>
-          </div>
-        <div class="slider col-md-3 col-sm-6 col-xs-6 ">
-            <div class="zoom">
-              <a href="#"><img src="{{ asset('assets/password/images/Product-cat-Jeez-2.png')}}" class="img-responsive img-fluid curve ">
-                <div class="overlay-6">
-                  <h6>Full Tower Home Set</h6> <p>Kitchen</p>
-                </div>
-              </a>
-            </div>
-        </div>
-        <div class="slider col-md-3 col-sm-6 col-xs-6">
-            <div class="zoom">
-              <a href="#"><img src="{{ asset('assets/password/images/Product-cat-Jeez-3.jpg')}}" class="img-responsive img-fluid curve ">
-              <div class="overlay-7">
-                <h6>iPhone 8</h6> <p>Phone and Computers</p>
-              </div>
-            </div>
-            </a>
-        </div>
-
+          @endforeach
+        
         </div>
 
       </div>
 
 </section>
+@endif
 
+@if(count($stores) > 0)
 <section class="Shops">
   <div class="container">
 
@@ -199,52 +191,36 @@
       @endphp --}}
       {{-- class="first" --}}
      <div class="grid-container">
-       @foreach($stores as $store)
-       {{-- @for($i = 0; $i<count($width); $i++) --}}
+       {{-- @foreach($stores as $store)
         <div>
           <a href="{{ route('customer.storePage',$store->id)}}">
             <img src="{{ asset('storage/'.$store->logo)}}" style="width:331px !important; height:163px !important; object-fit:contain;" class="img-responsive img-fluid curve" alt="Hanger">
-            
           </a>
-          
-            {{-- <span class="on-top"><br> One stop shop for all the best <br> youtube inspired articles and merch <br> just 0.5km away</span>
-            <span class="pop-up" style="padding-bottom: 20px;"><img src="images/Logo_of_Youtube.png" style="height: 30px;"> <br> POP UP SHOP</span> --}}
-            {{-- <div class="on-side"><img src="{{ asset('assets/password/images/reveal button).svg')}}" style="height: 46px;" alt=""></div> --}}
-        </div>
         
-        {{-- @endfor --}}
-        {{-- @for($j=0; $j<=count($allDis); $j++) --}}
-         {{-- {{ $allDis[$j] }} --}}
-        {{-- @endfor --}}
-        {{-- {{ dd($allDis) }} --}}
-        {{-- @foreach($allDis as $dist)
-          {{ $dist }}
-        @endforeach --}}
-        {{-- {{ $distance_data[$store->name]}} --}}
+        
+        </div> --}}
+        
 
+        {{-- @endforeach --}}
+
+        @foreach($allDis as $dis)
+
+        @foreach($dis as $key => $value)
+        <div>
+          @php 
+            $store = \App\Models\Store::where('name',$key)->first();
+            // dd($store);
+          @endphp
+            <a href="{{ route('customer.storePage',$store->id)}}">
+              <img src="{{ asset('storage/'.$store->logo)}}" style="width:331px !important; height:163px !important; object-fit:contain;" class="img-responsive img-fluid curve" alt="Hanger">
+            </a>
+          <p>{{ $key }} , {{ $value }} away</p>
+          
+          
+          </div> 
+          @endforeach
         @endforeach
         
-        {{-- <div class="second">
-            <img src="{{ asset('assets/password/images/store-square-2.jpg')}}" class="img-responsive img-fluid curve"  alt="">
-            <div class="on-side-last"><img src="{{ asset('assets/password/images/reveal button).svg')}}" style="height: 46px;" alt=""></div>
-        </div>
-        <div class="third">
-             <img src="{{ asset('assets/password/images/eni-stores-passward.jpg')}}" style="padding-top: 4px;" class="img-responsive img-fluid curve" alt="">
-             <span class="eni">Grocery shopping and <br> home items just for you <br> only 0.5km away</span>
-             <div class="on-side-2"><img src="{{ asset('assets/password/images/reveal button).svg')}}" style="height: 46px;" alt=""></div>
-        </div>
-        <div class="fourth">
-            <img src="{{ asset('assets/password/images/store-square.jpg')}}" class="img-responsive img-fluid curve"  alt="">
-            <div class="on-side-3"><img src="{{ asset('assets/password/images/reveal button).svg')}}" style="height: 46px;" alt=""></div>
-        </div>
-        <div class="fifth">
-             <img src="{{ asset('assets/password/images/store-square-3.jpg')}}" class="img-responsive img-fluid curve" alt="">
-             <div class="on-side-4"><img src="{{ asset('assets/password/images/reveal button).svg')}}" style="height: 46px;" alt=""></div>
-        </div>
-        <div class="sixth">
-             <img src="{{ asset('assets/password/images/store-square-4.jpg')}}" class="img-responsive img-fluid curve" alt="">
-             <div class="on-side-5"><img src="{{ asset('assets/password/images/reveal button).svg')}}" style="height: 46px;" alt=""></div>
-        </div> --}}
 
     </div>
 
@@ -255,8 +231,12 @@
 </div>
 
 </section>
+@endif
+
 
     <div class="main">
+        @if(count($clearanceProducts) > 0)
+        {{-- {{dd($clearanceProducts)}} --}}
         <div>
             <h1 class="clearance">Clearance Sales</h1>
         </div>
@@ -266,185 +246,86 @@
         <div>
             <p class="show text-center">Show all flash sales</p>
         </div>
+        @endif
         <div class="container">
             <div class="row" style="padding-top: 40px; margin: auto; ">
+              {{-- @if(isset($clearanceProducts)) --}}
+              @foreach($clearanceProducts as $clearanceProduct)
                 <div class="col-md-2 col-sm-6 col-xs-6">
                   <div class="img-block">
-                    <a href="#"> <img src="{{ asset('assets/password/images/clock.png')}}" alt="clock" class="img-responsive img-fluid" style="height:160px"></a>
+                    <a href="{{ route('customer.productPage', $clearanceProduct->id )}}"> 
+                        
+                          @foreach($clearanceProduct->images as $image)
+                              <img src="{{ asset("storage/$image->path")}}" alt="phone" class="img-responsive img-fluid " style="height:160px">
+                          @endforeach
+                       
+                      {{-- <img src="{{ asset('assets/password/images/clock.png')}}" alt="clock" class="img-responsive img-fluid" style="height:160px"> --}}
+                    </a>
                     <div class="edit">
                       <a style="display: flex; justify-content: flex-end;" href="#"><img src="{{ asset('assets/password/images/fav appearance selected.svg')}}" style="height: 25px;" alt=""></a>
                     </div>
                   </div>
                     <div class="content">
-                        <p class="items"> Vintage Desk Clock</p>
-                        <p class="price">&#8358;10,000 <span class="newprice">&#8358;11,000</span></p>
+                    <p class="items"> {{ $clearanceProduct->name }}</p>
+                        <p class="price">&#8358;{{ number_format($clearanceProduct->original_price,2) }}<span class="newprice">&#8358;{{ $clearanceProduct->discount_price }}</span></p>
                     </div>
                 </div>
-                <div class="col-md-2 col-sm-6 col-xs-6">
-                  <div class="img-block">
-                    <a href="#"> <img src="{{ asset('assets/password/images/mockup-df8f5437_1024x1024.jpg')}}" alt="mockup" class="img-responsive img-fluid" style="height:160px"></a>
-                    <div class="edit">
-                      <a style="display: flex; justify-content: flex-end;" href="#"><img src="images/fav appearance selected.svg')}}" style="height: 25px;" alt=""></a>
-                    </div>
-                  </div>
-                    <div class="content">
-                        <p class="items"> Dual Piece Beats Headphones</p>
-                        <p class="price">&#8358;10,000<span class="newprice">&#8358;11,000</span></p>
-                    </div>
-                </div>
-                <div class="col-md-2 col-sm-6 col-xs-6">
-                  <div class="img-block">
-                    <a href="#"> <img src="{{ asset('assets/password/images/download.jpg')}}" alt="download" class="img-responsive img-fluid" style="height:160px"></a>
-                    <div class="edit">
-                      <a href="#"><img src="{{ asset('assets/password/images/fav appearance selected.svg')}}" style="height: 25px;" alt=""></a>
-                    </div>
-
-                  </div>
-                    <div class="content">
-                        <p class="items"> Samsung Galaxy S9</p>
-                        <p class="price">&#8358;70,000<span class="newprice">&#8358;11,000</span></p>
-                    </div>
-                </div>
-                <div class="col-md-2 col-sm-6 col-xs-6">
-                  <div class="img-block">
-                    <a href="#"> <img src="{{ asset('assets/password/images/Sony MDR-XB950BT EXTRA BASS.jpg')}}" alt="Sony" class="img-responsive img-fluid"
-                            style="height:160px"></a>
-                            <div class="edit">
-                              <a><img src="{{ asset('assets/password/images/fav appearance selected.svg')}}" style="height: 25px;" alt=""></a>
-                            </div>
-                  </div>
-                    <div class="content">
-                        <p class="items"> Sony Piece Headphones</p>
-                        <p class="price">&#8358;11,999<span class="newprice">&#8358;11,000</span></p>
-                    </div>
-                </div>
-                <div class="col-md-2 col-sm-6 col-xs-6">
-                  <div class="img-block">
-                    <a href="#"> <img src="{{ asset('assets/password/images/phone 6.jpg')}}" alt="phone" class="img-responsive img-fluid" style="height:160px"></a>
-                    <div class="edit">
-                      <a  href="#"><img src="{{ asset('assets/password/images/fav appearance selected.svg')}}" style="height: 25px;" alt=""></a>
-                    </div>
-
-                  </div>
-                    <div class="content">
-                        <p class="items"> Dual Piece Beats Headphones</p>
-                        <p class="price">&#8358;4,999<span class="newprice">&#8358;11,000</span></p>
-                    </div>
-                </div>
-                <div class="col-md-2 col-sm-6 col-xs-6">
-                  <div class="img-block">
-                    <a href=""> <img src="{{ asset('assets/password/images/GameSir-G4s-2-4Ghz-Wireless-Bluetooth-Gamepad-Controller-for-PS3-Android-TV-BOX-Smartphone-Tablet-PC.jpg')}}"
-                            alt="game" class="img-responsive img-fluid" style="height:160px"></a>
-                            <div class="edit">
-                              <a href="#"><img src="{{ asset('assets/password/images/fav appearance selected.svg')}}" style="height: 25px;" alt=""></a>
-                            </div>
-                  </div>
-
-                    <div class="content">
-                        <p class="items"> Mobile Game Pad Console</p>
-                        <p class="price">&#8358;34,999 <span class="newprice">&#8358;11,000</span></p>
-                    </div>
-                </div>
+                
+                @endforeach
+               
 
 
             </div>
         </div>
-
+        
         <div class="background">
             <div class="rectangle">
             </div>
+            @if(count($topSellingProducts) > 0)
             <div class="grad">
                 <div class="container">
                     <div class="row box ">
                         <div class="col-md-8 col-sm-12 col-xs-12">
                             <div class="row" style="margin-left: -6px;
                     margin-top: 31px;">
-
+                                @foreach($topSellingProducts as $topSellingProduct)
+                                {{-- {{ dd($topSellingProduct)}} --}}
                                 <div class="col-md-3 col-sm-6 col-xs-6 flash">
-                                    <div class="show" style=" background: linear-gradient(to right, #00D8FF,#FF5599); height: 150px; border: 1px solid white;border-radius: 8%; padding: 10px; width: auto;">
-                                        <button id="buybutton">BUY NOW</button>
-                                        <p class="description">
-                                            Full computer deskset with noiseless rollers
-                                            <span id="spanprice"> &#8358;70,000</span>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-6 flash">
-                                    <img src="{{ asset('assets/password/images/19496273.jpg')}}" alt="194" class="img-responsive img-fluid images">
+                                  <a href="{{ route('top.selling') }}">
+                                    @php
+                                    $images = \App\Models\ProductImage::where('product_id', $topSellingProduct->product_id)->get();
+                                    // dd($images);
+                                    $image_var = json_decode($images);
+                                    @endphp
+                          
+                                    @if(is_array($image_var)) 
+                                    @foreach(array_slice($image_var, 0, 1) as $image)
+                                        <img src="{{ asset("storage/$image->path")}}" alt="phone" class="img-responsive img-fluid images" >
+                                    @endforeach
+                                    @endif
+                                    {{-- <img src="{{ asset('assets/password/images/19496273.jpg')}}" alt="194" class="img-responsive img-fluid images"> --}}
                                     <div class="ease-up_overlay" style=" background: linear-gradient(to right, #00D8FF,#FF5599); height: 150px; border: 1px solid white; border-radius: 8%; padding: 10px;">
                                         <button id="buybutton">BUY NOW</button>
                                         <p class="description">
-                                            Full computer deskset with noiseless rollers
-                                            <span id="spanprice"> &#8358;70,000</span>
+                                          @php 
+                                            $product = \App\Models\Product::find($topSellingProduct->product_id);
+                                            // dd($product);
+                                          @endphp
+                                            @if(isset($product->quick_description)) 
+                                                {{ $product->quick_description }} 
+                                            @endif
+                                            @if(isset($product->discount_price)) 
+                                               
+                                        <span id="spanprice"> &#8358;{{ number_format($product->discount_price)}}</span>
+                                        
+                                        @endif
                                         </p>
                                     </div>
+                                  </a>
                                 </div>
+                                @endforeach
 
-                                <div class="col-md-3 col-sm-6 col-xs-6 flash">
-                                    <img src="{{ asset('assets/password/images/phone 3.jpg')}}" alt="phone3" class="img-responsive img-fluid images">
-                                    <div class="ease-up_overlay" style=" background: linear-gradient(to right, #00D8FF,#FF5599);height: 150px; border: 1px solid white;border-radius: 8%; padding: 10px;">
-                                        <button id="buybutton">BUY NOW</button>
-                                        <p class="description">
-                                            Full computer deskset with noiseless rollers
-                                            <span id="spanprice"> &#8358;70,000</span>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-6 flash">
-                                    <img src="{{ asset('assets/password/images/category-shuffle-panel.jpg')}}" alt="shuffle" class="img-responsive img-fluid images">
-                                    <div class="ease-up_overlay" style=" background: linear-gradient(to right, #00D8FF,#FF5599);height: 150px; border: 1px solid white;border-radius: 8%;padding: 10px;">
-                                        <button id="buybutton">BUY NOW</button>
-                                        <p class="description">
-                                            Full computer deskset with noiseless rollers
-                                            <span id="spanprice"> &#8358;70,000</span>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-6 flash none">
-                                    <img src="{{ asset('assets/password/images/category-shuffle-panel.jpg')}}" alt="194" class="img-responsive img-fluid images">
-                                    <div class="ease-up_overlay" style=" background: linear-gradient(to right, #00D8FF,#FF5599);height: 150px; border: 1px solid white;border-radius: 8%;padding: 10px;">
-                                        <button id="buybutton">BUY NOW</button>
-                                        <p class="description">
-                                            Full computer deskset with noiseless rollers
-                                            <span id="spanprice"> &#8358;70,000</span>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-6 flash none">
-                                    <img src="{{ asset('assets/password/images/clock.png')}}" alt="194" class="img-responsive img-fluid images">
-                                    <div class="ease-up_overlay" style=" background: linear-gradient(to right, #00D8FF,#FF5599);height: 150px; border: 1px solid white;border-radius: 8%;padding: 10px;">
-                                        <button id="buybutton">BUY NOW</button>
-                                        <p class="description">
-                                            Full computer deskset with noiseless rollers
-                                            <span id="spanprice"> &#8358;70,000</span>
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3 col-sm-6 col-xs-6 flash none">
-                                    <img src="{{ asset('assets/password/images/phone 6.jpg')}}" alt="phone3" class="img-responsive img-fluid images">
-                                    <div class="ease-up_overlay" style=" background: linear-gradient(to right, #00D8FF,#FF5599);height: 150px; border: 1px solid white;border-radius: 8%;padding: 10px;">
-                                        <button id="buybutton">BUY NOW</button>
-                                        <p class="description">
-                                            Full computer deskset with noiseless rollers
-                                            <span id="spanprice"> &#8358;70,000</span>
-                                        </p>
-                                    </div>
-
-                                </div>
-
-                                <div class="col-md-3 col-sm-6 col-xs-6 flash none">
-                                    <img src="{{ asset('assets/password/images/GameSir-G4s-2-4Ghz-Wireless-Bluetooth-Gamepad-Controller-for-PS3-Android-TV-BOX-Smartphone-Tablet-PC.jpg')}}"
-                                        alt="shuffle" class="img-responsive img-fluid images">
-                                    <div class="ease-up_overlay" style=" background: linear-gradient(to right, #00D8FF,#FF5599);height: 150px; border: 1px solid white;border-radius: 8%;padding: 10px;">
-                                          <button id="buybutton">BUY NOW</button>
-                                            <p class="description">
-                                                Full computer deskset with noiseless rollers
-                                                <span id="spanprice"> &#8358;70,000</span>
-                                            </p>
-                                    </div>
-
-                                </div>
+                                
                                 <br>
                             </div>
 
@@ -460,7 +341,10 @@
                     </div>
                 </div>
             </div>
+            @endif
         </div>
+        
+        @if(count($newStocks) > 0)
         <div class="container">
             <div class="shopping_space">
                 <h2 class="affordable">New and Affordable</h2>
@@ -469,43 +353,97 @@
 
             <div class="row " style=" align-items: center; justify-content: center;">
                 <div class="wrapper">
-                  <div class="carousel gimme-space" style="display: flex;">
+                  <div class="carousel gimme-space" style="display: flexbox;">
+                    @foreach($newStocks as $newStock)
                       <div class="col-md-3 col-sm-6 col-xs-6 neon">
-                        <a href="#"> <img src="{{ asset('assets/password/images/19496273.jpg')}}" alt="194" class="img-responsive img-fluid" style="height: 250px; object-fit: contain;"></a>
+                        <a href="{{ route('new.stock')}}"> 
+                            @php
+                            $images = \App\Models\ProductImage::where('product_id', $newStock->id)->get();
+                            // dd($images);
+                            $image_var = json_decode($images);
+                            @endphp
+                  
+                            @if(is_array($image_var)) 
+                            @foreach(array_slice($image_var, 0, 1) as $image)
+                                <img src="{{ asset("storage/$image->path")}}" alt="phone" class="img-responsive img-fluid" >
+                            @endforeach
+                            @endif
+                           
+                              {{-- @foreach($newStock->images as $image)
+                                  <img src="{{ asset("storage/$image->path")}}" alt="phone" class="img-responsive img-fluid " style="height: 250px; width:300px;">
+                              @endforeach --}}
+                         
+                          {{-- <img src="{{ asset('assets/password/images/19496273.jpg')}}" alt="194" class="img-responsive img-fluid" style="height: 250px; object-fit: contain;"> --}}
+                        </a>
                         <div class="content">
-                            <p class="items"> Dual Piece Beats</p>
-                            <p class="price">&#8358;3,999
+                        <p class="items"> {{ $newStock->name}}</p>
+                            <p class="price">&#8358;{{ number_format($newStock->discount_price,2)}}
                                 <span class="star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></span></p>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-xs-6 neon">
-                        <a href="#"> <img src="{{ asset('assets/password/images/10-Purple-$cience crown .jpg')}}" alt="crown" class="img-responsive img-fluid" style="height: 250px; object-fit: contain;"
-                                ></a>
-                        <div class="content">
-                            <p class="items"> Dual Piece Beats</p>
-                            <p class="price">&#8358;70,000<span class="star"><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                              <i class="far fa-star"></i> </span></p>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-6 neon">
-                        <a href="#"> <img src="{{ asset('assets/password/images/1-zoom.jpg')}}" alt="zoom" class="img-responsive img-fluid" style="height: 250px; object-fit: contain;"></a>
-                        <div class="content">
-                            <p class="items"> Sony Piece Headphones</p>
-                            <p class="price">&#8358;11,999<span class="star"> <i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                        class="far fa-star"></i></span></p>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-6 neon">
-                        <a href="#"> <img src="{{ asset('assets/password/images/phoone 2.jpg')}}" alt="phoone" class="img-responsive img-fluid" style="height: 250px; object-fit: contain;"></a>
-                        <div class="content">
-                            <p class="items"> Sony Piece Headphones</p>
-                            <p class="price">&#8358;11,999<span class="star"> <i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                        class="far fa-star"></i></span></p>
-                        </div>
-                    </div>
+                    @endforeach
+                   
                   </div>
                 </div>
              </div>
            </div>
         </div>
+
+        @endif
+
+        {{-- <div id="mapholder"></div> --}}
+     {{-- <form>
+        <input type="button" onclick="getLocation();" value="Your Location"/>
+     </form> --}}
        @stop
+
+       @push('scripts')
+
+       
+  {{-- </head> --}}
+  {{-- <body> --}}
+     
+  {{-- </body> --}}
+
+       {{-- https://www.googleapis.com/geolocation/v1/geolocate?key=YOUR_API_KEY --}}
+        {{-- <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyC9EOguEuOmLUDK_QbG01n2FLMFxEQH4pc&sensor=true"></script> --}}
+
+        {{-- <script>
+          (function() {
+
+    if(!!navigator.geolocation) {
+
+        var map;
+
+        var mapOptions = {
+            zoom: 15,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        map = new google.maps.Map(document.getElementById('google_canvas'), mapOptions);
+
+        navigator.geolocation.getCurrentPosition(function(position) {
+
+            var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+            var infowindow = new google.maps.InfoWindow({
+                map: map,
+                position: geolocate,
+                content:
+                    '<h1>Location pinned from HTML5 Geolocation!</h1>' +
+                    '<h2>Latitude: ' + position.coords.latitude + '</h2>' +
+                    '<h2>Longitude: ' + position.coords.longitude + '</h2>'
+            });
+
+            map.setCenter(geolocate);
+
+        });
+
+    } else {
+        document.getElementById('google_canvas').innerHTML = 'No Geolocation Support.';
+    }
+    
+
+})();
+        </script> --}}
+       @endpush

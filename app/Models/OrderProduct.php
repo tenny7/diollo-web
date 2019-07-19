@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
 
 class OrderProduct extends Model
@@ -11,6 +12,12 @@ class OrderProduct extends Model
         'order_id',
         'qty',
         'price',
-        // 'tax_amount',
+        'user_id',
     ];
+
+    // public function product()
+    // {
+    //     return $this->belongTo(Product::class);
+    //     // , 'tax_amount'
+    // }
 }

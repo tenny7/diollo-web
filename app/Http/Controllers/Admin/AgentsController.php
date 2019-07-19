@@ -182,4 +182,17 @@ class AgentsController extends Controller
 
         return redirect()->back()->with(['success' => 'Rejected']);
     }
+
+
+    public function bulkAgentDelete(Request $request)
+    {
+        $ids = $request->id;
+        // return Response::json(['success' => 'success']);
+        $agents = User::whereIn('id',$ids)->where('role', User::ROLE_AGENT)->delete();
+        // return response()->json($agents);
+        if($agents)
+        {
+            return response()->json(['success' => 'Agent(s) Deleted']);  
+        }
+    }
 }

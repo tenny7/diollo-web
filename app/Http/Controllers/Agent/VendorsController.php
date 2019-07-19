@@ -32,6 +32,17 @@ class VendorsController extends Controller
         // return view('agents.vendors.all', compact('vendors'));
     }
 
+    public function bulkVendorDelete(Request $request)
+    {
+        // $ids = $request->id;
+        // return response()->json(['success' => 'Vendor(s) Deleted']); 
+        // $deleteVendors = User::whereIn('id',$ids)->delete();
+        // if($deleteVendors)
+        // {
+        //     return response()->json(['success' => 'Vendor(s) Deleted']);  
+        // }
+    }
+
     /**
      * Display a listing of the resource.
      *

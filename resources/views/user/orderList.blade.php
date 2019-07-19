@@ -1,5 +1,24 @@
 @extends('layouts.frontend.app')
 
+
+
+@push('css')
+<link href="https://fonts.googleapis.com/css?family=Literata&display=swap" rel="stylesheet">
+<style>
+  .table-card {
+    padding:10px;
+    font-family: 'Literata', serif;
+
+    -webkit-box-shadow: 0px 3px 9px 0px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 3px 9px 0px rgba(0,0,0,0.3);
+    box-shadow: 0px 3px 9px 0px rgba(0,0,0,0.3);
+  }
+
+  .btndetails:hover {
+    color: #fff !important;
+  }
+</style>
+@endpush
 @section('content')
 <br>
 <br>
@@ -9,7 +28,7 @@
 
 <div class="container">
 <div class="table-responsive">
-    <table class="table table-sm table-nowrap card-table">
+    <table class="table table-sm table-nowrap table-card card-table">
       <thead>
         <tr>
           <th>
@@ -41,8 +60,13 @@
             </a>
           </th>
           <th>
+              <a href="#" class="text-muted sort" data-sort="sales-date">
+                Quantity
+              </a>
+            </th>
+          <th>
             <a href="#" class="text-muted sort" data-sort="sales-total">
-              Price
+              Price(per unit)
             </a>
           </th>
           <th>
@@ -57,7 +81,7 @@
           </th>
         </tr>
       </thead>
-      <tbody class="list">
+      <tbody>
         @foreach($orderProducts as $orderProduct)
         @php 
           $orders = \App\Models\Order::where('user_id',Auth::id())->get();
@@ -65,10 +89,11 @@
         //   $order_data =[];
           foreach($orders as $order)
           {
+            $data['id'] = $order->id;
             $data['name'] = $order->user->fullname;
             $data['created_at'] = $order->created_at;
             $data_orders = collect($order->products);
-            // dd($data['products']);
+            // dd($data_orders);
           }
         //   dd($data_orders);
         @endphp
@@ -84,7 +109,7 @@
             </div>
           </td>
           <td class="sales-onumber">
-            # {{ $orderProduct->id }}
+            # {{ $data['id'] }}
           </td>
           <td colspan="2" class="sales-user">
              {{-- {{ $orderProduct->user->fullname }} --}}
@@ -94,28 +119,35 @@
             @php 
               foreach($data_orders as $product)
               {
+                // dd($product->name);
                 // dd($product->pivot->price);
                 $data['name'] = $product->name;
                 $data['created_at'] = $product->created_at;
-                $data['price'] = $product->price;
+                $data['price'] = $product->discount_price;
                 $data['status'] = $product->status;
               }
             @endphp
-              {{-- {{ $data['name'] }} --}}
+              {{ $data['name'] }}
               {{-- {} --}}
           </td>
           <td class="sales-date">
             <time datetime="2018-07-30">
-              {{-- {{ $orderProduct->created_at->diffForHumans() }} --}}
+              {{ $data['created_at'] }}
             </time>
+          </td>
+          <td>
+            {{ $orderProduct->qty }}
           </td>
           <td class="sales-total">
             {{-- N {{ $order->total }} --}}
-            {{ $data['price'] }} 
-            {{-- {{ $orderProduct->price }} --}}
+            @php 
+              $order = \App\Models\Order::where('id',$orderProduct->order_id)->first();
+            @endphp
+            {{-- N {{ number_format($order->total,2) }}  --}}
+            ₦ {{ number_format($orderProduct->price,2) }}
           </td>
           <td class="sales-status">
-            
+            Paid
               {{-- @if($orderProduct->isReserved())
               <div class="badge badge-soft-success">
               Reserved
@@ -138,7 +170,7 @@
             
           </td>
           <td class="sales-method">
-            Card
+            Debit Card
           </td>
           <td class="text-right">
             <div class="dropdown">

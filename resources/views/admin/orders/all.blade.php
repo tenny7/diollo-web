@@ -21,7 +21,7 @@
 
                     <!-- Title -->
                     <h1 class="header-title">
-                      Orders
+                     All Orders
                     </h1>
 
                   </div>
@@ -41,7 +41,7 @@
                     <ul class="nav nav-tabs nav-overflow header-tabs">
                       <li class="nav-item">
                         <a href="sales-all.html" class="nav-link active">
-                          All <span class="badge badge-pill badge-soft-secondary">823</span>
+                        All <span class="badge badge-pill badge-soft-secondary">{{ count($orderProducts)}}</span>
                         </a>
                       </li>
                       {{-- <li class="nav-item">
@@ -49,7 +49,7 @@
                           Pending <span class="badge badge-pill badge-soft-secondary">24</span>
                         </a>
                       </li> --}}
-                      <li class="nav-item">
+                      {{-- <li class="nav-item">
                         <a href="sales-reserved.html" class="nav-link">
                           Reserved <span class="badge badge-pill badge-soft-secondary">3</span>
                         </a>
@@ -58,7 +58,7 @@
                         <a href="sales-returns.html" class="nav-link">
                           Returns <span class="badge badge-pill badge-soft-secondary">71</span>
                         </a>
-                      </li>
+                      </li> --}}
                     </ul>
 
                   </div>
@@ -90,29 +90,25 @@
                     <!-- Button -->
 
                     <div class="dropdown">
-                      <button class="btn btn-sm btn-white dropdown-toggle" type="button" id="bulkActionDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Bulk action
-                      </button>
-                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="bulkActionDropdown">
-                        <a class="dropdown-item" href="#!">Action</a>
-                        <a class="dropdown-item" href="#!">Another action</a>
-                        <a class="dropdown-item" href="#!">Something else here</a>
-                      </div>
+                        <button class="btn btn-sm btn-white dropdown-toggle" type="button" id="bulkActionDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Bulk action
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="bulkActionDropdown">
+                            <button class="dropdown-item admindeleteOrderAction" id="admindeleteOrderAction">Delete</button>
+                        </div>
                     </div>
 
                   </div>
                 </div> <!-- / .row -->
               </div>
               <div class="table-responsive">
-                <table class="table table-sm table-nowrap card-table">
+                <table class="table table-sm table-nowrap card-table" id="tableId">
                   <thead>
                     <tr>
                       <th>
                         <div class="custom-control custom-checkbox table-checkbox">
                           <input type="checkbox" class="custom-control-input" name="ordersSelect" id="ordersSelectAll">
-                          <label class="custom-control-label" for="ordersSelectAll">
-                            &nbsp;
-                          </label>
+                          select
                         </div>
                       </th>
                       <th>
@@ -156,15 +152,17 @@
                     @foreach($orderProducts as $orderProduct)
                     @php 
                       $order = \App\Models\Order::find($orderProduct->order_id);
+                      // dd($order);
                     @endphp
         
                     <tr>
                       <td>
                         <div class="custom-control custom-checkbox table-checkbox">
-                          <input type="checkbox" class="custom-control-input" name="ordersSelect" id="ordersSelectOne">
+                            <input type="checkbox" class="orderIDs" value="{{ $order->id }}" name="order[]" id="orderId">
+                          {{-- <input type="checkbox" class="custom-control-input" name="ordersSelect" id="ordersSelectOne">
                           <label class="custom-control-label" for="ordersSelectOne">
                             &nbsp;
-                          </label>
+                          </label> --}}
                         </div>
                       </td>
                       <td class="sales-onumber">
@@ -232,9 +230,9 @@
                             <a href="#!" class="dropdown-item">
                               View Invoice
                             </a>
-                          <a href="{{ route('admin.orders.markReturned', $order->id)}}" class="dropdown-item"> 
+                          {{-- <a href="{{ route('admin.orders.markReturned', $order->id)}}" class="dropdown-item"> 
                               Mark as Returned
-                            </a>
+                            </a> --}}
                            <a href="{{ route('admin.orders.markReserved', $order->id)}}" class="dropdown-item">
                               Mark as Reserved
                            </a>
@@ -254,3 +252,8 @@
 
     </div>
 @endsection
+
+@push('scripts')
+<script src="{{ asset('assets/admin/js/custom.js')}}"></script>
+<script src="{{ asset('assets/admin/js/toastr.js')}}"></script>
+@endpush

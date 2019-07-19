@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Brand;
 use App\Models\Store;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -171,6 +172,124 @@ class ProductsController extends Controller
         return view('agents.products.new', compact('brands','stores','agents'));
     }
 
+    public function allBrands()
+    {
+        $brands = Brand::all();
+        return view('agents.brands.all', compact('brands'));
+    }
+
+    public function all()
+    {
+        $categories = Category::all();
+        return view('agents.category.all', compact('categories'));
+    }
+
+    public function showBrandPage()
+    {
+        $brands = Brand::all();
+        // $levels = Brand::where(['parent_id' => null])->get();
+        return view('agents.brands.add', compact('brands'));
+    }
+
+    public function showCategoryPage()
+    {
+        $categories = Category::all();
+        $levels = Category::where(['parent_id' => null])->get();
+        return view('agents.category.add', compact('categories','levels'));
+    }
+
+    public function showBrandUpdateForm($id)
+    {
+        $brand = Brand::find($id);
+        return view('agents.brands.update', compact('brand'));
+    }
+
+    public function showCategoryUpdateForm($id)
+    {
+        $category = Category::find($id);
+        $levels = Category::where(['parent_id' => $category->id])->get();
+        return view('agents.category.update', compact('category','levels'));
+    }
+
+    public function addBrand(Request $request)
+    {
+        $validatedData = $this->validate($request,[
+            'name'              => 'required|string',
+        ]);
+
+        $brand =  new Brand;
+        $brand->fill($validatedData);
+       
+        
+        if($brand->save())
+        {
+            return redirect()->back()->with(['success' => 'brand added']);   
+        }
+        
+    }
+    public function updateBrand(Request $request,$id)
+    {
+        $validatedData = $this->validate($request,[
+            'name'              => 'required|string',
+        ]);
+
+        
+        $brand = Brand::find($id);
+        $brand->fill($validatedData);
+       
+        
+        if($brand->save())
+        {
+            return redirect()->back()->with(['success' => 'brand updated']);   
+        }
+        
+    }
+    public function addCategory(Request $request)
+    {
+        $validatedData = $this->validate($request,[
+            'name'              => 'required|string',
+            'meta_title'        => 'required|string',
+            'meta_description'  => 'required|string',
+            'parent_id'         => 'required',
+        ]);
+
+        $category =  new Category;
+        $category->fill($validatedData);
+        $category->slug         = $validatedData['name'];
+        $category->parent_id    = $validatedData['parent_id'];
+       
+        
+        $levels = Category::where(['parent_id' => 0])->get();
+        if($category->save())
+        {
+            return redirect()->back()->with(['success' => 'category added']);   
+        }
+        
+    }
+
+    public function updateCategory(Request $request,$id)
+    {
+        $validatedData = $this->validate($request,[
+            'name' => 'required|string',
+            'meta_title' => 'required|string',
+            'meta_description' => 'required|string',
+        ]);
+
+        
+        $category = Category::find($id);
+        $category->fill($validatedData);
+        $category->slug = $validatedData['name'];
+
+        $levels = Category::where(['parent_id' => 0])->get();
+
+        if($category->save())
+        {
+            $success = 'category added';
+            return redirect()->back()->with(['success' => 'category updated']);  
+        }
+        
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -235,6 +354,7 @@ class ProductsController extends Controller
     public function destroy($product_slug)
     {
         $product = Product::where('slug',$product_slug)->first();
+        $products = \DB::table('order_product')->where('product_id',$product->id)->delete();;
         
         if($product->delete())
         {

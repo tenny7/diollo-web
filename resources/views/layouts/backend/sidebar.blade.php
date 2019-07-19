@@ -64,10 +64,16 @@
                         </li>
                     </ul>
                     <!-- Divider -->
+                    @php 
+                    $store = \App\Models\Store::where('vendor_id',Auth::id())->first();
+                    @endphp
+                    @if(!is_null($store))
                     <hr class="navbar-divider my-3">
     
                     <!-- Navigation -->
                     <ul class="navbar-nav">
+
+                       
                         <li class="nav-item">
                             <a class="nav-link" href="#products" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="products">
                                 <i class="fe fe-box"></i> Products 
@@ -109,7 +115,7 @@
                                             All Sales
                                         </a>
                                     </li>
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                         <a href="{{route('vendor.sales.reserved')}}" class="nav-link {{ Request::is('vendor/sales/reserved*') ? 'active' : '' }}">
                                             Reserved
                                         </a>
@@ -118,7 +124,7 @@
                                         <a href="{{route('vendor.sales.returns')}}" class="nav-link {{ Request::is('vendor/sales/returns*') ? 'active' : '' }}">
                                             Returns
                                         </a>
-                                    </li>
+                                    </li> --}}
     
                                     <li class="nav-item">
                                         <a href="{{route('vendor.sales.customers')}}" class="nav-link {{ Request::is('vendor/sales/customers*') ? 'active' : '' }}">
@@ -127,16 +133,14 @@
                                     </li>
                                     
                                     <br>
-                        <li class="nav-item">
-                            <a href="{{ route('customer.logout')}}" class="nav-link">
-                                    <i class="fa fa-sign-out">&nbsp;&nbsp;&nbsp;</i>Logout
-                            </a>
-                        </li>
+                        
                                 </ul>
                             </div>
                         </li>
                         
+                        
                     </ul>
+                    @endif
     
                     <!-- Divider -->
                     <hr class="navbar-divider my-3">
@@ -149,11 +153,11 @@
                                 </a>
                             <div class="collapse {{ Request::is('vendor/settings*') ? 'show' : '' }}" id="settings">
                                 <ul class="nav nav-sm flex-column">
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                         <a href="{{route('vendor.settings.general')}}" class="nav-link {{ Request::is('vendor/settings/general*') ? 'active' : '' }}">
                                             General
                                         </a>
-                                    </li>
+                                    </li> --}}
                                     <li class="nav-item">
                                         <a href="{{route('vendor.settings.profile')}}" class="nav-link {{ Request::is('vendor/settings/profile*') ? 'active' : '' }}">
                                             Profile
@@ -202,6 +206,52 @@
     
                     <!-- Navigation -->
                     <ul class="navbar-nav">
+
+                            <li class="nav-item">
+                                    <a class="nav-link" href="#brand" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="products">
+                                        <i class="fe fe-box"></i> Brands
+                                        </a>
+                                    <div class="collapse " id="brand">
+                                        <ul class="nav nav-sm flex-column">
+                                            
+                                            
+                                            <li class="nav-item">
+                                            <a href="{{route('agent.brand.all')}}" class="nav-link {{ Request::is('agent/brand/all*') ? 'active' : '' }}">
+                                                    All
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                            <a href="{{route('agent.brand.showBrandAdd')}}" class="nav-link {{ Request::is('agent/brand/show-add-form*') ? 'active' : '' }}">
+                                                    Add
+                                                </a>
+                                            </li>
+                                            
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#category" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="products">
+                                        <i class="fe fe-box"></i> Category
+                                        </a>
+                                    <div class="collapse " id="category">
+                                        <ul class="nav nav-sm flex-column">
+                                            
+                                            
+                                            <li class="nav-item">
+                                            <a href="{{route('agent.category.all')}}" class="nav-link {{ Request::is('agent/category/all*') ? 'active' : '' }}">
+                                                    All
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                            <a href="{{route('agent.category.showCategoryAdd')}}" class="nav-link {{ Request::is('agent/category/show-add-form*') ? 'active' : '' }}">
+                                                    Add
+                                                </a>
+                                            </li>
+                                            
+                                        </ul>
+                                    </div>
+                                </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="#stores" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="vendors">
                                 <i class="fe fe-briefcase"></i> Stores
@@ -215,7 +265,7 @@
                                             All Stores
                                         </a>
                                     </li>
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                         <a href="{{ route('agent.stores.complete') }}" class="nav-link {{ Request::is('agent/stores/complete*') ? 'active' : '' }}">
                                             Complete
                                         </a>
@@ -224,7 +274,7 @@
                                         <a href="{{ route('agent.stores.incomplete') }}" class="nav-link {{ Request::is('agent/stores/incomplete*') ? 'active' : '' }}">
                                             Incomplete
                                         </a>
-                                    </li>
+                                    </li> --}}
                                    
                                 </ul>
                             </div>
@@ -242,7 +292,7 @@
                                             All Vendors
                                         </a>
                                     </li>
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                         <a href="{{ route('agent.vendors.complete') }}" class="nav-link {{ Request::is('agent/vendors/complete*') ? 'active' : '' }}">
                                             Complete
                                         </a>
@@ -251,7 +301,7 @@
                                         <a href="{{ route('agent.vendors.incomplete') }}" class="nav-link {{ Request::is('agent/vendors/incomplete*') ? 'active' : '' }}">
                                             Incomplete
                                         </a>
-                                    </li>
+                                    </li> --}}
                                    
                                 </ul>
                             </div>
@@ -369,7 +419,7 @@
                                             All stores
                                         </a>
                                     </li>
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                         <a href="{{route('admin.stores.complete')}}" class="nav-link {{ Request::is('admin/stores/complete*') ? 'active' : '' }}">
                                             Complete
                                         </a>
@@ -378,7 +428,7 @@
                                         <a href="{{route('admin.stores.incomplete')}}" class="nav-link {{ Request::is('admin/stores/incomplete*') ? 'active' : '' }}">
                                             Incomplete
                                         </a>
-                                    </li>
+                                    </li> --}}
                                    
                                 </ul>
                             </div>
@@ -468,16 +518,16 @@
                                             All Orders
                                         </a>
                                     </li>
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                         <a href="{{route('admin.orders.reserved')}}" class="nav-link {{ Request::is('*reserved') ? 'active' : '' }}">
                                             Reserved
                                         </a>
-                                    </li>
-                                    <li class="nav-item">
+                                    </li> --}}
+                                    {{-- <li class="nav-item">
                                         <a href="{{route('admin.orders.returns')}}" class="nav-link {{ Request::is('admin/orders/returned*') ? 'active' : '' }}">
                                             Returned
                                         </a>
-                                    </li>
+                                    </li> --}}
                                     
                                 </ul>
                             </div>
@@ -619,7 +669,7 @@
                         
                         <li class="nav-item">
                             <a class="nav-link" href="#vendors" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="vendors">
-                                <i class="fe fe-briefcase"></i> Vendors
+                                <i class="fe fe-briefcase"></i> Refferals
                              </a>
                             <div class="collapse {{ Request::is('admin/vendors*') ? 'show' : '' }}" id="vendors">
                                 <ul class="nav nav-sm flex-column">
@@ -627,7 +677,7 @@
                                         {{-- 'agent.stores.index' --}}
                                     <li class="nav-item">
                                     <a href="{{ route('affiliate.history') }}" class="nav-link {{ Request::is('agent/vendors/all*') ? 'active' : '' }}">
-                                            All Referred Vendors
+                                            All Vendors Referred 
                                         </a>
                                     </li>
                                     

@@ -28,7 +28,7 @@
           <i class="far fa-user">&nbsp;&nbsp;</i>
             </div>
             <div>
-              <a class="bd" href="#">My Profile</a>
+              <a class="bd" href="{{ route('customer.accountInfo') }}">My Profile</a>
               <p class="text-muted">Account Information</p>
             </div>
           </div>
@@ -37,7 +37,7 @@
             <img src="{{ asset('assets/password/images/wallet-outline.png')}}" alt="wallet">&nbsp;&nbsp;
             </div>
             <div>
-              <a class="bd" href="#">My Wallet</a>
+              <a class="bd" href="{{ route('customer.wallet')}}">My Wallet</a>
               <p class="text-muted">Wallet</p>
             </div>
           </div>
@@ -46,14 +46,14 @@
               <img src="{{ asset('assets/password/images/shopping bag.png')}}" alt="bag">
             </div>
             <div>
-              <a class="bd" href="#">My Orders</a>
+              <a class="bd" href="{{ route('orders.viewOrders') }}">My Orders</a>
               <p class="text-muted">Orders</p>
             </div>
           </div>
         </div>
   
         <div class="col-md-8">
-          <h3>My Saved Items</h3>
+          <h3>Wishlist</h3>
           <h4>All Items</h4>
           <hr>
           

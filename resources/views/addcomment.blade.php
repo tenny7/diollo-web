@@ -20,7 +20,7 @@
 <div class="container">
     <div class="row">
         <a href="index.html" style="text-decoration:none; color: #d1d2d3;"
-            class="storename"> <i class="fas fa-angle-left fa-2x" style="margin-top: 15px;"></i>&nbsp; &nbsp; <a href="product.html">Back to Product</a></p>
+    class="storename"> <i class="fas fa-angle-left fa-2x" style="margin-top: 15px;"></i>&nbsp; &nbsp; <a href="{{ route('customer.productPage', $product->id )}}">Back to Product</a></p>
         </a> 
     </div>
 </div>
@@ -48,6 +48,7 @@
             </div>
         </div>
         <div class="col-xs-12 col-md-8">
+            @include('partials.admin.success')
             <div class="row">
                 <div class="col-md-6">
                     <p class="text-light" style="margin-left: 20px;">Apple Product </p>
@@ -79,21 +80,26 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                                        <form style="padding: 15px;">
-                                                            <div class="form-group">
-                                                                <label for="name" class="text-muted">Title:</label>
-                                                                <input type="text" class="form-control" id="InputName">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="email" class="text-muted">Review:</label><br>
-                                                                <textarea name="subject" class="review_text" rows="5" cols="43"></textarea>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="name" class="text-muted">Publish As:</label>
-                                                                <input type="text" class="form-control" id="InputName">
-                                                            </div>
-                                                        </form>
-                                                        <button type="submit" class="publish_btn center-block">PUBLISH</button>
+                            <form style="padding: 15px;" action="{{ route('customer.review.add')}}" method="post">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="name" class="text-muted">Title:</label>
+                                    <input type="text" name="title" class="form-control" id="InputName">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" class="text-muted">Review:</label><br>
+                                    <textarea class="review_text" name="review_text" rows="5" cols="43"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name" class="text-muted">Publish As:</label>
+                                <input type="text" class="form-control" name="publish_as" id="InputName" disabled value="{{ Auth::user()->fullname }}">
+                                    <input type="hidden" name="product_name" value="{{ $product->name }}">
+                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                    <input type="hidden" name="rating" value="{{ $rating }}">
+                                </div>
+                                <button type="submit" class="publish_btn center-block">PUBLISH</button>
+                            </form>
+                            
                             </div>
                             <div class="col-md-6"></div>
                         </div>

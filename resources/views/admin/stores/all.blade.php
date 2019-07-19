@@ -39,19 +39,7 @@
                                     <ul class="nav nav-tabs nav-overflow header-tabs">
                                         <li class="nav-item">
                                             <a href="products-all.html" class="nav-link active">
-                                              All <span class="badge badge-pill badge-soft-secondary">823</span>
-                                            </a>
-                                        </li>
-
-                                        <li class="nav-item">
-                                            <a href="products-all.html" class="nav-link">
-                                                Complete <span class="badge badge-pill badge-soft-secondary">700</span>
-                                            </a>
-                                        </li>
-
-                                        <li class="nav-item">
-                                            <a href="products-all.html" class="nav-link">
-                                                Incomplete <span class="badge badge-pill badge-soft-secondary">123</span>
+                                            All <span class="badge badge-pill badge-soft-secondary">{{ count($stores)}}</span>
                                             </a>
                                         </li>
 
@@ -163,16 +151,9 @@
                                     @foreach($stores as $store)
                                     <tr>
                                         <td>
-                                            {{-- <input type="checkbox" name="service_sel[]" value="{{ $service->id}}"  class="service_sel"> --}}
-                                            {{-- <div class="custom-control custom-checkbox table-checkbox">
-                                            <input type="checkbox" class="custom-control-input" value="{{ $store->id }}" name="storeId[]" id="storeSelected">
-                                                <label class="custom-control-label" for="productsSelectOne">
-                                                    &nbsp;
-                                                </label>
-                                            </div> --}}
                                             <div class="custom-control custom-checkbox table-checkbox">
                                                    
-                                            <input type="checkbox" class="storeIDs" value="{{ $store->id }}" name="store[]" id="storeId">
+                                            <input type="checkbox" class="storeIDsd" value="{{ $store->id }}" name="store[]" id="storeId">
                                                     
                                                 </div>
                                         </td>
@@ -233,7 +214,7 @@
                                                     <i class="fe fe-more-vertical"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="{{ route('admin.stores.view') }}" class="dropdown-item">
+                                                <a href="{{ route('customer.storePage',$store->id) }}" class="dropdown-item">
                                                         View Store
                                                     </a>
                                                 <a href="{{ route('admin.stores.showUpdateForm',$store->id)}}" class="dropdown-item">
@@ -292,7 +273,7 @@
     </div>
 @endsection
 
-{{-- @push('scripts')
+@push('scripts')
 <script src="{{ asset('assets/admin/js/custom.js')}}"></script>
 <script src="{{ asset('assets/admin/js/toastr.js')}}"></script>
-@endpush --}}
+@endpush

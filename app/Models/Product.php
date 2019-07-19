@@ -7,18 +7,22 @@ use App\Models\Brand;
 
 use App\Models\Order;
 use App\Models\Store;
+use App\Models\Review;
 use App\Models\Category;
 use Illuminate\Support\Str;
+use App\Models\OrderProduct;
+// use Spatie\Searchable\Searchable;
 use App\Models\ProductImage;
 use App\Traits\UploadableTrait;
-// use Spatie\Searchable\Searchable;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
+use willvincent\Rateable\Rateable;
 // use Illuminate\Notifications\Notifiable;
 
 class Product extends BaseModel
 {
     use UploadableTrait;
+    use Rateable;
     
 
     const FEATURED_PRODUCT = 2;
@@ -102,6 +106,12 @@ class Product extends BaseModel
         // , 'tax_amount'
     }
 
+    // public function orderproduct()
+    // {
+    //     return $this->hasMany(OrderProduct::class);
+    //     // , 'tax_amount'
+    // }
+
     public function carts()
     {
         return $this->belongsToMany(Cart::class);
@@ -114,7 +124,7 @@ class Product extends BaseModel
      */
     public function reviews()
     {
-        return $this->morphMany('App\Models\Review', 'reviewable');
+        return $this->morphMany(Review::class, 'reviewable');
     }
 
     /**

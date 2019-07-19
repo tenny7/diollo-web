@@ -32,33 +32,36 @@
           </h2>
   </div>
 
+  @include('partials.admin.success')
+                  @include('partials.admin.error')
+
   <div class="col-md-4 col-sm-12 col-xs-12">
           <div class="card card-profile">
                   <div class="table-display bd">
-                          <a href="#">
+                          <a href="{{ route('customer.accountInfo') }}">
                                   <p class="myprofile"> <i class="far fa-user" style="margin-right:6px;"></i> My
                                           Profile</p>
                           </a>
-                          <p class="personalinfo">
+                          {{-- <p class="personalinfo">
                                   Personal Information
-                          </p>
+                          </p> --}}
                   </div>
                   <div class="table-display bd">
-                          <a href="#">
+                          <a href="{{ route('customer.wallet')}}">
                                   <p class="mywallet"> <img src="{{ asset('assets/password/images/wallet-outline.png')}}" alt="wallet" style="margin-right:6px;">
                                           </i> My Wallet</p>
                           </a>
-                          <p class="walletinfo">
+                          {{-- <p class="walletinfo">
                                   Wallet
-                          </p>
+                          </p> --}}
                   </div>
                   <div class="table-display bd">
-                          <a href="#">
+                          <a href="{{ route('orders.viewOrders') }}">
                                   <p class="myorders"> <img src="{{ asset('assets/password/images/shopping bag.png')}}" alt="bag"> My Orders</p>
                           </a>
-                          <p class="orderinfo">
+                          {{-- <p class="orderinfo">
                                   My Orders
-                          </p>
+                          </p> --}}
                   </div>
           </div>
   </div>
@@ -66,140 +69,156 @@
   <div class="col-md-8 col-sm-12 col-xs-6">
           <div class="card">
               <div class="col-md-6 col-sm-12 col-xs-6">
-                  <p class="hidavid">Hi, David Ofiare</p>
+              <p class="hidavid">Hi, {{ Auth::user()->fullname }}</p>
                   <p class="infoform"> Personal Information</p>
                   <hr class="line">
-                  <form action="" method="">
+                  
+              <form action="{{ route('customer.profile.update')}}" method="post">
+                @csrf
                           <div class="form-group">
                                   <label for="firstName" style="font-size: 12px; font-weight: 200;
                                   font-family: 'Cabin', sans-serif; color: #969696">First Name</label>
-                                  <input type="text" class="form-control" value="{{ $user->first_name}}" placeholder="David" style="font-size: 12px;
+                                  <input type="text" class="form-control" name="first_name" value="{{ $user->first_name}}" placeholder="David" style="font-size: 12px;
                                   font-family: 'Cabin', sans-serif; font-weight:bold; color:#0a0a3f" >
                           </div>
                           <div class="form-group">
                                   <label for="lastName" style="font-size: 12px; font-weight: 200;
                                   font-family: 'Cabin', sans-serif; color: #969696">Last Name</label>
-                                  <input type="text" value="{{ $user->last_name}}" class="form-control" placeholder="Ofiare"  style="font-size: 12px;
+                                  <input type="text" name="last_name" value="{{ $user->last_name}}" class="form-control" placeholder="Ofiare"  style="font-size: 12px;
                                   font-family: 'Cabin', sans-serif; font-weight:bold; color:#000033">
                           </div>
                           {{-- <div class="row"> --}}
                                   <div class="form-group ">
                                           <label for="email" style="font-size: 12px; font-weight: 200;
                                           font-family: 'Cabin', sans-serif; color: #969696">Email</label>
-                                          <input type="text" class="form-control" value="{{ $user->email}}" placeholder="email">
+                                          <input type="text" name="email" class="form-control" value="{{ $user->email}}" placeholder="email">
                                   </div>
+
                                   <div class="form-group">
+                                        <label for="state" style="font-size: 12px; font-weight: 200;
+                                        font-family: 'Cabin', sans-serif; color: #969696">Phone Number</label> <br>
+                                        <input type="text" class="form-control" name="phone" placeholder="+234" value="{{ $user->phone }}" style=" font-size: 12px;
+                                        font-family: 'Cabin'; font-weight: bold;">
+                                        {{-- <input type="text" class="form-control" placeholder="" style="font-size: 12px;
+                                        font-family: 'Cabin'; font-weight: bold; color: #000033"> --}}
+                                </div>
+                                  {{-- <div class="form-group">
                                         <label for="">
                                             Date of Birth
                                         </label>
-                                        <input type="text" class="form-control" placeholder="Enter your birthday" name="birthday" data-toggle="flatpickr" required>
-                                    </div>
+                                        <input type="text" name="dob" class="form-control" placeholder="Enter your birthday" name="birthday" data-toggle="flatpickr" required>
+                                    </div> --}}
+
+                        
+
+                        <div class="form-group">
+                                <button type="submit" class="purple" style="color:#fff; border-radius:25px; padding:4px; border:none; width:100%;">Update</button>
+                        </div>
+              </form>
+              <h3>Update password</h3>
+              <form action="{{ route('customer.profile.password')}}" method="post">
+                @csrf
 
 
-                                  {{-- <div class="form-group col-xs-12 col-sm-12">
-                                          <label for="birthday" style="font-size: 12px; font-weight: 200;
-                                          font-family: 'Cabin', sans-serif; color: #969696">Birthday</label>
-                                                  <br>
-                                                  <select name="day" id="day" class="" style="border:none;">
-                                                          <option value="">10</option>
-                                                          <option value="">11</option>
-                                                          <option value="">12</option>
-                                                          <option value="">13</option>
-                                                          <option value="">14</option>
-                                                          <option value="">15</option>
-                                                  </select>
-
-                                                  <select name="month" id="month" style="border: none;">
-                                                          <option value="">05</option>
-                                                          <option value="">06</option>
-                                                          <option value="">07</option>
-                                                          <option value="">08</option>
-                                                          <option value="">09</option>
-                                                          <option value="">10</option>
-                                                  </select>
-                                                                                                          </select>
-                                                  <select name="year" id="year" style="border: none">
-                                                          <option value="">2000</option>
-                                                          <option value="">2001</option>
-                                                          <option value="">2002</option>
-                                                          <option value="">2003</option>
-                                                          <option value="">2004</option>
-                                                          <option value="">2005</option>
-                                                  </select>
-
-
-                                  </div> --}}
-                          {{-- </div> --}}
                           <div class="form-group">
                                   <label for="currentPassword" style="font-size: 12px; font-weight: 200;
                                   font-family: 'Cabin', sans-serif; color: #969696">Current Password</label>
-                                  <input type="password" class="form-control" placeholder="" value="{{ $user->password}}">
+                                  <input type="password" name="old_password" class="form-control" placeholder="Enter old password"> 
+                                  {{-- value="{{ str_limit($user->password,7) }}> --}}
                           </div>
 
                           <div class="form-group">
                                   <label for="newPassword" style="font-size: 12px; font-weight: 200;
                                   font-family: 'Cabin', sans-serif; color: #969696">New Password</label>
-                                  <input type="password" class="form-control" placeholder="">
+                                  <input type="password" name="new_password" class="form-control" placeholder="Enter new password">
                           </div>
                           <div class="form-group">
                                   <label for="confirmPassword" style="font-size: 12px; font-weight: 200;
                                   font-family: 'Cabin', sans-serif; color: #969696">Confirm Password</label>
-                                  <input type="password" class="form-control" placeholder="">
+                                  <input type="password" name="c_password" class="form-control" placeholder="confirm new password">
                           </div>
 
-
+                          <div class="form-group">
+                                <button type="submit" class="purple" 
+                                style="color:#fff; border-radius:25px; padding:4px; border:none; width:100%;">Change Password</button>
+                        </div>
                   </form>
                   </div>
 
                   <div class="col-md-6 col-sm-12 col-xs-6" style="margin-top:30px;">
+
+                        <form action="{{ route('customer.profile.location')}}" method="post">
+                                @csrf
                           <div class="form-group">
                                           <p class="infoform"> Location Information</p>
                                           <hr class="line">
                                   <label for="location" style="font-size: 12px; font-weight: 200;
                                   font-family: 'Cabin', sans-serif; color: #969696"> Current location</label> <br>
 
-                                  <div class="input-group form-controlstate">
-                                          <div class="input-group-addon">
+                                  {{-- <div class="input-group form-controlstate"> --}}
+                                  <div class="form-group ">
+                                          {{-- <div class="input-group-addon">
                                                  <a href="#"> <i class="fas fa-paper-plane" style="color: #FF0066"></i></a>
-                                          </div>
-                                          <select name="location" id="location" class="form-control1" style="color:#FF3C89; background-color:rgb(248, 238, 242); font-size: 10px; font-style:italic; font-family:  'Cabin', sans-serif; margin-left: 30px;">
-                                          {{-- <option value="">{{ $city->name }}</option> --}}
+                                          </div> --}}
+                                          {{-- <select name="location" id="location" class="form-control1" style="color:#FF3C89; background-color:rgb(248, 238, 242); font-size: 10px; font-style:italic; font-family:  'Cabin', sans-serif; margin-left: 30px;"> --}}
+                                          {{-- @foreach($countries as $country)
+                                                {{ $ }}
+                                          @endforeach --}}
+                                          <select id="country" name="country_code" class="country form-control" style="color:#FF3C89; background-color:rgb(248, 238, 242); font-size: 14px; font-style:italic; font-family:  'Cabin', sans-serif; "
+                                          data-toggle="select" data-select2-id="4"  aria-hidden="true">
+                                          {{-- tabindex="-1" --}}
+                                           {{-- margin-left: 30px; --}}
+                                                <option value="">Nothing selected</option>
+                                                @foreach($countries as $country)
+                                                        <option value="{{ $country->code }}">{{ $country->name }}</option>
+                                                @endforeach
+                                            </select>
+                                                {{-- <option value="">{{ $city->name }}</option> --}}
                                                   {{-- <option value="">Abuja</option>
                                                   <option value="">Enugu</option> --}}
-                                          </select>
+                                          {{-- </select> --}}
                                   </div>
 
 
                           </div>
 
                           <div class="form-group">
-                                  <label for="address" style="font-size: 12px; font-weight: 200;
-                                  font-family: 'Cabin', sans-serif; color: #969696">Stress Address</label>
-                                  <input type="text" class="form-control" value="{{ $user->street }}" placeholder="street">
-                          </div>
+                                <label for="state" style="font-size: 12px; font-weight: 200;
+                                font-family: 'Cabin', sans-serif; color: #969696">State</label>
+                                <select id="regions" name="region_id" class="regions form-control " data-toggle="select" data-select2-id="7" tabindex="-1" aria-hidden="true">
+                                      {{-- <option data-select2-id="9">Cross River</option> --}}
+                                      
+                                  </select>
+                                {{-- <input type="text" class="form-control" placeholder="Ofiare" style="font-size: 12px;
+                                font-family: 'Cabin'; font-weight: bold; color: #000033"> --}}
+                        </div>
+
+                          
 
                           <div class="form-group">
                                   <label for="city" style="font-size: 12px; font-weight: 200;
                                   font-family: 'Cabin', sans-serif; color: #969696">City</label>
-                                  <input type="text" class="form-control" placeholder="Uyo" style="font-size: 12px;
-                                  font-family: 'Cabin';font-weight: bold;  color: #000033">
+                                  <select id="city" name="city_id" class="city form-control " data-toggle="select" data-select2-id="10" tabindex="-1" aria-hidden="true">
+                                        {{-- <option data-select2-id="12">Calabar</option>
+                                        <option>Akpabuyo</option>
+                                        <option>Ikang</option> --}}
+                                    </select>
+                                  {{-- <input type="text" class="form-control" placeholder="Uyo" style="font-size: 12px;
+                                  font-family: 'Cabin';font-weight: bold;  color: #000033"> --}}
                           </div>
 
+                          
+
                           <div class="form-group">
-                                  <label for="state" style="font-size: 12px; font-weight: 200;
-                                  font-family: 'Cabin', sans-serif; color: #969696">State</label>
-                                  <input type="text" class="form-control" placeholder="Ofiare" style="font-size: 12px;
-                                  font-family: 'Cabin'; font-weight: bold; color: #000033">
-                          </div>
-                          <div class="form-group">
-                                          <label for="state" style="font-size: 12px; font-weight: 200;
-                                          font-family: 'Cabin', sans-serif; color: #969696">Phone Number</label> <br>
-                                          <input type="text" class="form-control111" placeholder="+234" style=" font-size: 12px;
-                                          font-family: 'Cabin'; font-weight: bold;">
-                                          <input type="text" class="form-control11" placeholder="" style="font-size: 12px;
-                                          font-family: 'Cabin'; font-weight: bold; color: #000033">
-                                  </div>
-                                  <button id="savebutton">SAVE ALL CHANGES</button>
+                                <label for="address" style="font-size: 12px; font-weight: 200;
+                                font-family: 'Cabin', sans-serif; color: #969696">Stress Address</label>
+                                <input type="text" class="form-control" name="street" value="{{ $user->street }}" placeholder="street">
+                        </div>
+
+                          
+                                  <button id="savebutton" type="submit">SAVE ALL CHANGES</button>
+
+                                </form>
 
                   </div>
 
@@ -236,7 +255,15 @@
 @stop
 
 @push('scripts')
+<script src="{{ asset('assets/admin/js/custom.js')}}"></script>
+<script src="{{ asset('assets/admin/js/toastr.js')}}"></script>
 <script src="{{asset('assets/admin/libs/highlightjs/highlight.pack.min.js')}}"></script>
     <script src="{{asset('assets/admin/libs/flatpickr/dist/flatpickr.min.js')}}"></script>
     <script src="{{asset('assets/admin/libs/jquery-mask-plugin/dist/jquery.mask.min.js')}}"></script>
+    
 @endpush
+
+
+{{-- @push('scripts')
+    
+@endpush --}}

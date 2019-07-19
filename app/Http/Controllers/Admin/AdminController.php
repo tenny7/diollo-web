@@ -18,11 +18,11 @@ class AdminController extends Controller
      */
     public function dashboard()
     {
-        $user = Auth::user();
+        // $user = Auth::user();
         
         $orders = DB::table('orders')
                 ->select(DB::raw('count(*) as count, MONTH(created_at) as month'))
-                ->where('user_id', '=', $user->id)
+                // ->where('user_id', '=', $user->id)
                 ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"))
                 ->get()->toArray();
                 
@@ -80,7 +80,8 @@ class AdminController extends Controller
 
         
 
-        return view('admin.dashboard',compact('chart','donut'));
+        // ,'donut'
+        return view('admin.dashboard',compact('chart'));
     }
 
     /**

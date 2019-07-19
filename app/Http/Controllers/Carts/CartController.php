@@ -38,27 +38,12 @@ class CartController extends Controller
     }
     public function updateQty(Request $request,$id)
     {
-        // $validatedData = $this->validate($request, [
-        //     // 'price'   => 'required',
-        //     // 'qty'   => 'required',
-        //     // 'id' => 'required'
-        //     'qty'   => 'required',
-        //     'productId' => 'required'
-        // ]);
-
-        // if($request->ajax())
-        // {
-            // $product = Product::find($request->id);
             $cart = Cart::where('product_id',$id)->first();
             $cart->qty = $request->qty;
             if($cart->save())
             {
-                // return Response::json(['success' => 'Quantity Updated ']);
-                return back()->with(['success' => 'Quantity Updated ']);
+                return back()->with('success','Quantity Updated');
             }
-            
-
-        // }
         
     }
 

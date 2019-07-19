@@ -7,6 +7,7 @@ use App\Models\Brand;
 use App\Models\Store;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\OrderProduct;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Response;
@@ -357,7 +358,8 @@ class ProductsController extends Controller
     public function destroy($product_slug)
     {
         $product = Product::where('slug',$product_slug)->first();
-        
+        $products = \DB::table('order_product')->where('product_id',$product->id)->delete();
+           
         if($product->delete())
         {
             return redirect()->back()->with([
@@ -378,9 +380,32 @@ class ProductsController extends Controller
         $ids = $request->id;
         // return Response::json(['success' => 'success']);
         $products = Product::whereIn('id',$ids)->delete();
+        $order_product = OrderProduct::whereIn('product_id',$ids)->delete();
         if($products)
         {
             return response()->json(['success' => 'Product Deleted']);  
+        }
+    }
+
+    public function bulkBrandDelete(Request $request)
+    {
+        $ids = $request->id;
+        // return Response::json(['success' => 'success']);
+        $brands = Brand::whereIn('id',$ids)->delete();
+        if($brands)
+        {
+            return response()->json(['success' => 'Brand(s) Deleted']);  
+        }
+    }
+
+    public function bulkCategoryDelete(Request $request)
+    {
+        $ids = $request->id;
+        // return Response::json(['success' => 'success']);
+        $categories = Category::whereIn('id',$ids)->delete();
+        if($categories)
+        {
+            return response()->json(['success' => 'Category(s) Deleted']);  
         }
     }
 

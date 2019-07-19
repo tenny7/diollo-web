@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Image;
 use App\Models\Store;
 use App\Models\Promotion;
-use Illuminate\Http\Request;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Gerardojbaez\GeoData\Models\City;
 use Gerardojbaez\GeoData\Models\Region;
@@ -33,6 +34,26 @@ class PromotionsController extends Controller
     {
         $promotions = Promotion::where('status', Promotion::STATUS_COMPLETED)->get();
         return view('admin.promotions.complete', compact('promotions'));
+    }
+    public function slider()
+    {
+        $promotions = Promotion::where('promo_type', 'slider')->get();
+        return view('admin.promotions.slider', compact('promotions'));
+    }
+    public function storeBanner()
+    {
+        $promotions = Promotion::where('promo_type', 'store')->get();
+        return view('admin.promotions.store', compact('promotions'));
+    }
+    public function newstock()
+    {
+        $promotions = Promotion::where('promo_type', 'newstock')->get();
+        return view('admin.promotions.newStock', compact('promotions'));
+    }
+    public function topselling()
+    {
+        $promotions = Promotion::where('promo_type', 'topselling')->get();
+        return view('admin.promotions.topselling', compact('promotions'));
     }
 
     public function completed($promotion_id)
@@ -71,17 +92,30 @@ class PromotionsController extends Controller
         ]);
 
         // dd($validatedData);
-        $imageName = $request->promo_image;
-        $folder = 'store/Promo';
-        $BannerName = $imageName->getClientOriginalName();
-        $BannerPath = $imageName->storeAs($folder,$BannerName,'public');
+        $images = [];
+        
+        foreach($request->file('promo_image') as $imageName)
+        {
+            // $imageName = $request->promo_image;
+            $folder = 'store/Promo';
+            $BannerName = $imageName->getClientOriginalName();
+            $BannerPath = $imageName->storeAs($folder,$BannerName,'public');
 
-        $promotion = new Promotion;
-        $promotion->fill($validatedData);
-        // dd($validatedData['duration']);
-        // preg_match('/([0-9])/',$validatedData['duration'],$match);
-        $promotion->promo_image = $BannerPath;
-        $promotion->save();
+
+            $promotion = Promotion::firstOrCreate($validatedData);
+
+            $photo = Image::firstOrCreate([
+                'promotion_id'   =>  $promotion->id,
+                'path'         =>  $BannerPath
+            ]);
+
+            if($photo)
+            {
+                $images[] = $photo->id;
+            }
+            $promotion->photos()->sync($images);
+
+        }
         if($promotion->save())
         {
             return back()->with(['success' => 'Promotion added']);
@@ -201,8 +235,14 @@ class PromotionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function bulkPromotionDelete(Request $request)
     {
-        //
+        $ids = $request->id;
+        // return Response::json(['success' => 'success']);
+        $promotions = User::whereIn('id',$ids)->delete();
+        if($promotions)
+        {
+            return response()->json(['success' => 'Promotion(s) Deleted']);  
+        }
     }
 }

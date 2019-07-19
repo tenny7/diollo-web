@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Store;
 use App\Mail\VerifyMail;
+use App\Jobs\SendEmailJob;
 use App\Models\VerifyUser;
 use Illuminate\Http\Request;
 use App\Models\AgentApplication;
@@ -203,9 +204,14 @@ class AgentController extends Controller
             'user_id' => $user->id,
             'token' => sha1(time())
           ]);
-          Mail::to($user->email)->send(new VerifyMail($user));
+        //   Mail::to($user->email)->send(new VerifyMail($user));
         // $agent->sendEmailVerificationNotification();
-        return redirect('/verification');
+        SendEmailJob::dispatch($user);
+
+        // dd('hds');
+        return $this->registered($request, $user)
+                        ?: view('verification');
+        // return redirect('/verification');
 
         $user = Auth::user();
         
@@ -249,13 +255,41 @@ class AgentController extends Controller
         return view('agents.dashboard',compact('chart'));
     }
 
+    protected function guard()
+    {
+        return Auth::guard();
+    }
+    protected function registered(Request $request, $user)
+    {
+        
+        $this->guard()->logout();
+        return redirect('/signin')->with('status', 'We sent you an activation code. Check your email and click on the link to verify.');
+    }
+    protected function authenticated(Request $request, $user)
+    {
+        if (!$user->verified) {
+            auth()->logout();
+            return back()->with('warning', 'You need to confirm your account. We have sent you an activation code, please check your email.');
+          }
+          return redirect()->intended($this->redirectPath());
+        return redirect()->intended();
+    }
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        return $this->loggedOut($request) ?: redirect('/');
+    }
+
     public function dashboard()
     {
-        $user = Auth::user();
+        // $user = Auth::user();
         
         $stores = DB::table('stores')
                 ->select(DB::raw('count(*) as count, MONTH(created_at) as month'))
-                ->where('agent_id', '=', $user->id)
+                // ->where('agent_id', '=', $user->id)
                 ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"))
                 ->get()->toArray();
 

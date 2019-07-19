@@ -33,6 +33,13 @@ class ReferralLink extends Model
         ]);
     }
 
+    public function getReferrals()
+{
+    return ReferralProgram::all()->map(function ($program) {
+        return ReferralLink::getReferral($this, $program);
+    });
+}
+
     public function getLinkAttribute()
     {
         return url($this->program->uri) . '?ref=' . $this->code;

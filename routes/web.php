@@ -23,11 +23,12 @@ Route::get('/', 'SiteController@welcome')->name('welcome');
 Route::get('get-banks','SiteController@getBanks');
 
 Route::get('/get-started', 'SiteController@getStarted');
+Route::get('/make-admin', 'SiteController@makeAdmin')->middleware('auth');
+
 Route::get ('/states/{country_code}', '\Gerardojbaez\GeoData\Controllers\RegionsController@regions' )->name('states');
 
 Route::get ('/cities/{country_code}/{region_id}', '\Gerardojbaez\GeoData\Controllers\CitiesController@cities' )->name('cities');
 
-// Route::get('walletBalance','')
 Route::get('/markAsRead', 'SiteController@markAsRead');
 
 Route::get('/storeDetails/{store_id}','SiteController@storeDetails');
@@ -45,6 +46,7 @@ Route::get('/become-an-agent/3', 'AgentController@becomeAnAgent3')->name('agent.
 Route::post('/become-an-agent/3', 'AgentController@becomeAnAgent3Process')->name('agent.signupprocess.three');
 
 Route::get('/become-a-vendor', 'CustomLoginController@vendorForm')->name('vendor.signup');
+
 // Route::post('/create-vendor', 'CustomLoginController@signupVendor')->name('storeVendor');
 Route::post('/pay-commitment', 'Payments\VendorPayment@redirectToGateway')->name('storeVendor');
 Route::post('/agent-pay-commitment', 'Payments\VendorPayment@redirectToGateway')->name('storeVendorAgent');
@@ -93,6 +95,7 @@ Route::group(['middleware' => ['verified', 'auth']], function(){
                 Route::get('/complete', 'VendorsController@complete')->name('complete');
                 Route::get('/incomplete', 'VendorsController@incomplete')->name('incomplete');
                 Route::get('/new', 'VendorsController@new')->name('new');
+                Route::get('/bulkVendorDelete', 'VendorsController@bulkVendorDelete')->name('bulkVendorDelete');
                 
                 
             });
@@ -118,12 +121,32 @@ Route::group(['middleware' => ['verified', 'auth']], function(){
                 Route::get('/bank', 'SettingsController@bank')->name('bank');
                 Route::post('/bank', 'SettingsController@updateBank')->name('saveBank');
             });
+
+            Route::group(['prefix' => 'brand', 'as' => 'brand.'], function () {
+                Route::get('/all', 'ProductsController@allBrands')->name('all');
+                Route::get('/show-add-form', 'ProductsController@showBrandPage')->name('showBrandAdd');
+                Route::post('/add', 'ProductsController@addBrand')->name('add')->middleware('role:admin,agent');
+                Route::get('/show-update-form/{id}', 'ProductsController@showBrandUpdateForm')->name('showBrandUpdate');
+                Route::post('/update/{id}', 'ProductsController@updateBrand')->name('update');
+                
+            });
+        
+        
+            Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
+                Route::get('/all', 'ProductsController@all')->name('all');
+                Route::get('/show-add-form', 'ProductsController@showCategoryPage')->name('showCategoryAdd');
+                Route::post('/add', 'ProductsController@addCategory')->name('add');
+                Route::get('/show-update-form/{id}', 'ProductsController@showCategoryUpdateForm')->name('showCategoryUpdate');
+                Route::post('/update/{id}', 'ProductsController@updateCategory')->name('update');
+                
+            });
         });
     });
 });
 
 Route::view('/verification', 'verification');
 Route::get('/user/verify/{token}', 'CustomLoginController@verifyUser');
+Route::get('/searching', 'SearchController@search')->name('search.stores');
 Route::get('/search-website', 'SearchController@searchQuery')->name('search.query');
 Route::get('/top-selling', 'SearchController@topSelling')->name('top.selling');
 Route::get('/new-stock', 'SearchController@newStock')->name('new.stock');
@@ -131,7 +154,10 @@ Route::get('/search-by-category/{id}', 'SearchController@searchByCategory')->nam
 Route::get('/search-by-distance/{id}', 'SearchController@searchByDistance')->name('search.geo.location');
 Route::get('/show-saved-item', 'SearchController@showSavedItem')->name('saved.item');
 Route::post('/save-item/{id}', 'SearchController@saveItem')->name('save.item');
-Route::get('/review/{id}', 'SearchController@reviews')->name('reviews');
+
+// Route::post('reserve-for-one-day/{product_id}', 'CustomerController@reserveForAday')->name('reserve.for.onday');
+
+Route::get('/review/{id}/{rating}', 'SearchController@reviews')->name('reviews')->middleware('auth');
 
 
 
@@ -179,6 +205,8 @@ Route::group(['prefix' => '/vendor', 'as' => 'vendor.', 'namespace' => 'Vendor']
         Route::get('/returns', 'SalesController@returns')->name('returns');
         Route::get('/reserved', 'SalesController@reserved')->name('reserved');
         Route::get('/customers', 'SalesController@customers')->name('customers');
+        // Route::get('/bulkCustomerDelete', 'SalesController@bulkCustomerDelete')->name('bulkCustomerDelete');
+        Route::get('/mark-as-reserved/{order_id}', 'SalesController@markAsReserved')->name('markReserved');
     });
 
     Route::group(['prefix' => 'settings', 'as' => 'settings.'], function () {
@@ -197,17 +225,38 @@ Route::group(['prefix' => '/vendor', 'as' => 'vendor.', 'namespace' => 'Vendor']
    
 });
 
+Route::post('/topFund', 'Payments\TopupController@redirectToGateway')->name('addfund');
+Route::get('/addfunds/payment/callback', 'Payments\TopupController@handlePayStackCallback');
+
 Route::group(['prefix' => '/customer', 'as' => 'customer.', 'namespace' => 'User'], function(){
-    Route::get('/account-info', 'CustomerController@showAccountInfo')->name('accountInfo');
+    Route::get('/account-info', 'CustomerController@showAccountInfo')->name('accountInfo')->middleware('auth');
     Route::get('/stores', 'CustomerController@showStores')->name('stores');
     Route::get('/shop/{store_id}', 'CustomerController@showStorePage')->name('storePage');
     Route::get('/product/{product_id}', 'CustomerController@showProductPage')->name('productPage');
+    
+    Route::get('wallet-show','CustomerController@showWalletPage')->name('wallet');
+    Route::post('update-account','CustomerController@updateAccount')->name('account');
+    Route::get('top-up', 'CustomerController@topUp')->name('top.up');
+    Route::get('pay-from-wallet/{total}', 'CustomerController@showPaymentForm')->name('pay.from.wallet');
+    Route::post('wallet-payment', 'CustomerController@payingFromWallet')->name('take.from.wallet');
+    Route::post('add-review', 'CustomerController@review')->name('review.add');
+    Route::post('update-profile', 'CustomerController@saveProfile')->name('profile.update');
+    Route::post('update-password', 'CustomerController@updatePassword')->name('profile.password');
+    Route::post('location-update', 'CustomerController@updateLocation')->name('profile.location');
+    Route::get('reserve', 'CustomerController@reserveForADay')->name('reserve');
+    
+    // Route::get('add-fund', 'CustomerController@addFund')->name('addfund');
+
+    
+    // Route::get('/topup/payment/callback', 'Payments\TopupController@handlePayStackCallback');
+
     // Route::get('/profile', 'CustomerController@profile')->name('profile');
 });
 
 Route::group(['prefix' => '/orders', 'as' => 'orders.', 'namespace' => 'Order'], function(){
 Route::get('order', 'OrderController@showOrderPage')->name('orderPage');
 Route::get('view-orders', 'OrderController@viewOrders')->name('viewOrders');
+Route::get('order-list/{id}', 'OrderController@listOrders')->name('orderList');
 });
 
 
@@ -217,7 +266,7 @@ Route::get('view-orders', 'OrderController@viewOrders')->name('viewOrders');
 Route::group(['prefix' => '/admin', 'as' => 'admin.', 'namespace' => 'Admin'], function(){
 
         // Route::get('/admin/dashboard',)
-    Route::get('/dashboard', 'AdminController@dashboard')->name('dashboard')->middleware('verified');
+    Route::get('/dashboard', 'AdminController@dashboard')->name('dashboard')->middleware('auth');
     
     Route::group(['prefix' => 'stores', 'as' => 'stores.'], function(){
         Route::get('/all', 'StoresController@index')->name('index');
@@ -235,12 +284,17 @@ Route::group(['prefix' => '/admin', 'as' => 'admin.', 'namespace' => 'Admin'], f
     Route::group(['prefix' => 'promotions', 'as' => 'promotions.'], function(){
         Route::get('/all', 'PromotionsController@index')->name('index');
         Route::get('/complete', 'PromotionsController@complete')->name('complete');
+        Route::get('/storeBanner', 'PromotionsController@storeBanner')->name('storeBanner');
+        Route::get('/topselling', 'PromotionsController@topselling')->name('topselling');
+        Route::get('/newstock', 'PromotionsController@newstock')->name('newstock');
+        Route::get('/slider', 'PromotionsController@slider')->name('slider');
         Route::get('/mark-as-completed/{promotion_id}', 'PromotionsController@completed')->name('completed');
         Route::get('/active', 'PromotionsController@active')->name('active');
         Route::get('/new', 'PromotionsController@new')->name('new');
         Route::post('/create-promotion', 'PromotionsController@addPromotion')->name('addPromotion');
         Route::get('/edit-promotion/{promotion_id}', 'PromotionsController@showUpdateForm')->name('showUpdateForm');
         Route::post('/update-promotion/{promotion_id}', 'PromotionsController@update')->name('update');
+        Route::get('/bulkPromotionDelete', 'ProductsController@bulkPromotionDelete');
     });
 
     Route::group(['prefix' => 'orders', 'as' => 'orders.'], function () {
@@ -251,6 +305,7 @@ Route::group(['prefix' => '/admin', 'as' => 'admin.', 'namespace' => 'Admin'], f
         Route::get('/mark-as-reserved/{order_id}', 'OrdersController@markAsReserved')->name('markReserved');
         Route::get('/mark-as-returned/{order_id}', 'OrdersController@markAsReturned')->name('markReturned');
         Route::get('/customers', 'OrdersController@customers')->name('customers');
+        Route::get('/bulkOrdersDelete', 'OrdersController@bulkOrdersDelete');
     });
 
     Route::group(['prefix' => 'agents', 'as' => 'agents.'], function () {
@@ -263,6 +318,7 @@ Route::group(['prefix' => '/admin', 'as' => 'admin.', 'namespace' => 'Admin'], f
         Route::get('/view-agent-stores/{agent_id}', 'AgentsController@viewStores')->name('viewStores');
         Route::get('/new/{store_id}', 'StoresController@addAgentForm')->name('new');
         Route::post('add-agent', 'StoresController@addAgent')->name('addAgentToStore');
+        Route::get('/bulkAgentDelete', 'AgentsController@bulkAgentDelete');
     });
 
     Route::group(['prefix' => 'products', 'as' => 'products.'], function () {
@@ -282,9 +338,10 @@ Route::group(['prefix' => '/admin', 'as' => 'admin.', 'namespace' => 'Admin'], f
     Route::group(['prefix' => 'brand', 'as' => 'brand.'], function () {
         Route::get('/all', 'ProductsController@allBrands')->name('all');
         Route::get('/show-add-form', 'ProductsController@showBrandPage')->name('showBrandAdd');
-        Route::post('/add', 'ProductsController@addBrand')->name('add');
+        Route::post('/add', 'ProductsController@addBrand')->name('add')->middleware('role:admin,agent');
         Route::get('/show-update-form/{id}', 'ProductsController@showBrandUpdateForm')->name('showBrandUpdate');
         Route::post('/update/{id}', 'ProductsController@updateBrand')->name('update');
+        Route::get('/bulkBrandDelete', 'ProductsController@bulkBrandDelete');
         
     });
 
@@ -301,12 +358,14 @@ Route::group(['prefix' => '/admin', 'as' => 'admin.', 'namespace' => 'Admin'], f
         Route::post('/add', 'ProductsController@addCategory')->name('add');
         Route::get('/show-update-form/{id}', 'ProductsController@showCategoryUpdateForm')->name('showCategoryUpdate');
         Route::post('/update/{id}', 'ProductsController@updateCategory')->name('update');
+        Route::get('/bulkCategoryDelete', 'ProductsController@bulkCategoryDelete');
         
     });
 
     Route::group(['prefix' => 'vendors', 'as' => 'vendors.'], function () {
         Route::get('/new', 'VendorController@addVendorForm')->name('new');
         Route::post('/add-vendor', 'VendorController@addVendor')->name('addVendorToStore');
+        Route::get('/bulkVendorsDelete', 'VendorController@bulkVendorsDelete');
     });
 
     Route::group(['prefix' => 'settings', 'as' => 'settings.'], function () {
@@ -324,7 +383,7 @@ Route::group(['prefix' => '/admin', 'as' => 'admin.', 'namespace' => 'Admin'], f
 });
 
 
-Route::post('/addToCart/{product_id}', 'Carts\CartController@addToCart')->name('cart.add')->middleware('auth');
+Route::post('/addToCart/{product_id}', 'Carts\CartController@addToCart')->name('cart.add');
 Route::get('/about', 'User\CustomerController@about')->name('about.us');
 Route::get('/help', 'User\CustomerController@help')->name('help');
 Route::get('/faq', 'User\CustomerController@faq')->name('faq');
@@ -343,3 +402,5 @@ Auth::routes();
 // ['verify' => true]
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
+
+Route::get('generate-pdf','DynamicPdfController@generatePDF')->name('generate.pdf');

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Image;
+use App\Models\Store;
 use Illuminate\Database\Eloquent\Model;
 
 class Promotion extends Model
@@ -28,5 +30,14 @@ class Promotion extends Model
     public function isCompleted()
     {
         return ($this->status == self::STATUS_COMPLETED)?true:false;
+    }
+
+    public function photos()
+    {
+        return $this->belongsToMany(Image::class)->withPivot('promotion_id');
+    }
+
+    public function store(){
+        return $this->belongsTo(Store::class);
     }
 }

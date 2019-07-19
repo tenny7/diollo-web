@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/password/css/main.css') }}">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
 
+    
 @stack('css')
 </head>
 
@@ -32,10 +33,12 @@
               <div class="col-md-6 col-sm-6 col-xs-6 text" style="padding-top: 15px;">
 
                 <br>
+              <form action="{{ route('search.stores')}}" method="get">
                   <div class="input-group">
-                    <input type="email" class="form-control" id="search" placeholder="Search for anything you want">
+                    <input type="text" class="form-control" name="search" id="search" placeholder="Search for anything you want">
                      <div class="input-group-addon purple"><i class="fa fa-search"></i></div>
                   </div>
+                </form>
 
                 </div>
 
@@ -56,7 +59,7 @@
                     {{-- <a href="{{ route('vendor.signup')}}" type="button" class="btn btn-none" name="button">BECOME A VENDOR</a> --}}
                     @endif
                     @if (!Auth::user()->isAffiliate())
-                    {{-- <a href="{{ route('orders.orderPage') }}" type="button" class="btn btn-none" name="button">MY CART</a><a href="#"><i class="fa fa-shopping-bag" style="margin-top: 5px; font-size: 20px;"></i></a> --}}
+                    
                     {{-- <a href="{{ route('affiliate.signup')}}" type="button" class="btn btn-none" name="button">BECOME AN AFFILIATE</a> --}}
                     @endif
 
@@ -72,19 +75,23 @@
                     <a href="{{ route('orders.orderPage') }}" type="button" class="btn btn-none" name="button">MY CART <i class="fa fa-shopping-bag" style="margin-top: 5px; font-size: 10px;"></i></a>
                     <a href="{{ route('vendor.dashboard')}}" type="button" class="btn btn-none" name="button">DASHBOARD</a>
                     @endif
+                    @if (Auth::user()->role == \App\Models\User::ROLE_CUSTOMER)
+                    <a href="{{ route('orders.orderPage') }}" type="button" class="btn btn-none" name="button">MY CART <i class="fa fa-shopping-bag" style="margin-top: 5px; font-size: 10px;"></i></a>
+                    {{-- <a href="{{ route('vendor.dashboard')}}" type="button" class="btn btn-none" name="button">DASHBOARD</a> --}}
+                    @endif
 
 
 
                   @if (Auth::user()->isAffiliate())
-                    <a href="{{ url('affiliate/dashboard')}}" type="button" class="btn btn-none" name="button">DASHBOARD</a>
+                  <a href="{{ route('orders.orderPage') }}" type="button" class="btn btn-none" name="button">MY CART <i class="fa fa-shopping-bag" style="margin-top: 5px; font-size: 10px;"></i></a>                    <a href="{{ url('affiliate/dashboard')}}" type="button" class="btn btn-none" name="button">DASHBOARD</a>
                   @endif
 
-                  <a  href="{{ route('customer.accountInfo')}}" id="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <a  href="{{ route('customer.accountInfo')}}" id="dropIT" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img src="{{ asset('assets/password/images/face.jpg')}}" style="height: 40px; border-radius: 100%; padding-right: 10px;" class="img-responsive img-fluid" alt="profile"></a>
                         <ul class="dropdown-menu pull-right text-center">
                         <li><a href="{{ route('customer.accountInfo') }}"><i class="far fa-user">&nbsp;&nbsp;</i> Profile</a></li>
                         <li><a href="{{ route('orders.viewOrders') }}"><img src="{{ asset('assets/password/images/shopping bag.png') }}" alt="bag">&nbsp;&nbsp;&nbsp;&nbsp;Orders</a></li>
-                        <li><a href="#" @if(isset(auth()->wallet_balance)) {{ auth()->wallet_balance}} @endif><img src="{{ asset('assets/password/images/wallet-outline.png')}}" alt="wallet">&nbsp;&nbsp;&nbsp;&nbsp;Wallet</a></li>
+                        <li><a href="{{ route('customer.wallet')}}" @if(isset(auth()->wallet_balance)) {{ auth()->wallet_balance}} @endif><img src="{{ asset('assets/password/images/wallet-outline.png')}}" alt="wallet">&nbsp;&nbsp;&nbsp;&nbsp;Wallet</a></li>
                         <li><a href="{{ route('saved.item')}}"><i class="fa fa-heart">&nbsp;&nbsp;&nbsp;</i> Saved Items</a></li>
                         <li><a href="{{ route('customer.logout')}}"><i class="fas fa-sign-out-alt">&nbsp;&nbsp;&nbsp;</i>Logout</a></li>
                         </ul>
@@ -192,7 +199,7 @@
               <li class=" top"><a href="#">CATEGORIES</a></li>
               <li class=" top"><a href="{{ route('new.stock')}}">NEW STOCK</a></li>
              <li class=" top"><a href="{{ route('top.selling') }}">TOP SELLING</a></li>
-              <li class=" top"><a href="#">STORIES</a></li>
+              <li class=" top"><a href="{{ route('customer.stores')}}">STORES</a></li>
               <li class=" top"><a href="#">ABOUT</a></li>
             </ul>
           </div>
@@ -351,7 +358,7 @@
 @stack('scripts')
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<!-- <script src="js/bootstrap.min.js" type="text/javascript"></script> -->
+<script src="{{ asset('assets/password/js/bootstrap.min.js') }}" type="text/javascript"></script> 
 
 <script src="{{ asset('assets/password/slick/slick.js') }}"></script>
 
@@ -374,7 +381,7 @@ document.body.style.backgroundColor = "white";
 <script src="{{ asset('assets/password/js/script.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('.dropdown-toggle').dropdown();
+        $('#dropIT').dropdown();
     });
 </script>
 

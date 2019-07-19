@@ -44,6 +44,7 @@
                     </div>
                     @include('partials.admin.success')
                     @include('partials.admin.error')
+                    @include('partials.admin.warning')
                     <!-- Card -->
                     <div class="card" data-toggle="lists" data-lists-values="[&quot;orders-order&quot;, &quot;orders-product&quot;, &quot;orders-date&quot;, &quot;orders-total&quot;, &quot;orders-status&quot;, &quot;orders-method&quot;]">
                         <div class="card-header">
@@ -67,12 +68,10 @@
 
                                     <div class="dropdown">
                                         <button class="btn btn-sm btn-white dropdown-toggle" type="button" id="bulkActionDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Bulk action
-                      </button>
+                                            Bulk action
+                                        </button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="bulkActionDropdown">
-                                            <a class="dropdown-item" href="#!">Action</a>
-                                            <a class="dropdown-item" href="#!">Another action</a>
-                                            <a class="dropdown-item" href="#!">Something else here</a>
+                                                <button class="dropdown-item admindeleteProductAction" id="admindeleteProductAction">Delete</button>
                                         </div>
                                     </div>
 
@@ -81,14 +80,15 @@
                             <!-- / .row -->
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-sm table-nowrap card-table">
+                            <table class="table table-sm table-nowrap card-table" id="tableId">
                             <!-- <table class="table table-sm card-table"> -->
                                 <thead>
                                     <tr>
                                         <th>
                                             <div class="custom-control custom-checkbox table-checkbox">
                                                 <input type="checkbox" class="custom-control-input" name="productsSelect" id="productsSelectAll">
-                                                <label class="custom-control-label" for="productsSelectAll">
+                                                {{-- <label class="custom-control-label" for="productsSelectAll"> --}}
+                                                    select
                             &nbsp;
                           </label>
                                             </div>
@@ -148,10 +148,11 @@
                                     <tr>
                                         <td>
                                             <div class="custom-control custom-checkbox table-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="productsSelect" id="productsSelectOne">
-                                                <label class="custom-control-label" for="productsSelectOne">
+                                                    <input type="checkbox" class="productIDs" value="{{ $product->id }}" name="product[]" id="productId">
+                                                {{-- <input type="checkbox" class="custom-control-input" name="productsSelect" id="productsSelectOne"> --}}
+                                                {{-- <label class="custom-control-label" for="productsSelectOne">
                                                     &nbsp;
-                                                </label>
+                                                </label> --}}
                                             </div>
                                         </td>
                                         <td class="products-product" colspan="2">
@@ -161,7 +162,10 @@
                                             {{ $product->code }}
                                         </td>
                                         <td class="products-brand">
-                                            {{ $product->brand }}
+                                            @php 
+                                                $brand = App\Models\Brand::find($product->brand);
+                                            @endphp
+                                            {{ $brand->name }}
                                         </td>
                                         <td class="products-price">
                                             {{ $product->original_price }}
@@ -262,3 +266,8 @@
 
     </div>
 @endsection
+
+@push('scripts')
+<script src="{{ asset('assets/admin/js/custom.js')}}"></script>
+<script src="{{ asset('assets/admin/js/toastr.js')}}"></script>
+@endpush

@@ -16,12 +16,13 @@ class CreateOrderProductTable extends Migration
         Schema::create('order_product', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('product_id')->nullable();
+            $table->integer('user_id')->nullable();
             $table->integer('order_id')->nullable();
             $table->integer('store_id')->nullable();
             $table->decimal('price',25,2)->nullable();
             $table->decimal('qty', 10, 0)->nullable();
-            $table->integer('order_id')->nullable();
-            $table->integer('order_id')->nullable();
+            // $table->integer('order_id')->nullable();
+            // $table->integer('order_id')->nullable();
             $table->timestamps();
         });
     }

@@ -8,6 +8,7 @@ use App\Models\Store;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ProductsController extends Controller
 {
@@ -18,8 +19,18 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
-        return view('vendors.products.all', compact('products'));
+        $store = Store::where('vendor_id',Auth::id())->first();
+        if(!is_null($store))
+        {
+            $products = Product::where('store', $store->id)->get();
+            return view('vendors.products.all', compact('products'));
+        }
+        else 
+        {
+            return back()->with('warning','Your have no shop'); 
+        }
+        
+        
     }
 
     public function updateForm($product_slug)
@@ -81,7 +92,8 @@ class ProductsController extends Controller
      */
     public function featured()
     {
-        $products = Product::where('status',Product::FEATURED_PRODUCT)->get();
+        $store = Store::where('vendor_id',Auth::id())->first();
+        $products = Product::where('store', $store->id)->where('status',Product::FEATURED_PRODUCT)->get();
         return view('vendors.products.featured', compact('products'));
     }
 
@@ -104,7 +116,8 @@ class ProductsController extends Controller
      */
     public function clearance()
     {
-        $products = Product::where('status',Product::CLEARANCE_PRODUCT)->get();
+        $store = Store::where('vendor_id',Auth::id())->first();
+        $products = Product::where('store', $store->id)->where('status',Product::CLEARANCE_PRODUCT)->get();
         return view('vendors.products.clearance', compact('products'));
     }
 

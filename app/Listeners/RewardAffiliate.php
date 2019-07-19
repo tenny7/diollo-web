@@ -37,7 +37,7 @@ class RewardAffiliate
             ReferralRelationship::create(['referral_link_id' => $referral->id, 'user_id' => $event->user->id]);
 
             // Example...
-            if ($referral->program->name === 'Affiliate link') {
+            if ($referral->program->name === 'Affiliate Program') {
                 // User who was sharing link
                 $provider = $referral->user;
                 
@@ -46,6 +46,7 @@ class RewardAffiliate
                 {
                     $affiliate_commission = $payment_info->amount * 0.2;
                     $provider->addCredits($affiliate_commission);
+                    // $provider->save();
                 }
                 catch(Exception $e)
                 {

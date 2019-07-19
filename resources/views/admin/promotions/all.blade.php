@@ -85,15 +85,13 @@
                                     <!-- Button -->
 
                                     <div class="dropdown">
-                                        <button class="btn btn-sm btn-white dropdown-toggle" type="button" id="bulkActionDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Bulk action
-                      </button>
-                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="bulkActionDropdown">
-                                            <a class="dropdown-item" href="#!">Action</a>
-                                            <a class="dropdown-item" href="#!">Another action</a>
-                                            <a class="dropdown-item" href="#!">Something else here</a>
+                                            <button class="btn btn-sm btn-white dropdown-toggle" type="button" id="bulkActionDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Bulk action
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="bulkActionDropdown">
+                                                <button class="dropdown-item admindeletePromotionAction" id="admindeletePromotionAction">Delete</button>
+                                            </div>
                                         </div>
-                                    </div>
 
                                 </div>
                             </div>
@@ -107,9 +105,7 @@
                                         <th>
                                             <div class="custom-control custom-checkbox table-checkbox">
                                                 <input type="checkbox" class="custom-control-input" name="productsSelect" id="productsSelectAll">
-                                                <label class="custom-control-label" for="productsSelectAll">
-                                                    &nbsp;
-                                                </label>
+                                                select
                                             </div>
                                         </th>
                                         <th colspan="2">
@@ -174,10 +170,11 @@
                                     <tr>
                                         <td>
                                             <div class="custom-control custom-checkbox table-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="productsSelect" id="productsSelectOne">
+                                                    <input type="checkbox" class="promotionIDs" value="{{ $promotion->id }}" name="promotion[]" id="promotionId">
+                                                {{-- <input type="checkbox" class="custom-control-input" name="productsSelect" id="productsSelectOne">
                                                 <label class="custom-control-label" for="productsSelectOne">
                                                     &nbsp;
-                                                </label>
+                                                </label> --}}
                                             </div>
                                         </td>
                                         <td class="stores-name" colspan="2">

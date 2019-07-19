@@ -287,41 +287,10 @@
 
                                     <!-- Input -->
                                     <input type="text" class="form-control" name="end_date" data-toggle="flatpickr" required>
-                                    {{-- <textarea name="state" class="form-control" placeholder="Our affordability, fast and reliable delivery, and the fact that you will always be able to find the phone that you are looking for in our offer, have made us stand out in the market.
-
-                                    "></textarea> --}}
+                                    
                                 </div>
                             </div>
 
-                            {{-- <div class="col-12">
-                                <!-- Business Opening Hours -->
-                                <div class="form-group">
-                                    <!-- Label -->
-                                    <label class="mb-1">
-                                        Impressions
-                                    </label>
-                                    <input type="text" class="form-control" placeholder="Impressions" name="impressions">
-                                </div>
-                            </div> --}}
-
-                            {{-- <div class="col-6"> --}}
-
-                                <!-- Phone -->
-                                {{-- <div class="form-group">
-
-                                    <!-- Label -->
-                                    <label>
-                                      Views
-                                    </label>
-
-                                    <!-- Input -->
-                                    <input type="text" name="views" placeholder="Views" class="form-control">
-                                    
-                                    
-
-                                </div> --}}
-
-                            {{-- </div> --}}
 
                             <div class="col-6 col-md-12">
 
@@ -376,198 +345,14 @@
                                     <label class="mb-1">
                                         Image
                                     </label>
-                                    <input type="file" class="form-control" name="promo_image">
+                                    <input type="file" class="form-control" multiple name="promo_image[]">
                                 </div>
                             </div>
 
                         </div>
                         <!-- / .row -->
 
-                        <!-- Divider -->
-                        {{-- <hr class="mt-4 mb-5"> --}}
-
-                        {{-- <div class="row">
-                            <div class="col-12">
-                                <label class="mb-1">
-                                  Business Logo
-                                </label>
-                                <small class="form-text text-muted">
-                                  Please use an image no larger than 5MB
-                                </small>
-                                <!-- Single -->
-                                <div class="dropzone dropzone-single mb-3 dz-clickable" data-toggle="dropzone" data-dropzone-url="http://">
-
-                                  
-
-                                  <div class="dz-preview dz-preview-single"></div>
-
-                                <div class="dz-default dz-message"><span>Drop files here to upload</span></div></div>
-                            </div>
-                        </div> --}}
-                        <!-- / .row -->
-                        {{-- <br><br> --}}
-
-                        <!-- Divider -->
-                        {{-- <hr class="mt-4 mb-5"> --}}
-
-                        {{-- <div class="row">
-                            <div class="col-12">
-
-                                <!-- Public profile -->
-                                <div class="form-group">
-
-                                    <!-- Label -->
-                                    <label class="mb-1">
-                                       Availability
-                                    </label>
-
-                                    <!-- Form text -->
-                                    <small class="form-text text-muted">
-                                        Making a vendor available means that users can see and make orders from this vendor and the vendor is obligated to attend to them.
-                                    </small>
-
-                                    <div class="row">
-                                        <div class="col-auto">
-
-                                            <!-- Toggle -->
-                                            <div class="custom-control custom-checkbox-toggle">
-                                                <input type="checkbox" class="custom-control-input" id="toggleOne">
-                                                <label class="custom-control-label" for="toggleOne"></label>
-                                            </div>
-
-                                        </div>
-                                        <div class="col ml--2">
-
-                                            <!-- Help text -->
-                                            <small class="text-muted">
-                                              You're currently Unavailable
-                                            </small>
-
-                                        </div>
-                                    </div>
-                                    <!-- / .row -->
-                                </div>
-
-                            </div>
-                        </div> --}}
-                        <!-- / .row -->
-
-                        {{-- <br> --}}
-
-                        {{-- <div class="row">
-                            <div class="col-12">
-
-                                <!-- Public profile -->
-                                <div class="form-group">
-
-                                    <!-- Label -->
-                                    <label class="mb-1">
-                                        Store Background Colour
-                                    </label>
-
-                                    <!-- Form text -->
-                                    <small class="form-text text-muted">
-                                        Making a vendor available means that users can see and make orders from this vendor and the vendor is obligated to attend to them.
-                                    </small>
-
-                                    <div class="row">
-                                        <div class="col-auto">
-
-                                            <!-- Toggle -->
-                                            <div class="custom-control custom-checkbox-toggle">
-                                                <input type="checkbox" class="custom-control-input" id="toggleOne">
-                                                <label class="custom-control-label" for="toggleOne"></label>
-                                            </div>
-                                            <input type="color" value="#f6b73c">
-
-                                        </div>
-                                        <div class="col ml--2">
-
-                                            <!-- Help text -->
-                                            <small class="text-muted">
-                                                Color
-                                            </small>
-
-                                        </div>
-                                    </div>
-                                    <!-- / .row -->
-                                </div>
-
-                            </div>
-                        </div> --}}
-                        <!-- / .row -->
-    
-
-                        {{-- <hr class="mt-4 mb-5"> --}}
-
-                        {{-- <div class="row">
-                            <div class="col-12 col-md-6 order-md-2">
-
-                                <!-- Card -->
-                                <div class="card bg-light border ml-md-4">
-                                    <div class="card-body">
-
-                                        <p class="mb-2">
-                                            Important Notice
-                                        </p>
-
-                                        <p class="small text-muted mb-2">
-                                            Please note the following.
-                                        </p>
-
-                                        <ul class="small text-muted pl-4 mb-0">
-                                            <li>
-                                                A Vendor is the owner of the Store.
-                                            </li>
-                                            <li>
-                                                An Agent is a user authorized by Passward to add products to the online store onbehalf of the Vendor.
-                                            </li>
-                                        </ul>
-
-                                        
-
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="col-12 col-md-6">
-
-                                <!-- Password -->
-                                <div class="form-group">
-
-                                    <!-- Label -->
-                                    <label>
-                                        Select Vendor
-                                    </label>
-      
-                                    <!-- Input -->
-                                    <select class="form-control select2-hidden-accessible" data-toggle="select" data-select2-id="1" tabindex="-1" aria-hidden="true">
-                                        <option value="">Christian Jombo</option>
-                                        <option value="">Nduke-abasi Sam</option>
-                                        
-                                    </select>
-
-                                </div>
-
-                                <!-- New password -->
-                                <div class="form-group">
-
-                                    <!-- Label -->
-                                    <label>
-                                        Select Agent
-                                    </label>
-        
-                                    <!-- Input -->
-                                    <select class="form-control select3-hidden-accessible" data-toggle="select" data-select2-id="1" tabindex="-1" aria-hidden="true">
-                                        <option value="">Christian Jombo</option>
-                                        <option value="">Nduke-abasi Sam</option>
-                                        
-                                    </select>
-
-                                </div>
-
-                            </div>
-                        </div> --}}
+                       
                         <!-- / .row -->
 
                         <hr class="mt-4 mb-5">

@@ -98,8 +98,12 @@ $(document).ready(function () {
 
     $('.product_cart').click(function () {
         var price = document.getElementById('price').value;
-        var qty = document.getElementById('qty').value;
-        var productId = document.getElementById('productId').value;
+        var qty = document.getElementById('number').innerText;
+        // var qty = document.getElementById('qty').value;
+        // var price = $(this).data('price');
+        var productId = $(this).data('id');
+        // var productId = document.getElementById('productId').value;
+        // alert(productId);
         $.ajax({
             url: '/addToCart/' + productId,
             type: 'post',
@@ -183,21 +187,16 @@ $(document).ready(function () {
         });
     });
 
-    // function timedRefresh(timeoutPeriod) {
-    //     setTimeout("location.reload(true);",timeoutPeriod);
-    // }
-    // timedRefresh(5000);
-    // }
-
     // bulk action button for product 
     $(".deleteAction").click(function () {
         var id = [];
         if (confirm("Are you sure you want to delete this item?")) {
 
-            $(".storeIDs:checked").each(function () {
+            $(".storeIDsd:checked").each(function () {
                 id.push($(this).val());
             });
 
+            console.log(id);
             if (id.length > 0) {
                 $.ajax({
                     url: '/admin/stores/bulkDelete',
@@ -245,6 +244,35 @@ $(document).ready(function () {
             }
         }
     });
+    $(".admindeleteBrandAction").click(function () {
+        var id = [];
+        if (confirm("Are you sure you want to delete this item?")) {
+
+            $(".brandIDs:checked").each(function () {
+                id.push($(this).val());
+            });
+            // alert(id);
+            if (id.length > 0) {
+                $.ajax({
+                    url: '/admin/brand/bulkBrandDelete',
+                    method: 'get',
+                    data: {
+                        id: id
+                    },
+                    success: function (response) {
+                        toastr["success"](response.success, "Success")
+                        jQuery('#tableId').load(location.href + ' #tableId');
+                        // jQuery('#tableId1').load(location.href + ' #tableId1');
+                    }
+
+                });
+
+            } else {
+                alert("Please select at least one checkbox");
+            }
+        }
+    });
+
 
     $(".admindeleteProductAction").click(function () {
         var id = [];
@@ -276,12 +304,197 @@ $(document).ready(function () {
     });
     // end bulk product delete
 
+    $(".deleteCategoryAction").click(function () {
+        var id = [];
+        if (confirm("Are you sure you want to delete this item?")) {
+
+            $(".categoryIDs:checked").each(function () {
+                id.push($(this).val());
+            });
+            // alert(id);
+            if (id.length > 0) {
+                $.ajax({
+                    url: '/admin/category/bulkCategoryDelete',
+                    method: 'get',
+                    data: {
+                        id: id
+                    },
+                    success: function (response) {
+                        toastr["success"](response.success, "Success")
+                        jQuery('#tableId').load(location.href + ' #tableId');
+                        // jQuery('#tableId1').load(location.href + ' #tableId1');
+                    }
+
+                });
+
+            } else {
+                alert("Please select at least one checkbox");
+            }
+        }
+    });
+    // end bulk product delete
+
+    $(".admindeleteAgentAction").click(function () {
+        var id = [];
+        if (confirm("Are you sure you want to delete this item?")) {
+
+            $(".agentIDs:checked").each(function () {
+                id.push($(this).val());
+            });
+            // alert(id);
+            if (id.length > 0) {
+                $.ajax({
+                    url: '/admin/agents/bulkAgentDelete',
+                    method: 'get',
+                    data: {
+                        id: id
+                    },
+                    success: function (response) {
+                        toastr["success"](response.success, "Success")
+                        jQuery('#agent-dt').load(location.href + ' #agent-dt');
+                        // jQuery('#tableId1').load(location.href + ' #tableId1');
+                    }
+
+                });
+
+            } else {
+                alert("Please select at least one checkbox");
+            }
+        }
+    });
+    // end bulk product delete
+
+    $(".deletePromotionAction").click(function () {
+        var id = [];
+        if (confirm("Are you sure you want to delete this item?")) {
+
+            $(".promotionIDs:checked").each(function () {
+                id.push($(this).val());
+            });
+            // alert(id);
+            if (id.length > 0) {
+                $.ajax({
+                    url: '/admin/promotion/bulkPromotionDelete',
+                    method: 'get',
+                    data: {
+                        id: id
+                    },
+                    success: function (response) {
+                        toastr["success"](response.success, "Success")
+                        jQuery('#tableId').load(location.href + ' #tableId');
+                        // jQuery('#tableId1').load(location.href + ' #tableId1');
+                    }
+
+                });
+
+            } else {
+                alert("Please select at least one checkbox");
+            }
+        }
+    });
+    // end bulk product delete
+
+    $(".admindeleteOrderAction").click(function () {
+        var id = [];
+        if (confirm("Are you sure you want to delete this item?")) {
+
+            $(".orderIDs:checked").each(function () {
+                id.push($(this).val());
+            });
+            // alert(id);
+            if (id.length > 0) {
+                $.ajax({
+                    url: '/admin/orders/bulkOrdersDelete',
+                    method: 'get',
+                    data: {
+                        id: id
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        toastr["success"](response.success, "Success")
+                        jQuery('#tableId').load(location.href + ' #tableId');
+                        // jQuery('#tableId1').load(location.href + ' #tableId1');
+                    }
+
+                });
+
+            } else {
+                alert("Please select at least one checkbox");
+            }
+        }
+    });
+
+    // end bulk product delete
+
+    $(".deleteVendorAction").click(function () {
+        var id = [];
+        if (confirm("Are you sure you want to delete this item?")) {
+
+            $(".vendorIDs:checked").each(function () {
+                id.push($(this).val());
+            });
+            // alert(id);
+            if (id.length > 0) {
+                $.ajax({
+                    url: '/agent/vendors/bulkVendorDelete',
+                    method: 'get',
+                    data: {
+                        id: id
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        toastr["success"](response.success, "Success")
+                        jQuery('#tableId').load(location.href + ' #tableId');
+                        // jQuery('#tableId1').load(location.href + ' #tableId1');
+                    }
+
+                });
+
+            } else {
+                alert("Please select at least one checkbox");
+            }
+        }
+    });
+
     // load review page
     $('.reviewbutton1').click(function () {
         var id = $(this).data('id');
-        console.log(id);
-        window.location.href = '/review/' + id;
+        var rating = $('#input-1').val();
+        // console.log(rating);
+        window.location.href = '/review/' + id + '/' + rating;
     });
+
+
+
+    $('.reserveId').click(function () {
+        var productId = $(this).data('id');
+        var qty = document.getElementById('number').innerText;
+
+        // console.log(qty);
+        $.ajax({
+            url: '/customer/reserve/',
+            method: 'get',
+            data: {
+                id: productId,
+                qty: qty
+            },
+            success: function (response) {
+                console.log(response);
+                toastr["success"](response.success, "Success")
+                // jQuery('#tableId').load(location.href + ' #tableId');
+                // jQuery('#tableId1').load(location.href + ' #tableId1');
+            }
+
+        });
+        // console.log(rating);
+        // window.location.href = '/review/' + id + '/' + rating;   
+    });
+
+
+
+    // rating
+
+
 
 
 

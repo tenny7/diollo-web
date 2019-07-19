@@ -200,7 +200,7 @@ class CustomLoginController extends Controller
         'last_name'     => $request->lastname,
         'email'         => $request->email,
         'phone'         => $request->phone,
-        // 'role'          => User::ROLE_CUSTOMER,
+        'role'          => User::ROLE_CUSTOMER,
         'password'      => Hash::make($request->password),
         // 'email_token' => base64_encode($request->email),
     ];
@@ -212,7 +212,7 @@ class CustomLoginController extends Controller
         Notification::send($adminUser, new CustomerNotification($user));
         // $adminUser->notify(new CustomerNotification($user));
         // event(new VendorReferred(request()->cookie('ref'), $user));
-         SendEmailJob::dispatch($user);
+         // SendEmailJob::dispatch($user);
 
         
         //   dd('sjhdjs');
@@ -232,7 +232,8 @@ class CustomLoginController extends Controller
               SendEmailJob::dispatch($user);
               
             //   Mail::to($request->email)->send(new VerifyMail($user));
-              return view('verification');
+              return $this->registered($request, $user)
+                        ?: view('verification');
                 // return $this->registered($request, $user)
                 //         ?: view('verification');
         }

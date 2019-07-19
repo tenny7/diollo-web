@@ -166,7 +166,7 @@
                                 <tbody class="list"><tr>
                                         <td>
                                             <div class="custom-control custom-checkbox table-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="productsSelect" id="productsSelectOne">
+                                                <input type="checkbox" class="" name="productsSelect" id="productsSelectOne">
                                                 <label class="custom-control-label" for="productsSelectOne">
                                                     &nbsp;
                                                 </label>

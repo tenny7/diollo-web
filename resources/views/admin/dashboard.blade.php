@@ -547,6 +547,8 @@
                         <img src="{{asset('assets/password/images/user.png')}}" alt="" width="60" height="60">
                         @if(Auth::user()->isAdmin())
                                     Role: Super Admin
+                                    <br>
+                                    {{ Auth::user()->fullname }}
                         @endif
             </h6>
 
@@ -559,7 +561,7 @@
                     <div class="col-auto">
 
                         <!-- Button -->
-                        <a href="#!" class="btn btn-primary">
+                    <a href="{{ route('generate.pdf')}}" class="btn btn-primary">
               Create Report
             </a>
 
@@ -613,7 +615,7 @@
                 </div>
 
             </div>
-            <div class="col-12 col-lg-6 col-xl">
+            {{-- <div class="col-12 col-lg-6 col-xl">
 
                 <!-- Card -->
                 <div class="card">
@@ -696,7 +698,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div> --}}
             <div class="col-12 col-lg-6 col-xl">
 
                 <!-- Card -->
@@ -712,7 +714,10 @@
 
                                 <!-- Heading -->
                                 <span class="h2 mb-0">
-                  ₦85.50
+                                    @php 
+                                       $wallet =  \App\Models\Wallet::find(1);
+                                    @endphp
+                  ₦ {{ number_format($wallet->amount,2) }}
                 </span>
 
                             </div>
@@ -791,7 +796,7 @@
                 </div>
 
             </div>
-            <div class="col-12 col-xl-4">
+            {{-- <div class="col-12 col-xl-4">
 
                 <!-- Devices -->
                 <div class="card">
@@ -831,7 +836,7 @@
                        
                         <!-- Chart -->
                         <div class="chart chart-appended"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
-                        {{-- {!! $donut->container() !!}     --}}
+                        
                         <canvas id="devicesChart" class="chart-canvas chartjs-render-monitor" data-target="#devicesChartLegend" height="482" width="614" style="display: block; height: 241px; width: 307px;"></canvas>
                         </div>
                         
@@ -842,7 +847,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div> --}}
         </div>
         <!-- / .row -->
 

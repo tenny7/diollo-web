@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Payments;
 
 use App\Models\Cart;
+use App\Models\Wallet;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class PaymentController extends Controller
 {
@@ -28,7 +30,7 @@ class PaymentController extends Controller
                 // $payassist = PayAssistant::create($payment_process_info);
                 
 
-                
+                // $request->session()->put('ref_key', $ref_key);
                 // get the email and amount
                 $email = Auth::user()->email;
         		$total = $request->total * 100;  //the amount in kobo
@@ -143,18 +145,18 @@ class PaymentController extends Controller
                 $cartItems = Cart::where('user_id', Auth::user()->id)->get();
                 
 
+                $order = $user->orders()->Create([
+                    // 'store_id'      => $cartItem->store_id,
+                    'total'         => $amountPaid,
+                    'status'        => 1
+                ]);
+
                 foreach($cartItems as $cartItem)
                 {
-                    // dd(Cart::total());
-                    $order = $user->orders()->firstOrCreate([
-                        'total'         => $amountPaid,
-                        'status'        => 1
-                    ]);
-                    
-                    // dd('helo');
                     
                     $order->products()->attach($cartItem->id,[
                         'product_id'    => $cartItem->product_id,
+                        'user_id'       => Auth::id(),
                         'store_id'      => $cartItem->store_id,
                         'qty'           => $cartItem->qty,
                         'price'         => $cartItem->price,
@@ -165,8 +167,17 @@ class PaymentController extends Controller
                     $product->save();
                 }
 
-                if($order)
-                {
+                
+
+                $wallet = Wallet::find(1);
+                $wallet->amount += $amountPaid;
+                $wallet->save();
+                    // 'name'  => 'Passward account',
+                    // 'amount' => ;
+                
+
+                // if($order)
+                // {
                     $removeItems = Cart::where('user_id', Auth::user()->id)->get();
                     foreach($removeItems as $removeItem)
                     {
@@ -174,14 +185,16 @@ class PaymentController extends Controller
                             $product = Cart::where('user_id',$removeItem->user_id)->first()->each(function ($product, $key) {
                                 $product->delete();
                             });
-                            return redirect()->back()->with('success', 'Payment successful');
+                            Session::flash('success', 'Payment successful!'); 
+                            Session::flash('alert-class', 'alert-success'); 
+                            return redirect()->back();
                         }
                         catch(\Exception $e) {
                             dd($e);
                         }
                     }
                     
-                }
+                // }
 
                 
                

@@ -177,9 +177,7 @@
 
                                     <!-- Input -->
                                     <select id="country" name="country_code" class="country form-control select2-hidden-accessible" data-toggle="select" data-select2-id="4" tabindex="-1" aria-hidden="true">
-                                        {{-- <option data-select2-id="6">Nigeria</option> --}}
-                                        {{-- <option>Ghana</option> --}}
-                                        {{-- <option>Togo</option> --}}
+                                    
                                         @foreach($countries as $country)
                                     <option value="{{ $country->code }}">{{ $country->name }}</option>
                                         @endforeach

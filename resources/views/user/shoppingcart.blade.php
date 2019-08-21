@@ -1,6 +1,8 @@
-@extends('layouts.frontend.app')
+@extends('layouts.frontend.app2')
 @push('css')
 <link rel="stylesheet" href="{{ asset('assets/admin/css/toastr.css') }}">
+<link rel="stylesheet" href="{{ asset('diollo/assets/css/custom.css') }}">
+
 @endpush
 
 @section('content')
@@ -8,31 +10,31 @@
 <br>
 <br>
 <br>
-<div class="top_star">
+{{-- <div class="top_star">
     <img src="images/path 41.svg" alt="path star">
-  </div>
-  <div class="rotated" style="width: 233px;">
+  </div> --}}
+  {{-- <div class="rotated" style="width: 233px;">
     <i class="fab fa-facebook fa-rotate-360" style="color: #FF3C89;"></i>&nbsp;
     <i class="fab fa-whatsapp fa-rotate-360" style="color: #FF3C89;"></i>&nbsp;
     <i class="fab fa-twitter fa-rotate-360" style="color: #FF3C89;"></i> &nbsp;
     <span class="text-muted cabin">
        Follow us on social media </span>
     <span class="run-through"></span>
-  </div>
+  </div> --}}
     <div class="container" style="margin:auto;">
-        <header>
+        {{-- <header>
            <a href="index.html"> <p class="home">Home /</a> <a href=""> <span class="shopping_cart"> Shopping Cart</span></a>
             </p>
         </header>
         <div>
             <p class="carting">Shopping Cart</p>
-        </div>
+        </div> --}}
         
 
         {{-- <div class="row">
                 
         </div> --}}
-
+<br>
         @include('partials.admin.success')
         @include('partials.admin.error')
 
@@ -89,20 +91,28 @@
                                             @endif
                                         
                                     </div>
-
                                     <div>
-                                            {{$product->name }}
+                                    {{$product->name }}
+                                     <div class="clearfix"></div>
                                             
-                                    <span class="sold">
+                                    <span class="sold badge badge-info">
                                         Sold by {{$store->name }}<br>
                                     </span>
-                                    <span class="heart">
-                                        <i class="fas fa-heart" style="color:#FF0066">
-                                        </i>
-                                        <a href="#">  Save for later instead </a>
-                                    </span>
+                                    
                                     </div>
-                                    <div class="clearfix"></div>
+                                    <button type="button" id="reserveId" class=" reserveId btn btn-danger btn-sm" data-id="{{ $product->id }}" style="border:none; border-radius:25px; color:#fff;">
+                                        <svg height="14" viewBox="0 0 16 14" width="16" class="" 
+                                        name="love">
+                                        <path d="M14.3 1.3A4.22 4.22 0 0 0 11.254.01c-1.15 0-2.232.46-3.047 1.293l-.425.436-.432-.443A4.242 4.242 0 0 0 4.3 0C3.152 0 2.07.46 1.26 1.29A4.418 4.418 0 0 0 0 4.409a4.43 4.43 0 0 0 1.266 3.116l6.194 6.34a.443.443 0 0 0 .313.135.44.44 0 0 0 .313-.132l6.206-6.33a4.435 4.435 0 0 0 1.264-3.119 4.415 4.415 0 0 0-1.257-3.12z" 
+                                            fill="#d8d8d8" 
+                                            fill-rule="nonzero">
+                                        </path>
+                                        </svg>
+                                        Reserve for a day
+                                    </button>
+
+                                    
+                                    
 
                                 </td>
                                 <td>
@@ -110,8 +120,8 @@
                                     @csrf
                                     <input type="hidden" class="productId" id="productId" name="productId" value="{{ $product->id }}">   
                                     <input type="number" class="qty" id="qty" name="qty" style="width:50px; border:solid 1px #333; border-radius:7px;" min="0" placeholder="0" value="{{$cart->qty }}">
-                                    <button type="submit" class="purple"  data-id="{{ $product->id }}" id="update-qty" style="border:none; color:#fff;" >update </button>
-                                    
+                                    <button type="submit" class="purple btn btn-warning btn-sm"  data-id="{{ $product->id }}" id="update-qty" style="border:none; color:#fff;" ><i class="fa fa-upload"></i> update </button>
+                          
                                 </form>
                                     
                                 </td>
@@ -125,7 +135,7 @@
                         </table>
   </div>
 
-        <div class="col-md-4 col-md-offset--4 col-sm-12 col-xs-12">
+        <div class="col-md-4 col-md-offset--4 col-sm-12 col-xs-12 push-margin-top">
 
                 <div class="card card-edit" >
         <form action="{{ route('pay')}}" method="post">
@@ -166,9 +176,7 @@
                                 <input type="hidden" name="total" value="{{ $total }}">
                         </tr>
                     </tfoot>
-                    {{-- <tr>
-                        
-                    </tr> --}}
+                    
 
             </tbody>
         </table>
@@ -177,15 +185,15 @@
                  will be reserved for you in the store until pickup
             </p>
           <center>
-            <button type="submit" id="proceedbutton">PROCEED TO CHECKOUT</button>
+            <button type="submit" id="proceedbutton" class="btn btn-success">PROCEED TO CHECKOUT</button>
           </form>
-        {{-- <form action="{{ route('pay.from.wallet')}}" method="get"> --}}
-        <a href="{{ route('customer.pay.from.wallet',$total) }}" id="proceedbutton" style="background-color: #555;">PAY FROM WALLET</a>
-          </form>
+            <br><br>
+            <a href="{{ route('customer.pay.from.wallet',$total) }}" id="proceedbutton"  class="btn btn-primary">PAY FROM WALLET</a>
+            </form>
             <p class="or">
                 or
             </p>
-        <a href="{{ route('customer.stores')}}"  id="continuebutton" class="btn">CONTINUE SHOPPING</a>
+            <a href="{{ route('customer.shop')}}"  id="continuebutton" class="btn">CONTINUE SHOPPING</a>
         </center>
         <br>
         <br>
@@ -199,7 +207,7 @@
 
 @stop
 
-@push('scripts')
+@push('js')
 <script src="{{ asset('assets/admin/js/custom.js')}}"></script>
 <script src="{{ asset('assets/admin/js/toastr.js')}}"></script>
 @endpush

@@ -1,7 +1,9 @@
-@extends('layouts.frontend.app')
+@extends('layouts.frontend.app2')
 
 @push('css')
 <link rel="stylesheet" href="{{ asset('assets/admin/css/toastr.css') }}">
+<link rel="stylesheet" href="{{ asset('diollo/assets/css/custom.css') }}">
+
 @endpush
 @section('content')
 
@@ -18,47 +20,39 @@
         <span class="run-through"></span>
       </div>
       <!-- side links   -->
-      <div class="container">
+      {{-- <div class="container">
           <div class="row">
             <a href="index.html" style="text-decoration:none; color: #d1d2d3;">
                     <p class="home">Home / <span class="top">Stores / </span> <span class="storename">Stores</span>
             </a> <a href="PhonesComputers.html">  </a>
           </div>
-      </div>
+      </div> --}}
   
       <!-- end of side links -->
-      <div>
+      {{-- <div>
           <h1 class="stores text-center">Products</h1>
-  </div>
+  </div> --}}
           <div class="container">
                 
                 {{-- <div class="container"> --}}
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="col-xs-12 col-md-12">
                             <img src="{{ asset('assets/password/images/Banner-for-new-stock-passward@2x.jpg')}}" alt="banner" class=" img-responsive img-fluid">
                             </div>
-                        </div>
+                        </div> --}}
                       {{-- </div> --}}
   
              <div class="row">
                   <div class="col-md-3 col-sm-6 col-xs-6">
                       <div class="contain">
-                      <p class="products">Product Categories</p>
-                      <ul class="listitems">
-                         
-                       
-                        @foreach($categories as $category)
-                          <li> 
-                            <a href="{{ route('category.search',$category->id )}}" class="product-link">{{ $category->name }}</a>
-                          </li>
-                        @endforeach
-                          {{-- <li> <a href="#" class="product-link">Men's Clothing</a></li>
-                          <li> <a href="#" class="product-link">Jewellery and Hair</a></li>
-                          <li> <a href="#" class="product-link">Babies and Kids</a></li>
-                          <li> <a href="#" class="product-link">Women's Clothing</a></li>
-                          <li> <a href="#" class="product-link">Men's Clothing</a></li>
-                          <li> <a href="#" class="product-link">Babies Clothing</a></li>
-                          <li> <a href="#" class="product-link">Jewellery and Hair</a></li> --}}
+                      <h2 class="products push-margin-top">Categories</h2>
+                      <ul class="list-group">
+                        @forelse($categories as $key => $category)
+                        <li class="list-group-item {{ ($key == 0) ? 'active fontColor' : ' fontBlack '}} "><a href="{{ route('category.search',$category->id )}}"  class="product-link {{ ($key == 0) ? 'fontColor' : ' fontBlack '}}">{{ $category->name }}</a></li>
+                        
+                         @empty 
+                          No category
+                        @endforelse
                       </ul>
   
                       {{-- <p class="closet"> New Closest Stores</p>
@@ -72,41 +66,39 @@
                   </div>
   
                   <div class="col-md-9 col-sm-12 col-xs-12">
+                    <h4 class="text-center push-margin-top"> Your search returned  <span class="badge badge-primary"><strong>{{ $products->count() }}</strong></span>  <span class="page-ext"> results.</span></h4>
                               <div class="row">
-  
-                                  <div class="col-md-3 col-xs-12 col-sm-12">
-                                      <h4> Your search returned <strong>{{ $products->count() }}</strong>  <span class="page-ext"> results.</span></h4>
-                                  </div>
-
+                               @forelse($products as $product)
+                        <div class="col-md-4 col-xs-12" style="margin-bottom:10px;">
+                          <div class="h-auto px-2">
+                            <!-- place item-->
+                            <div data-marker-id="59c0c8e39aa2eed0626e485d" class="w-100 h-100">
+                              <div class="card h-100 border-0 shadow">
+                                <div class="card-img-top overflow-hidden "> 
+                                  @foreach($product->images as $image)
+                                        <img src="{{ asset("storage/$image->path")}}" alt="phone" class="img-responsive img-fluid " style="height:160px; width:100%; object-fit:contain;">
+                                  <a href="{{ route('customer.productPage', $product->id )}}" class="tile-link"></a>
+                                    @endforeach
                                   
-                                  {{-- <div class="row" style="margin-top: 35px;"> --}}
-                                   
-                                    
-                                   
                                 </div>
-
-
-                               
-  
-                                  <div class="col-md-3 col-xs-6 col-sm-6">
-  
-                                      </div>
-                                      <div class="col-md-3 col-xs-6 col-sm-6">
-  
-                                          </div>
-                                          <div class="col-md-3 col-xs-12 col-sm-12">
-                                              {{-- <button class="sortbutton"><p class="sort"> Sort By: <span class="lowprice">Lowest Price</span> <span style="margin-left:12px;"><i class="fas fa-angle-down"></i></span> </p></button> --}}
-  
-                                          </div>
-                                          <br>
-                                          <br>
-                                          <br>
-                                          <div class="row" style="margin-top: 35px;">
-                                            
-                                            
-                                            
-                                        
-                                            @forelse($products as $product)
+                                <div class="card-body d-flex align-items-center">
+                                  <div class="w-100">
+                                  <h6 class="card-title"><a href="#" class="text-decoration-none text-dark">{{ $product->name }}</a></h6>
+                                    <div class="d-flex card-subtitle mb-3">
+                                      <p class="flex-grow-1 mb-0 text-muted text-sm"><i class="fas fa-kidneys    "></i></p>
+                                      <p class="flex-shrink-1 mb-0 card-stars text-xs text-right"><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i>
+                                      </p>
+                                    </div>
+                                  <p class="card-text text-muted"><span class="h4 text-primary">{{ number_format($product->discount_price,2) }}</span></p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        
+                                            {{-- @forelse($products as $product)
                                             <div class="col-xs-6 col-md-3">
                                               <div class="img-block">
                                                 <a href="{{ route('customer.productPage', $product->id )}}"> 
@@ -120,13 +112,13 @@
                                                             <img src="{{ asset("storage/$image->path")}}" alt="phone" class="img-responsive img-fluid" style="height:160px">
                                                         @endforeach
                                                         @endif
-                                                    {{-- <img src="{{ asset('assets/password/images/download.jpg') }}" alt="download" class="img-responsive img-fluid" style="height:160px"></a> --}}
+                                                    
                                                         <div class="edit">
                                                           <a href="#"><img src="images/fav appearance selected.svg" style="height: 25px;" alt=""></a>
                                                         </div>
                                                         <div class="content">
                                                               @php 
-                                                                // $product = \App\Models\Product::find($topSellingProduct->product_id);
+                                                                
                                                                 $store = \App\Models\Store::find($product->store);
                                                                 $city =  \Gerardojbaez\GeoData\Models\City::find($store->city_id);
                                                               @endphp
@@ -140,21 +132,50 @@
                                                         </div>
                                                         <br>
                                               </div>
-                                            </div>
+                                            </div> --}}
                                             @empty
                                             
                                             @php 
                                             $products = \App\Models\Product::inRandomOrder()->get();
-                                            // dd($products);
                                             @endphp
-    
-                                        <br>
-                                        <br>
-                                        {{-- @if(count($products) <= 0) --}}
-                                        
-        
-                                        <h2><u> See Suggestions</u></h2>
+                                            <h2 class="text-center push-margin-top"><u> See Suggestions</u></h2>
+                                          <div class="row">
                                         @foreach($products as $product)
+                                            <div class="col-md-4 col-xs-12" style="margin-bottom:10px;">
+                                              <div class="h-auto px-2">
+                                                <!-- place item-->
+                                                <div data-marker-id="59c0c8e39aa2eed0626e485d" class="w-100 h-100">
+                                                  <div class="card h-100 border-0 shadow">
+                                                    <div class="card-img-top overflow-hidden gradient-overlay"> 
+                                                      @foreach($product->images as $image)
+                                            <img src="{{ asset("storage/$image->path")}}" alt="phone" class="img-responsive img-fluid " style="height:160px; width:100%; object-fit:contain;">
+                                      <a href="{{ route('customer.productPage', $product->id )}}" class="tile-link"></a>
+                                        @endforeach
+                                  {{-- <img src="{{ asset('diollo/resources/d19m59y37dris4.cloudfront.net/directory/1-1/img/photo/photo-1522771739844-6a9f6d5f14af.jpg' ) }}" alt="Mid-Century Modern Garden Paradise" class="img-fluid"/><a href="detail-rooms.html" class="tile-link"></a> --}}
+                                
+                                  {{-- <div class="card-img-overlay-top text-right">
+                                    <a href="javascript: void();" class="card-fav-icon position-relative z-index-40"> 
+                                      </a></div> --}}
+                                </div>
+                                <div class="card-body d-flex align-items-center">
+                                  <div class="w-100">
+                                  <h6 class="card-title"><a href="#" class="text-decoration-none text-dark">{{ $product->name }}</a></h6>
+                                    <div class="d-flex card-subtitle mb-3">
+                                      <p class="flex-grow-1 mb-0 text-muted text-sm"><i class="fas fa-kidneys    "></i></p>
+                                      <p class="flex-shrink-1 mb-0 card-stars text-xs text-right"><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i>
+                                      </p>
+                                    </div>
+                                  <p class="card-text text-muted"><span class="h4 text-primary">{{ number_format($product->discount_price,2) }}</span></p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        @endforeach
+                        </div>
+                                        {{-- @foreach($products as $product)
                                             <div class="col-xs-6 col-md-3">
                                                 <div class="img-block">
                                                   <a href="{{ route('customer.productPage', $product->id )}}"> 
@@ -168,13 +189,11 @@
                                                               <img src="{{ asset("storage/$image->path")}}" alt="phone" class="img-responsive img-fluid" style="height:160px">
                                                           @endforeach
                                                           @endif
-                                                      {{-- <img src="{{ asset('assets/password/images/download.jpg') }}" alt="download" class="img-responsive img-fluid" style="height:160px"></a> --}}
                                                           <div class="edit">
                                                             <a href="#"><img src="images/fav appearance selected.svg" style="height: 25px;" alt=""></a>
                                                           </div>
                                                           <div class="content">
                                                                 @php 
-                                                                  // $product = \App\Models\Product::find($topSellingProduct->product_id);
                                                                   $store = \App\Models\Store::find($product->store);
                                                                   $city =  \Gerardojbaez\GeoData\Models\City::find($store->city_id);
                                                                 @endphp
@@ -190,7 +209,7 @@
                                                         </a>
                                                 </div>
                                               </div>
-                                              @endforeach
+                                              @endforeach --}}
                                               {{-- @else 
       
                                               @endif --}}

@@ -14,6 +14,7 @@
         "consoletvs/charts": "*",
         "fideloper/proxy": "*",
         "gerardojbaez/geodata": "*",
+        "kartik-v/bootstrap-star-rating": "^4.0",
         "laravel/framework": "5.8.7",
         "laravel/tinker": "*",
         "ramsey/uuid": "*",

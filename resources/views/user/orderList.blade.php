@@ -1,32 +1,17 @@
-@extends('layouts.frontend.app')
+@extends('layouts.frontend.app2')
 
 
 
 @push('css')
 <link href="https://fonts.googleapis.com/css?family=Literata&display=swap" rel="stylesheet">
-<style>
-  .table-card {
-    padding:10px;
-    font-family: 'Literata', serif;
+<link rel="stylesheet" href="{{ asset('diollo/assets/css/custom.css') }}">
 
-    -webkit-box-shadow: 0px 3px 9px 0px rgba(0,0,0,0.3);
-    -moz-box-shadow: 0px 3px 9px 0px rgba(0,0,0,0.3);
-    box-shadow: 0px 3px 9px 0px rgba(0,0,0,0.3);
-  }
-
-  .btndetails:hover {
-    color: #fff !important;
-  }
-</style>
 @endpush
 @section('content')
-<br>
-<br>
-<br>
-<br>
-<br>
+
 
 <div class="container">
+  <div class="row push-margin-top-product"></div>
 <div class="table-responsive">
     <table class="table table-sm table-nowrap table-card card-table">
       <thead>

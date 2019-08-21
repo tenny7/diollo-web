@@ -19,6 +19,8 @@ use Gerardojbaez\GeoData\Models\Region;
 */
 
 Route::get('/', 'SiteController@welcome')->name('welcome');
+Route::post('save-testimonial', 'TestimonyController@store')->name('testimonial.submit');
+Route::post('contact-us', 'FeedbackController@contactUs')->name('contact.us');
 
 Route::get('get-banks','SiteController@getBanks');
 
@@ -58,7 +60,6 @@ Route::post('/create-affiliate', 'CustomLoginController@signupAffiliate')->name(
 
 Route::get('/show_regions/{country_code}','AgentController@showRegions')->name('country.regions');
 Route::get('/show_city/{region_id}','AgentController@showCity')->name('region.city');
-// Route::get('show_states/{id}', 'CustomerController@isShowingStates')->name('country.states');
 
 Route::group(['middleware' => ['verified', 'auth']], function(){
     Route::group(['middleware' => 'role:affiliate'], function () {
@@ -159,25 +160,15 @@ Route::post('/save-item/{id}', 'SearchController@saveItem')->name('save.item');
 
 Route::get('/review/{id}/{rating}', 'SearchController@reviews')->name('reviews')->middleware('auth');
 
-
-
-
-
-
-// Route::get('/verifyemail/{token}', 'CustomLoginController@verify')->name('verifyAccount');
 Route::get('/signin', 'CustomLoginController@showLoginForm')->name('signin');
 Route::post('/signin', 'CustomLoginController@authenticate')->name('signinAction');
 Route::get('/create-user', 'CustomLoginController@showSignUpForm')->name('signup');
 Route::post('/signup', 'CustomLoginController@signup')->name('signupAction');
-
 Route::get('/logout', 'CustomLoginController@logout')->name('customer.logout');
 
 Route::group(['prefix' => '/vendor', 'as' => 'vendor.', 'namespace' => 'Vendor'], function () {
     Route::get('/dashboard', 'VendorController@dashboard')->name('dashboard')->middleware('verified');
-    // Route::get('/', 'VendorController@dashboard')->name('dashboard');
-    // Route::get('/dashboard', function () {
-    //     return 'Dashboard Page';
-    // });
+   
     Route::group(['prefix' => 'products', 'as' => 'products.'], function () {
         Route::get('/all', 'ProductsController@index')->name('index');
         // Route::get('/featured', 'ProductsController@featured')->name('featured');
@@ -217,9 +208,6 @@ Route::group(['prefix' => '/vendor', 'as' => 'vendor.', 'namespace' => 'Vendor']
         Route::post('/save-password', 'SettingsController@updatePassword')->name('password.update');
         Route::get('/bank', 'SettingsController@bank')->name('bank');
         Route::post('/bank', 'SettingsController@updateBank')->name('saveBank');
-        // Route::get('/profile', 'SettingsController@profile')->name('profile');
-        // Route::get('/password', 'SettingsController@password')->name('password');
-        // Route::get('/bank', 'SettingsController@bank')->name('bank');
     });
 
    
@@ -233,6 +221,7 @@ Route::group(['prefix' => '/customer', 'as' => 'customer.', 'namespace' => 'User
     Route::get('/stores', 'CustomerController@showStores')->name('stores');
     Route::get('/shop/{store_id}', 'CustomerController@showStorePage')->name('storePage');
     Route::get('/product/{product_id}', 'CustomerController@showProductPage')->name('productPage');
+    Route::get('/shop', 'CustomerController@productList')->name('shop');
     
     Route::get('wallet-show','CustomerController@showWalletPage')->name('wallet');
     Route::post('update-account','CustomerController@updateAccount')->name('account');
@@ -369,9 +358,6 @@ Route::group(['prefix' => '/admin', 'as' => 'admin.', 'namespace' => 'Admin'], f
     });
 
     Route::group(['prefix' => 'settings', 'as' => 'settings.'], function () {
-        // Route::get('/profile', 'SettingsController@profile')->name('profile');
-        // Route::get('/password', 'SettingsController@password')->name('password');
-        // Route::get('/bank', 'SettingsController@bank')->name('bank');
         Route::get('/general', 'SettingsController@general')->name('general');
         Route::get('/profile', 'SettingsController@profile')->name('profile');
         Route::post('/save-profile', 'SettingsController@saveProfile')->name('add');
@@ -384,6 +370,7 @@ Route::group(['prefix' => '/admin', 'as' => 'admin.', 'namespace' => 'Admin'], f
 
 
 Route::post('/addToCart/{product_id}', 'Carts\CartController@addToCart')->name('cart.add');
+Route::post('/addToCartSingle/{product_id}', 'Carts\CartController@addToCartSingle')->name('cart.add.single');
 Route::get('/about', 'User\CustomerController@about')->name('about.us');
 Route::get('/help', 'User\CustomerController@help')->name('help');
 Route::get('/faq', 'User\CustomerController@faq')->name('faq');
@@ -391,12 +378,6 @@ Route::post('/update-cart-qty/{id}', 'Carts\CartController@updateQty')->name('up
 Route::get('/bulkProductDelete', 'Carts\CartController@deleteFromCart');
 // Route::
 
-// Route::group(['prefix' => 'orders', 'as' => 'orders.'], function () {
-    // Route::get('/order', 'OrdersController@showOrderPage')->name('orderPage');
-    // Route::get('/returns', 'OrdersController@returns')->name('returns');
-    // Route::get('/reserved', 'OrdersController@reserved')->name('reserved');
-    // Route::get('/customers', 'OrdersController@customers')->name('customers');
-// });
 
 Auth::routes();
 // ['verify' => true]

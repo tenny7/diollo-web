@@ -21,13 +21,13 @@ class SearchController extends Controller
     public function search(Request $request)
     {
 
-        
-        $products= DB::table('stores')
-                    ->join('products', 'stores.id', '=', 'products.store')
-                    // ->whereIn('products.store', $store_data)
-                    ->Where('products.name','LIKE', '%'.$request->search.'%')
-                    ->groupBy('products.id')
-                    ->get();
+        $products = Product::where('name','LIKE','%'.$request->search.'%')->get();
+        // $products= DB::table('stores')
+        //             ->join('products', 'stores.id', '=', 'products.store')
+        //             // ->whereIn('products.store', $store_data)
+        //             ->Where('products.name','LIKE', '%'.$request->search.'%')
+        //             ->groupBy('products.id')
+        //             ->get();
 
         if($products)
         {
@@ -41,19 +41,22 @@ class SearchController extends Controller
     public function searchQuery(Request $request)
     {
 
-        $store_data = [];
-        $stores = Store::where('region_id',$request->region_id)->get();
-        foreach($stores as $store)
-        {
-            array_push($store_data, $store->id);
-        }
+        // $store_data = [];
+        // $stores = Store::where('region_id',$request->region_id)->get();
+        // foreach($stores as $store)
+        // {
+        //     array_push($store_data, $store->id);
+        // }
         
-        $products= DB::table('stores')
-                    ->join('products', 'stores.id', '=', 'products.store')
-                    ->whereIn('products.store', $store_data)
-                    ->Where('products.name','LIKE', '%'.$request->search.'%')
-                    ->groupBy('products.id')
-                    ->get();
+        // $products= DB::table('stores')
+        //             ->join('products', 'stores.id', '=', 'products.store')
+        //             ->whereIn('products.store', $store_data)
+        //             ->Where('products.name','LIKE', '%'.$request->search.'%')
+        //             ->groupBy('products.id')
+        //             ->get();
+
+        $products = Product::where('name', 'LIKE', '%'.$request->search.'%')->get();
+
 
         if($products)
         {

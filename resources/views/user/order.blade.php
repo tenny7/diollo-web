@@ -1,71 +1,29 @@
-@extends('layouts.frontend.app')
+@extends('layouts.frontend.app2')
 
 @push('css')
 <link href="https://fonts.googleapis.com/css?family=Literata&display=swap" rel="stylesheet">
-<style>
-  .table-card {
-    padding:10px;
-    font-family: 'Literata', serif;
+<link rel="stylesheet" href="{{ asset('diollo/assets/css/custom.css') }}">
 
-    -webkit-box-shadow: 0px 3px 9px 0px rgba(0,0,0,0.3);
-    -moz-box-shadow: 0px 3px 9px 0px rgba(0,0,0,0.3);
-    box-shadow: 0px 3px 9px 0px rgba(0,0,0,0.3);
-  }
-
-  .btndetails:hover {
-    color: #fff !important;
-  }
-</style>
 @endpush
 
 @section('content')
 
-<div class="top_star">
+{{-- <div class="top_star">
 <img src="{{ asset('assets/password/images/path 41.svg')}}" alt="path star">
-    </div>
-    <div class="rotated" style="width: 233px;">
+    </div> --}}
+    {{-- <div class="rotated" style="width: 233px;">
       <i class="fab fa-facebook fa-rotate-360" style="color: #FF3C89;"></i>&nbsp;
       <i class="fab fa-whatsapp fa-rotate-360" style="color: #FF3C89;"></i>&nbsp;
       <i class="fab fa-twitter fa-rotate-360" style="color: #FF3C89;"></i> &nbsp;
       <span class="text-muted cabin">
          Follow us on social media </span>
       <span class="run-through"></span>
-    </div>
+    </div> --}}
 
     <div class="container">
       <h1 class="text-center" style="font-weight: bolder;">Orders</h1>
-     <div class="row">
-      <div class="col-md-4 col-sm-12 " style="padding-top: 20px;">
-        <div class="_display">
-          <div class="">
-        <i class="far fa-user" style="font-size:20px;">&nbsp;&nbsp;</i>
-          </div>
-          <br>
-          <br>
-          <div>
-            <a class="bd" href="{{ route('customer.accountInfo') }}">My Profile</a>
-            <p class="text-muted">Account Information</p>
-          </div>
-        </div>
-        <div class="_display">
-          <div class="">
-          <img src="{{ asset('assets/password/images/wallet-outline.png') }}" alt="wallet">&nbsp;&nbsp;
-          </div>
-          <div>
-            <a class="bd" href="{{ route('customer.wallet')}}">My Wallet</a>
-            <p class="text-muted">Wallet</p>
-          </div>
-        </div>
-        <div class="_display">
-          <div class="">
-            <img src="{{ asset('assets/password/images/shopping bag.png')}}" alt="bag">
-          </div>
-          <div>
-            <a class="bd" href="{{ route('orders.viewOrders') }}">My Orders</a>
-            <p class="text-muted">Orders</p>
-          </div>
-        </div>
-      </div>
+     <div class="row push-margin-top">
+       @include('partials.diollo.sidebar')
       @include('partials.admin.success')
       @include('partials.admin.error')
       <div class="col-md-8">
@@ -73,24 +31,10 @@
         
         
         <div class="row">
-          <div class="col-md-8 col-sm-8">
+          <div class="col-md-8 col-sm-8 offset-md-4">
               <h4>Orders</h4>
           </div>
-          <div class="col-md-4 col-sm-4">
-              {{-- <div class="select">
-                  <div class="input-group">
-                      <div class="input-group-addon">
-                        sort by:
-                      </div>
-                      <select class="mdb-select md-form form-control loc_select_box" searchable="Search here..">
-                        <option value="" disabled selected>Most recent <span class="caret sr-only"></span></option>
-                        <option value="1">Most purchased</option>
-                        <option value="2">Most viewed</option>
-                        <option value="2">Last purchased</option>
-                      </select>
-                  </div>
-              </div> --}}
-        </div>
+          
         </div>
         <hr>
         
@@ -128,11 +72,11 @@
                       {{ $store->name }}
                 </td> --}}
                 <td>
-                    ₦ {{ number_format($order->total,2) }}
+                     <span class="badge badge-info">₦ {{ number_format($order->total,2) }}</span> 
                 </td>
                 <td>
-                <a href="{{ route('orders.orderList',$order->id)}}" class="btndetails" 
-                  style="background-color:#FF3C89; color:black;  padding:5px; border-radius:25px;">View Details</a>
+                <a href="{{ route('orders.orderList',$order->id)}}" class="btndetails btn-edit btn btn-success btn-sm" 
+                 >View Details</a>
                 </td>
                 {{-- <td>
                   {{Auth::user()->fullname }}

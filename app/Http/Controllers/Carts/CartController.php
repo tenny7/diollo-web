@@ -22,28 +22,67 @@ class CartController extends Controller
 
         if($request->ajax())
         {
-            $product = Product::find($request->product_id);
-            $data = [
+            $cart = Cart::where('user_id',Auth::id())
+                        ->where('product_id',$request->product_id)->first();
+                    // return Response::json(['success' => $cart]);     
+            if (is_null($cart)) {
+                $product = Product::find($request->product_id);
+                $data = [
                 'product_id' => $product->id,
                 'qty'       => $request->qty,
                 'store_id' => $product->store,
                 'price' => $request->price,
                 'user_id' => Auth::id(),
             ];
-            $cart = Cart::create($data);
-            return Response::json(['success' => 'Added to Cart']);
+                $cart = Cart::create($data);
+                return Response::json(['success' => 'Added to Cart']);
+            }else{
+           return Response::json(['success' => 'Product already exist in Cart']); 
+        }
+
+        }
+        
+    }
+    public function addToCartSingle(Request $request,$product_id)
+    {
+        $validatedData = $this->validate($request, [
+            'price'   => 'required',
+            'product_id' => 'required'
+        ]);
+
+        if($request->ajax())
+        {
+            $cart = Cart::where('user_id',Auth::id())
+                        ->where('product_id',$request->product_id)->first();
+                    // return Response::json(['success' => $cart]);     
+            if (is_null($cart)) {
+                $product = Product::find($request->product_id);
+                $data = [
+                'product_id' => $product->id,
+                'store_id' => $product->store,
+                'qty'       => 1,
+                'price' => $request->price,
+                'user_id' => Auth::id(),
+            ];
+                $cart = Cart::create($data);
+                return Response::json(['success' => 'Added to Cart']);
+            }else{
+           return Response::json(['success' => 'Product already exist in Cart']); 
+        }
 
         }
         
     }
     public function updateQty(Request $request,$id)
     {
-            $cart = Cart::where('product_id',$id)->first();
-            $cart->qty = $request->qty;
-            if($cart->save())
-            {
-                return back()->with('success','Quantity Updated');
-            }
+        $validatedData = $this->validate($request,['qty' => ['required','numeric']]);
+            $cart = Cart::where('user_id',Auth::id())->where('product_id',$id)->first();
+            // dd($cart);
+            $cart->qty = $validatedData['qty'];
+            $cart->save();
+            
+            return back()->with('success','Quantity Updated');
+            
         
     }
 

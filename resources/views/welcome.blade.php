@@ -1,449 +1,461 @@
 
-@extends('layouts.frontend.app')
+@extends('layouts.frontend.app2')
 
+@push('css')
+<style>
+  .font-weight-bold {
+   background-color:transparent !important;
+   border:none;
+ }
+ .mb-5-h, .mb-5-t {
+   color:#fff !important;
+ }
+ </style>
+@endpush
 @section('content')
 
-      <div class="rotated" style="width: 233px;">
-        <i class="fab fa-facebook fa-rotate-360" style="color: #FF3C89;"></i>&nbsp;
-        <i class="fab fa-whatsapp fa-rotate-360" style="color: #FF3C89;"></i>&nbsp;
-        <i class="fab fa-twitter fa-rotate-360" style="color: #FF3C89;"></i> &nbsp;
-        <span class="text-muted cabin">
-           Follow us on social media </span>
-        <span class="run-through"></span>
+
+   <section class="hero-home">
+      <div class="swiper-container hero-slider">
+        <div class="swiper-wrapper dark-overlay">
+          @foreach($homeSliders as $key => $value)
+              @foreach($value->photos->take(1) as $image)
+                <div style="background-image:url({{ asset('diollo/resources/img/lauren.jpg')}})" class="swiper-slide"></div>
+              @endforeach
+          @endforeach
+        </div>
       </div>
-      <div class="top_star">
-        <img src="{{ asset('assets/password/images/path 41.svg')}}" alt="path star">
+      <div class="container py-6 py-md-7 text-white z-index-20">
+        <div class="row">
+          <div class="col-xl-10">
+            <div class="text-center text-lg-left">
+              <p class="subtitle letter-spacing-4 mb-2 text-secondary text-shadow">PREMIUM</p>
+              <h1 class="display-3 font-weight-bold text-shadow">COLLECTION FOR MEN,WOMEN & KIDS</h1>
+            </div>
+            <div class="search-bar mt-5 p-3 p-lg-1 pl-lg-4">
+              <form action="{{ route('search.query')}}" method="get">
+                <div class="row">
+                  <div class="col-lg-10 d-flex align-items-center form-group">
+                    <input type="text" name="search" placeholder="What are you searching for?" class="form-control border-0 shadow-0">
+                  </div>
+                  {{-- <div class="col-lg-3 d-flex align-items-center form-group">
+                    <div class="input-label-absolute input-label-absolute-right w-100">
+                      <label for="location" class="label-absolute"><i class="fa fa-crosshairs"></i><span class="sr-only">City</span></label>
+                      <input type="text" name="location" placeholder="Location" id="location" class="form-control border-0 shadow-0">
+                    </div>
+                  </div> --}}
+                  {{-- <div class="col-lg-3 d-flex align-items-center form-group no-divider">
+                    <select title="Categories" data-style="btn-form-control" class="selectpicker">
+                      <option value="women">Women</option>
+                      <option value="men">Men</option>
+                      <option value="lids">Kids</option>
+                    </select>
+                  </div> --}}
+                  <div class="col-lg-2">
+                    <button type="submit" class="btn btn-primary btn-block rounded-xl h-100">Search </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
+    </section>
+    <section class="py-6 bg-gray-100">
       <div class="container">
-        {{-- homepage banner --}}
-        <div class="banner">
-        @foreach($homeSliders as $key => $homeSlider)
-         <a href="#">
-                  @php
-                  $images = \App\Models\Image::where('promotion_id', $homeSlider->id)->get();
-                  // dd($images);
-                  $image_var = json_decode($images);
-                  @endphp
-        
-                  @if(is_array($image_var)) 
-                  @foreach(array_slice($image_var, 0, 1) as $image)
-                  
-                    <div class="">
-                        <img src="{{ asset("storage/$image->path")}}" alt="banner" class="img-fluid img-responsive banner">
-                      
-                    </div>
-                  @endforeach
-                  @endif
-              </a>
-          
-          @endforeach
+        <div class="text-center pb-lg-4">
+          {{-- <p class="subtitle text-secondary">One-of-a-kind services we offer </p> --}}
+          <h2 class="mb-5">Our Services</h2>
         </div>
-        {{-- <div class="banner">
-          <div class="">
-            <a href="#">
-              <img src="{{ asset('assets/password/images/Banner-for-passward.jpg')}}" alt="banner" class="img-fluid img-responsive banner">
-            </a>
-          </div>
-          <div class="">
-            <a href="#">
-              <img src="{{ asset('assets/password/images/Banner-for-passward.jpg')}}" alt="banner" class="img-fluid img-responsive banner">
-            </a>
-          </div>
-          <div>
-            <a href="#">
-            <img src="{{ asset('assets/password/images/Banner-for-passward.jpg')}}" alt="banner" class="img-fluid img-responsive banner">
-            </a>
-          </div>
-        </div> --}}
-        {{-- @foreach($promotion->photos as $photo)
-                <img src="{{ asset('storage/'.$photo->path)}}" alt="banner" class="img-fluid img-responsive banner">
-              @endforeach --}}
-
-
-      </div>
-
-    <img src="{{ asset('assets/password/images/Path 32.svg')}}" alt="path" class="path">
-
-  <div class="header-form">
-
-  <form class="form-inline row" action="{{ route('search.query')}}" method="get"> -
-   @csrf
-      <div class="form-group col-md-5">
-        <label class="text-muted" for="search">What are you looking for?</label> <br>
-
-        <div class="input-group">
-          <input type="text" class="form-control" name="search" id="search" placeholder="Find the best Electronics, clothes and more...">
-           {{-- <div class="input-group-addon purple"><i class="fa fa-search"></i></div> --}}
-        </div>
-
-      </div>
-
-      <div class="form-group col-md-5">
-        <label class="text-muted" for="location">Tell us your current location</label>  <br>
-
-          <div class="select">
-            <div class="input-group">
-              <div class="input-group-addon">
-                <i class="fa fa-paper-plane"></i>
+        <div class="row">
+          <div class="col-lg-4 mb-3 mb-lg-0 text-center">
+            <div class="px-0 px-lg-3">
+              <div class="icon-rounded bg-primary-light mb-3">
+                {{-- <i class="fa fa-tshirt fa-3x"></i> --}}
+                <i class="fas fa-tshirt fa-2x    "></i>
+                {{-- <svg class="svg-icon text-primary w-2rem h-2rem">
+                  <use xlink:href="#destination-map-1"> </use>
+                </svg> --}}
               </div>
-              <select name="region_id" class="mdb-select md-form form-control loc_select_box" searchable="Search here..">
-                @foreach($regions as $region)
-                @php 
-                  $country = \Gerardojbaez\GeoData\Models\Country::where('code', $region->country_code)->first();
-                @endphp
-              <option value="{{ $region->id }}">{{ $region->name }} , {{ $country->name }}</option>
-                @endforeach
-              </select>
-          </div>
-          </div>
-        </div>
-        <div class="form-group col-md-2">
-          {{-- <label class="text-muted" for="Shop"><small>Shop Now!</small></label> --}}
-          <div class="form-group col-md-4">
-         <div class="center_cart-box">
-            <button type="submit" class="purple" style="border-radius:50%; border:none; margin-top:6px;">
-              <span class="cart-box">
-                  <i class="fa fa-shopping-cart fa-2x" style="color: #fff;"></i>
-                </span>
-            </button>
-         </div>
-          </div>
-        </div>
-
-
-
-      </div>
-  </form>
-
-  </div>
-
-  <div class="filter"></div>
-
-  {{-- <div class="alert alert-success">
-    hello world
-  </div> --}}
-  @if(count($featuredProducts) > 0)
-  <section id="products" style="position: relative; margin-top: 145px; mmargin-bottom:70px; padding-bottom: 50px;">
-
-      <h1 class="text-center clearance" >Featured Products </h1>
-      <p class="text-center">THE BEST CLOTHING ITEMS CLOSEST TO YOU, FIND YOUR ALL YOUR SHOPPING NEEDS</p>
-
-
-
-      <div class="wrapper">
-        
-        <div class="carousel" style="display:flexbox. align-items:inline-flex">
-            {{-- style="display: flex; align-items: center;" --}}
-          @foreach($featuredProducts as $key => $featuredProduct)
-          
-          <div class="slider col-md-3 col-sm-6 col-xs-6">
-            <div class="zoom">
-              <a href="{{ route('customer.productPage', $featuredProduct->id )}}">
-                    @php
-                  $images = \App\Models\ProductImage::where('product_id', $featuredProduct->id)->get();
-                  // dd($images);
-                  $image_var = json_decode($images);
-                  @endphp
-        
-                  @if(is_array($image_var)) 
-                  @foreach(array_slice($image_var, 0, 1) as $image)
-                      <img src="{{ asset("storage/$image->path")}}" alt="phone" class="img-responsive img-fluid" >
-                  @endforeach
-                  @endif
-                <div class="overlay- {{ $key }}">
-                <h6>{{$featuredProduct->name}}</h6> <p>Beauty and Hair</p>
-                </div>
-              </a>
+              <h3 class="h5">Find the perfect redy-to-wear dresses</h3>
+              <p class="text-muted">We make goergeousready to wear dresses</p>
             </div>
           </div>
-          @endforeach
-        
+          <div class="col-lg-4 mb-3 mb-lg-0 text-center">
+            <div class="px-0 px-lg-3">
+              <div class="icon-rounded bg-primary-light mb-3">
+                <i class="fas fa-cut fa-2x"></i>
+              </div>
+              <h3 class="h5">Custom made dresses</h3>
+              <p class="text-muted">Want a custom made dress?, drop us your measurement </p>
+            </div>
+          </div>
+          <div class="col-lg-4 mb-3 mb-lg-0 text-center">
+            <div class="px-0 px-lg-3">
+              <div class="icon-rounded bg-primary-light mb-3">
+                <i class="fas fa-brush fa-2x"></i>
+              </div>
+              <h3 class="h5">Training</h3>
+              <p class="text-muted">Looking to learn how to make quality dresses, then enroll in our fashion academy!</p>
+            </div>
+          </div>
         </div>
-
       </div>
-
-</section>
-@endif
-
-@if(count($stores) > 0)
-<section class="Shops">
-  <div class="container">
-
-  <div class="row">
-    <div class="col-md-3 col-xs-12">
-      <div class="shop-it col-md-12 col-xs-6 ">
-        <img src="{{ asset('assets/password/images/shop icon.svg')}}" class="img-responsive img-fluid shop-icon" alt="Shop icon">
-      </div>
-      <div class="">
-        <h1>Find Shops</h1>
-      </div>
-      <div class="shop-text col-md-12 col-xs-6">
-        <p>Find well stocked shops <span class="fill">in your location</span> selling just what you need, with the <span class="fill">best discounts.</span> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et et dolore.</p>
-      </div>
-
-      <button type="button" class="btn btn-none hidden-sm" name="button"> FIND MORE &ensp; <i class="fa fa-angle-right"></i> </button>
-    </div>
-
-    <div class="col-md-9 col-xs-12">
-      {{-- @php 
-          $width = ['159','159','331','159','159','159'];
-          $height = ['163.34','159','163.34','159','159','159'];
-      @endphp --}}
-      {{-- class="first" --}}
-     <div class="grid-container">
-       {{-- @foreach($stores as $store)
-        <div>
-          <a href="{{ route('customer.storePage',$store->id)}}">
-            <img src="{{ asset('storage/'.$store->logo)}}" style="width:331px !important; height:163px !important; object-fit:contain;" class="img-responsive img-fluid curve" alt="Hanger">
-          </a>
-        
-        
-        </div> --}}
-        
-
-        {{-- @endforeach --}}
-
-        @foreach($allDis as $dis)
-
-        @foreach($dis as $key => $value)
-        <div>
-          @php 
-            $store = \App\Models\Store::where('name',$key)->first();
-            // dd($store);
-          @endphp
-            <a href="{{ route('customer.storePage',$store->id)}}">
-              <img src="{{ asset('storage/'.$store->logo)}}" style="width:331px !important; height:163px !important; object-fit:contain;" class="img-responsive img-fluid curve" alt="Hanger">
-            </a>
-          <p>{{ $key }} , {{ $value }} away</p>
-          
-          
-          </div> 
-          @endforeach
-        @endforeach
-        
-
-    </div>
-
-    <button type="button" class="btn btn-none hide-md" name="button"> FIND MORE &ensp; <i class="fa fa-angle-right"></i> </button>
-
-  </div>
-
-</div>
-
-</section>
-@endif
-
-
-    <div class="main">
-        @if(count($clearanceProducts) > 0)
-        {{-- {{dd($clearanceProducts)}} --}}
-        <div>
-            <h1 class="clearance">Clearance Sales</h1>
-        </div>
-        <div>
-            <p class="hotsell">HOT HOT HOT TOP SELL AFFORDABLE PRODUCTS</p>
-        </div>
-        <div>
-            <p class="show text-center">Show all flash sales</p>
-        </div>
-        @endif
-        <div class="container">
-            <div class="row" style="padding-top: 40px; margin: auto; ">
-              {{-- @if(isset($clearanceProducts)) --}}
-              @foreach($clearanceProducts as $clearanceProduct)
-                <div class="col-md-2 col-sm-6 col-xs-6">
-                  <div class="img-block">
-                    <a href="{{ route('customer.productPage', $clearanceProduct->id )}}"> 
-                        
-                          @foreach($clearanceProduct->images as $image)
-                              <img src="{{ asset("storage/$image->path")}}" alt="phone" class="img-responsive img-fluid " style="height:160px">
-                          @endforeach
-                       
-                      {{-- <img src="{{ asset('assets/password/images/clock.png')}}" alt="clock" class="img-responsive img-fluid" style="height:160px"> --}}
-                    </a>
-                    <div class="edit">
-                      <a style="display: flex; justify-content: flex-end;" href="#"><img src="{{ asset('assets/password/images/fav appearance selected.svg')}}" style="height: 25px;" alt=""></a>
-                    </div>
-                  </div>
-                    <div class="content">
-                    <p class="items"> {{ $clearanceProduct->name }}</p>
-                        <p class="price">&#8358;{{ number_format($clearanceProduct->original_price,2) }}<span class="newprice">&#8358;{{ $clearanceProduct->discount_price }}</span></p>
-                    </div>
-                </div>
-                
-                @endforeach
+    </section>
+    {{-- <section class="py-6 bg-white">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-md-8">
+            <p class="subtitle text-primary">Pay us a visit</p>
+            <h2>Workspace</h2>
+          </div>
+          <div class="col-md-4 d-lg-flex align-items-center justify-content-end"><a href="category.html" class="text-muted text-sm">
                
-
-
-            </div>
+              See all guides<i class="fas fa-angle-double-right ml-2"></i></a></div>
         </div>
-        
-        <div class="background">
-            <div class="rectangle">
-            </div>
-            @if(count($topSellingProducts) > 0)
-            <div class="grad">
-                <div class="container">
-                    <div class="row box ">
-                        <div class="col-md-8 col-sm-12 col-xs-12">
-                            <div class="row" style="margin-left: -6px;
-                    margin-top: 31px;">
-                                @foreach($topSellingProducts as $topSellingProduct)
-                                {{-- {{ dd($topSellingProduct)}} --}}
-                                <div class="col-md-3 col-sm-6 col-xs-6 flash">
-                                  <a href="{{ route('top.selling') }}">
-                                    @php
-                                    $images = \App\Models\ProductImage::where('product_id', $topSellingProduct->product_id)->get();
-                                    // dd($images);
-                                    $image_var = json_decode($images);
-                                    @endphp
-                          
-                                    @if(is_array($image_var)) 
-                                    @foreach(array_slice($image_var, 0, 1) as $image)
-                                        <img src="{{ asset("storage/$image->path")}}" alt="phone" class="img-responsive img-fluid images" >
-                                    @endforeach
-                                    @endif
-                                    {{-- <img src="{{ asset('assets/password/images/19496273.jpg')}}" alt="194" class="img-responsive img-fluid images"> --}}
-                                    <div class="ease-up_overlay" style=" background: linear-gradient(to right, #00D8FF,#FF5599); height: 150px; border: 1px solid white; border-radius: 8%; padding: 10px;">
-                                        <button id="buybutton">BUY NOW</button>
-                                        <p class="description">
-                                          @php 
-                                            $product = \App\Models\Product::find($topSellingProduct->product_id);
-                                            // dd($product);
-                                          @endphp
-                                            @if(isset($product->quick_description)) 
-                                                {{ $product->quick_description }} 
-                                            @endif
-                                            @if(isset($product->discount_price)) 
-                                               
-                                        <span id="spanprice"> &#8358;{{ number_format($product->discount_price)}}</span>
-                                        
-                                        @endif
-                                        </p>
-                                    </div>
-                                  </a>
-                                </div>
-                                @endforeach
-
-                                
-                                <br>
-                            </div>
-
-
-                        </div>
-                        <div class="col-md-4 col-sm-12 col-xs-12 textcol">
-                            <p class="experience">
-                                <span id="ease"> Ease Up</span></p>
-                            <p class="shopping"> Your Shopping Experience</p>
-                            <p class="check"> Check out these iteam recommended for you.</p>
-                        </div>
-                        <!-- <a href="#" class="findmore"> FIND MORE ></a> -->
-                    </div>
-                </div>
-            </div>
-            @endif
-        </div>
-        
-        @if(count($newStocks) > 0)
-        <div class="container">
-            <div class="shopping_space">
-                <h2 class="affordable">New and Affordable</h2>
-                <p class="shouldbuy">YOU SHOULD BUY THESE</p>
-                <p class="show">Show all new and Affordable</p>
-
-            <div class="row " style=" align-items: center; justify-content: center;">
-                <div class="wrapper">
-                  <div class="carousel gimme-space" style="display: flexbox;">
-                    @foreach($newStocks as $newStock)
-                      <div class="col-md-3 col-sm-6 col-xs-6 neon">
-                        <a href="{{ route('new.stock')}}"> 
-                            @php
-                            $images = \App\Models\ProductImage::where('product_id', $newStock->id)->get();
-                            // dd($images);
-                            $image_var = json_decode($images);
-                            @endphp
-                  
-                            @if(is_array($image_var)) 
-                            @foreach(array_slice($image_var, 0, 1) as $image)
-                                <img src="{{ asset("storage/$image->path")}}" alt="phone" class="img-responsive img-fluid" >
-                            @endforeach
-                            @endif
-                           
-                              {{-- @foreach($newStock->images as $image)
-                                  <img src="{{ asset("storage/$image->path")}}" alt="phone" class="img-responsive img-fluid " style="height: 250px; width:300px;">
-                              @endforeach --}}
-                         
-                          {{-- <img src="{{ asset('assets/password/images/19496273.jpg')}}" alt="194" class="img-responsive img-fluid" style="height: 250px; object-fit: contain;"> --}}
-                        </a>
-                        <div class="content">
-                        <p class="items"> {{ $newStock->name}}</p>
-                            <p class="price">&#8358;{{ number_format($newStock->discount_price,2)}}
-                                <span class="star"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></span></p>
-                        </div>
-                    </div>
-                    @endforeach
-                   
+        <div class="row">
+          <div class="swiper-container guides-slider">
+            <!-- Additional required wrapper-->
+            <div class="swiper-wrapper pb-5">
+              <!-- Slides-->
+              <div class="swiper-slide h-auto px-2">
+                <div class="card card-poster gradient-overlay mb-4 mb-lg-0"><a href="category.html" class="tile-link"></a><img src="{{ asset('diollo/resources/d19m59y37dris4.cloudfront.net/directory/1-1/img/photo/new-york.jpg') }}" alt="Card image" class="bg-image">
+                  <div class="card-body overlay-content">
+                    <h6 class="card-title text-shadow text-uppercase">New York</h6>
+                    <p class="card-text text-sm">The big apple</p>
                   </div>
                 </div>
-             </div>
-           </div>
+              </div>
+              <div class="swiper-slide h-auto px-2">
+                <div class="card card-poster gradient-overlay mb-4 mb-lg-0"><a href="category.html" class="tile-link"></a><img src="{{ asset('diollo/resources/d19m59y37dris4.cloudfront.net/directory/1-1/img/photo/paris.jpg') }}" alt="Card image" class="bg-image">
+                  <div class="card-body overlay-content">
+                    <h6 class="card-title text-shadow text-uppercase">Paris</h6>
+                    <p class="card-text text-sm">Artist capital of Europe</p>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide h-auto px-2">
+                <div class="card card-poster gradient-overlay mb-4 mb-lg-0"><a href="category.html" class="tile-link"></a><img src="{{ asset('diollo/resources/d19m59y37dris4.cloudfront.net/directory/1-1/img/photo/barcelona.jpg ') }}" alt="Card image" class="bg-image">
+                  <div class="card-body overlay-content">
+                    <h6 class="card-title text-shadow text-uppercase">Barcelona</h6>
+                    <p class="card-text text-sm">Dalí, Gaudí, Barrio Gotico</p>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide h-auto px-2">
+                <div class="card card-poster gradient-overlay mb-4 mb-lg-0"><a href="category.html" class="tile-link"></a><img src="{{ asset('diollo/resources/d19m59y37dris4.cloudfront.net/directory/1-1/img/photo/prague.jpg') }}" alt="Card image" class="bg-image">
+                  <div class="card-body overlay-content">
+                    <h6 class="card-title text-shadow text-uppercase">Prague</h6>
+                    <p class="card-text text-sm">City of hundred towers</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-pagination d-md-none"> </div>
+          </div>
         </div>
+      </div>
+    </section> --}}
+    <section class="py-6 bg-gray-100"> 
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-md-8">
+            <p class="subtitle text-secondary">Place your orders now! </p>
+            <h2>Latest Products</h2>
+          </div>
+          <div class="col-md-4 d-lg-flex align-items-center justify-content-end"><a href="category.html" class="text-muted text-sm">
+               
+              See all deals<i class="fas fa-angle-double-right ml-2"></i></a></div>
+        </div>
+        
+        <!-- Slider main container-->
+        <div data-swiper="{&quot;slidesPerView&quot;:4,&quot;spaceBetween&quot;:20,&quot;loop&quot;:true,&quot;roundLengths&quot;:true,&quot;breakpoints&quot;:{&quot;1200&quot;:{&quot;slidesPerView&quot;:3},&quot;991&quot;:{&quot;slidesPerView&quot;:2},&quot;565&quot;:{&quot;slidesPerView&quot;:1}},&quot;pagination&quot;:{&quot;el&quot;:&quot;.swiper-pagination&quot;,&quot;clickable&quot;:true,&quot;dynamicBullets&quot;:true}}" class="swiper-container swiper-container-mx-negative swiper-init">
+          <!-- Additional required wrapper-->
+         
+          <div class="swiper-wrapper pb-5">
+             @foreach($products as $key => $product)
+            <!-- Slides-->
+            <div class="swiper-slide h-auto px-2">
+              <!-- place item-->
+              
+              {{-- <div class="col-4">
 
-        @endif
-
-        {{-- <div id="mapholder"></div> --}}
-     {{-- <form>
-        <input type="button" onclick="getLocation();" value="Your Location"/>
-     </form> --}}
-       @stop
-
-       @push('scripts')
-
-       
-  {{-- </head> --}}
-  {{-- <body> --}}
+              </div> --}}
+             
+            <div data-marker-id="59c0c8e33b1527bfe2abaf92-{{ $key}}" class="w-100 h-100  ">
+                
+                <div class="card h-100 border-0 shadow">
+                  <div class="card-img-top overflow-hidden ">
+                    {{-- <img src="{{ asset('diollo/resources/d19m59y37dris4.cloudfront.net/directory/1-1/img/photo/photo-1484154218962-a197022b5858.jpg') }}" alt="Modern, Well-Appointed Room" class="img-fluid"/> --}}
+                     @foreach($product->images as $image)
+                        <img src="{{ asset("storage/$image->path")}}" alt="phone" class="img-responsive img-fluid " style="height:160px; width:100%; object-fit:contain;">
+                  <a href="{{ route('customer.productPage', $product->id )}}" class="tile-link"></a>
+                    @endforeach
+                    
+                    <div class="card-img-overlay-bottom z-index-20">
+                     
+                    </div>
+                    <div class="card-img-overlay-top text-right">
+                      {{-- <a href="javascript: void();" class="card-fav-icon position-relative z-index-40">  --}}
+                        {{-- <i class="fa fas-heart fa-2x"></i> --}}
+                  </div>
+                  <div class="card-body d-flex align-items-center">
+                    <div class="w-100">
+                    <h6 class="card-title"><a href="{{ route('customer.productPage', $product->id )}}" class="text-decoration-none text-dark">{{ $product->name }}</a></h6>
+                      <div class="d-flex card-subtitle mb-3">
+                        {{-- <p class="flex-grow-1 mb-0 text-muted text-sm">{{ $product->categories->first->name }}</p> --}}
+                        <p class="flex-shrink-1 mb-0 card-stars text-xs text-right"><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i>
+                        </p>
+                      </div>
+                      <p class="card-text text-muted"><span class="h4 text-primary">{{ $product->discount_price }}</span> </p>
+                      {{-- <p class="card-text text-muted"><span class="h4 text-primary">{{ number_format($product->original_price,2) }}</span> </p> --}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+               
+            </div>
+            
+            
+            
+            
+            
+          </div>
+          <!-- If we need pagination-->
+          <div class="swiper-pagination"></div>
+           @endforeach
+        </div>
+        
+      </div>
      
-  {{-- </body> --}}
+           
+    </section>
+    <!-- Divider Section-->
+    <section class="py-7 position-relative ">
+      <img src="{{ asset('diollo/assets/images/feedback.jpg') }}" alt="" class="bg-image">
+      <div class="container">
+        {{-- <div class="overlay-content text-white py-lg-5">
+          
+        </div> --}}
+        <div class="row">
+          <div class="col-md-6">
+            <h3 class="display-3 font-weight-bold text-serif text-shadow text-secondary ">Ready for your next awesome dress design?</h3>
+          </div>
+          <div class="col-md-6">
+            @include('partials.admin.success')
+            @include('partials.admin.error')
+          <form action="{{ route('contact.us') }}" method="post">
+            @csrf
+             <div class="form-group">
+                <label for="loginUsername" class="form-label mb-5-t"> Username </label>
+                <input  id="username" name="name" type="text" placeholder="Enter name" autocomplete="off" required data-msg="Please enter your name" class="form-control">
+                {{-- <a href="category-rooms.html" class="btn btn-light">Submit</a> --}}
+             </div>
+             <div class="form-group">
+                <label for="loginUsername" class="form-label mb-5-t"> Email </label>
+                <input  id="email" name="email" type="text" placeholder="Enter email" autocomplete="off" required data-msg="Please enter your email address" class="form-control">
+                {{-- <a href="category-rooms.html" class="btn btn-light">Submit</a> --}}
+             </div>
 
-       {{-- https://www.googleapis.com/geolocation/v1/geolocate?key=YOUR_API_KEY --}}
-        {{-- <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyC9EOguEuOmLUDK_QbG01n2FLMFxEQH4pc&sensor=true"></script> --}}
+             <div class="form-group">
+                <label for="loginUsername" class="form-label mb-5-t"> Content </label>
+                <textarea name="content" id="content" cols="30" placeholder="Enter content" rows="10" class="form-control"></textarea>
+                {{-- <input name="username" id="username" type="text" placeholder="Enter name" autocomplete="off" required data-msg="Please enter your name" class="form-control"> --}}
+                {{-- <a href="category-rooms.html" class="btn btn-light">Submit</a> --}}
+             </div>
 
-        {{-- <script>
-          (function() {
+             <div class="form-group">
+               <button type="submit" class="btn btn-primary">Submit</button>
+             </div>
+             
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="py-7">
+      <div class="container">
+        <div class="text-center">
+          <p class="subtitle text-primary">Testimonials</p>
+          <h2 class="mb-5">Our dear customers said about us</h2>
+        </div>
+        <!-- Slider main container-->
+        <div class="swiper-container testimonials-slider testimonials">
+          <!-- Additional required wrapper-->
+          <div class="swiper-wrapper pt-2 pb-5">
+            @foreach($testimonials as $testimonial)
+            <!-- Slides-->
+            <div class="swiper-slide px-3">
+              <div class="testimonial card rounded-lg shadow border-0">
+                <div class="testimonial-avatar"><img src="{{ asset('diollo/resources/d19m59y37dris4.cloudfront.net/directory/1-1/img/avatar/avatar-3.jpg') }}" alt="..." class="img-fluid"></div>
+                <div class="text">
+                  <div class="testimonial-quote"><i class="fas fa-quote-right"></i></div>
+                <p class="testimonial-text"> {{ $testimonial->content  }}</p><strong>{{ $testimonial->name }}</strong>
+                </div>
+              </div>
+            </div>
+            @endforeach
+            
+            {{-- <div class="swiper-slide px-3">
+              <div class="testimonial card rounded-lg shadow border-0">
+                <div class="testimonial-avatar"><img src="{{ asset('diollo/resources/d19m59y37dris4.cloudfront.net/directory/1-1/img/avatar/avatar-3.jpg') }}" alt="..." class="img-fluid"></div>
+                <div class="text">
+                  <div class="testimonial-quote"><i class="fas fa-quote-right"></i></div>
+                  <p class="testimonial-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever</p><strong>Jessica Watson</strong>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide px-3">
+              <div class="testimonial card rounded-lg shadow border-0">
+                <div class="testimonial-avatar"><img src="{{ asset('diollo/resources/d19m59y37dris4.cloudfront.net/directory/1-1/img/avatar/avatar-3.jpg') }}" alt="..." class="img-fluid"></div>
+                <div class="text">
+                  <div class="testimonial-quote"><i class="fas fa-quote-right"></i></div>
+                  <p class="testimonial-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever</p><strong>Jessica Watson</strong>
+                </div>
+              </div>
+            </div> --}}
+            {{-- <div class="swiper-slide px-3">
+              <div class="testimonial card rounded-lg shadow border-0">
+                <div class="testimonial-avatar"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/avatar/avatar-3.jpg" alt="..." class="img-fluid"></div>
+                <div class="text">
+                  <div class="testimonial-quote"><i class="fas fa-quote-right"></i></div>
+                  <p class="testimonial-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever</p><strong>Jessica Watson</strong>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide px-3">
+              <div class="testimonial card rounded-lg shadow border-0">
+                <div class="testimonial-avatar"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/avatar/avatar-3.jpg" alt="..." class="img-fluid"></div>
+                <div class="text">
+                  <div class="testimonial-quote"><i class="fas fa-quote-right"></i></div>
+                  <p class="testimonial-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever</p><strong>Jessica Watson</strong>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide px-3">
+              <div class="testimonial card rounded-lg shadow border-0">
+                <div class="testimonial-avatar"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/avatar/avatar-3.jpg" alt="..." class="img-fluid"></div>
+                <div class="text">
+                  <div class="testimonial-quote"><i class="fas fa-quote-right"></i></div>
+                  <p class="testimonial-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever</p><strong>Jessica Watson</strong>
+                </div>
+              </div>
+            </div> --}}
+          </div>
+          <div class="swiper-pagination">     </div>
+        </div>
+      </div>
+    </section>
+    {{-- <section class="py-6 bg-gray-100"> 
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-md-8">
+            <p class="subtitle text-secondary">Stories from around the globe</p>
+            <h2>From our travel blog</h2>
+          </div>
+          <div class="col-md-4 d-md-flex align-items-center justify-content-end"><a href="blog.html" class="text-muted text-sm">
+               
+              See all articles<i class="fas fa-angle-double-right ml-2"></i></a></div>
+        </div>
+        <div class="row">
+          <!-- blog item-->
+          <div class="col-lg-4 col-sm-6 mb-4">
+            <div class="card shadow border-0 h-100"><a href="post.html"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/photo/photo-1512917774080-9991f1c4c750.jpg" alt="..." class="img-fluid card-img-top"/></a>
+              <div class="card-body"><a href="#" class="text-uppercase text-muted text-sm letter-spacing-2">Travel </a>
+                <h5 class="my-2"><a href="post.html" class="text-dark">Autumn fashion tips and tricks          </a></h5>
+                <p class="text-gray-500 text-sm my-3"><i class="far fa-clock mr-2"></i>January 16, 2016</p>
+                <p class="my-2 text-muted text-sm">Pellentesque habitant morbi tristique senectus. Vestibulum tortor quam, feugiat vitae, ultricies ege...</p><a href="post.html" class="btn btn-link pl-0">Read more<i class="fa fa-long-arrow-alt-right ml-2"></i></a>
+              </div>
+            </div>
+          </div>
+          <!-- blog item-->
+          <div class="col-lg-4 col-sm-6 mb-4">
+            <div class="card shadow border-0 h-100"><a href="post.html"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/photo/photo-1522771739844-6a9f6d5f14af.jpg" alt="..." class="img-fluid card-img-top"/></a>
+              <div class="card-body"><a href="#" class="text-uppercase text-muted text-sm letter-spacing-2">Living </a>
+                <h5 class="my-2"><a href="post.html" class="text-dark">Newest photo apps          </a></h5>
+                <p class="text-gray-500 text-sm my-3"><i class="far fa-clock mr-2"></i>January 16, 2016</p>
+                <p class="my-2 text-muted text-sm">ellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibu...</p><a href="post.html" class="btn btn-link pl-0">Read more<i class="fa fa-long-arrow-alt-right ml-2"></i></a>
+              </div>
+            </div>
+          </div>
+          <!-- blog item-->
+          <div class="col-lg-4 col-sm-6 mb-4">
+            <div class="card shadow border-0 h-100"><a href="post.html"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/photo/photo-1482463084673-98272196658a.jpg" alt="..." class="img-fluid card-img-top"/></a>
+              <div class="card-body"><a href="#" class="text-uppercase text-muted text-sm letter-spacing-2">Travel </a>
+                <h5 class="my-2"><a href="post.html" class="text-dark">Best books about Photography          </a></h5>
+                <p class="text-gray-500 text-sm my-3"><i class="far fa-clock mr-2"></i>January 16, 2016</p>
+                <p class="my-2 text-muted text-sm">Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.  Mauris placerat eleif...</p><a href="post.html" class="btn btn-link pl-0">Read more<i class="fa fa-long-arrow-alt-right ml-2"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> --}}
+    <!-- Instagram-->
+    {{-- <section>
+      <div class="container-fluid px-0">
+        <div class="swiper-container instagram-slider">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide overflow-hidden"><a href="#"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/instagram/instagram-1.jpg" alt="" class="img-fluid hover-scale"></a></div>
+            <div class="swiper-slide overflow-hidden"><a href="#"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/instagram/instagram-2.jpg" alt="" class="img-fluid hover-scale"></a></div>
+            <div class="swiper-slide overflow-hidden"><a href="#"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/instagram/instagram-3.jpg" alt="" class="img-fluid hover-scale"></a></div>
+            <div class="swiper-slide overflow-hidden"><a href="#"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/instagram/instagram-4.jpg" alt="" class="img-fluid hover-scale"></a></div>
+            <div class="swiper-slide overflow-hidden"><a href="#"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/instagram/instagram-5.jpg" alt="" class="img-fluid hover-scale"></a></div>
+            <div class="swiper-slide overflow-hidden"><a href="#"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/instagram/instagram-6.jpg" alt="" class="img-fluid hover-scale"></a></div>
+            <div class="swiper-slide overflow-hidden"><a href="#"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/instagram/instagram-7.jpg" alt="" class="img-fluid hover-scale"></a></div>
+            <div class="swiper-slide overflow-hidden"><a href="#"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/instagram/instagram-8.jpg" alt="" class="img-fluid hover-scale"></a></div>
+            <div class="swiper-slide overflow-hidden"><a href="#"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/instagram/instagram-9.jpg" alt="" class="img-fluid hover-scale"></a></div>
+            <div class="swiper-slide overflow-hidden"><a href="#"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/instagram/instagram-10.jpg" alt="" class="img-fluid hover-scale"></a></div>
+            <div class="swiper-slide overflow-hidden"><a href="#"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/instagram/instagram-11.jpg" alt="" class="img-fluid hover-scale"></a></div>
+            <div class="swiper-slide overflow-hidden"><a href="#"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/instagram/instagram-12.jpg" alt="" class="img-fluid hover-scale"></a></div>
+            <div class="swiper-slide overflow-hidden"><a href="#"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/instagram/instagram-13.jpg" alt="" class="img-fluid hover-scale"></a></div>
+            <div class="swiper-slide overflow-hidden"><a href="#"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/instagram/instagram-14.jpg" alt="" class="img-fluid hover-scale"></a></div>
+          </div>
+        </div>
+      </div>
+    </section> --}}
+   
 
-    if(!!navigator.geolocation) {
 
-        var map;
+{{-- <section class="hero hero-with-header">
+     <div class="row">
+       <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+ 
+        <ol class="carousel-indicators">
+            @foreach( $homeSliders as $key => $value)
+            <li data-target="#carouselExampleIndicators" data-slide-to="{{ $loop->index }}" class="{{ $key == 0 ? 'active' : '' }}"></li>
+            @endforeach
+        </ol>
+      
+        <div class="carousel-inner" role="listbox">
+          @foreach($homeSliders as $key => $value)
+          <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+            <div class="row">
+              @foreach($value->photos->take(1) as $image)
+                <div class="col-md-8 offset-md-2 photos">
+                  <img class="d-block img-fluid photo" src="{{ asset("storage/".$image->path) }}">
+                </div>
+              @endforeach
+            </div>
+          </div>
+          @endforeach
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
 
-        var mapOptions = {
-            zoom: 15,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
+      
+        </div>
+</section> --}}
+@include('partials.diollo.footer')
+@stop
 
-        map = new google.maps.Map(document.getElementById('google_canvas'), mapOptions);
+@push('scripts')
 
-        navigator.geolocation.getCurrentPosition(function(position) {
-
-            var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-            var infowindow = new google.maps.InfoWindow({
-                map: map,
-                position: geolocate,
-                content:
-                    '<h1>Location pinned from HTML5 Geolocation!</h1>' +
-                    '<h2>Latitude: ' + position.coords.latitude + '</h2>' +
-                    '<h2>Longitude: ' + position.coords.longitude + '</h2>'
-            });
-
-            map.setCenter(geolocate);
-
-        });
-
-    } else {
-        document.getElementById('google_canvas').innerHTML = 'No Geolocation Support.';
-    }
-    
-
-})();
-        </script> --}}
-       @endpush
+@endpush

@@ -11,12 +11,14 @@ use App\Models\Wallet;
 // use Spatie\Geocoder\Facades\Geocoder;
 use App\Models\Product;
 use App\Models\Promotion;
+use App\Models\Testimony;
 use App\Models\OrderStatus;
 use Illuminate\Http\Request;
 use Spatie\Geocoder\Geocoder;
 use App\Models\CommitmentWallet;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Gerardojbaez\GeoData\Models\City;
 use Gerardojbaez\GeoData\Models\Region;
 use Illuminate\Support\Facades\Response;
@@ -102,56 +104,44 @@ class SiteController extends Controller
 
     public function welcome(Request $request)
     {
-        // $ip_address = $request->ip();
-        $stores = Store::all();
-
-        $geoip = new GeoIPLocation();
+        // $stores = Store::all();
+        $products = Product::latest()->get();
+        $testimonials = Testimony::inRandomOrder('created_at','DSC')->take(5)->get();
+        // dd($products);
+        // $geoip = new GeoIPLocation();
         
-        $fromLat = $geoip->getLatitude();
-        $fromLon = $geoip->getLongitude();
-        $col;
-        // $data = [];
-        // $allDis = collect();
-        $allDis = [];
+        // $fromLat = $geoip->getLatitude();
+        // $fromLon = $geoip->getLongitude();
+        // $col;
         
-        //dd($stores);
-        foreach($stores as $key => $store)
-        {
-            
-            
-            $region = Region::find($store->region_id);
-           
-            // dd($region->name);
-            $distance = $this->getDistance($store->id,$fromLat,$fromLon,'K');
-           
-            $allDis[] = $distance;
-            // $allDis['place'] = $region->name;
-        }
-        // dd($allDis);
+        // $allDis = [];
+        
+        // foreach($stores as $key => $store)
+        // {
+        //     $region = Region::find($store->region_id);
+        //     $distance = $this->getDistance($store->id,$fromLat,$fromLon,'K');
+        //     $allDis[] = $distance;
+        // }
+        
        
-        $region = Region::where('name',$geoip->getCity())->first();
-        $regions = Region::where('country_code', 'NG')->orderBy('name', 'ASC')->get();
+        // $region = Region::where('name',$geoip->getCity())->first();
+        // $regions = Region::where('country_code', 'NG')->orderBy('name', 'ASC')->get();
 
-        $featuredProducts = Product::where('status',Product::FEATURED_PRODUCT)->get();
-        $clearanceProducts = Product::where('status',Product::CLEARANCE_PRODUCT)->get();
+        // $featuredProducts = Product::where('status',Product::FEATURED_PRODUCT)->get();
+        // $clearanceProducts = Product::where('status',Product::CLEARANCE_PRODUCT)->get();
         
         $topSellingProducts = DB::table('order_product')
             ->select('product_id', DB::raw('count(*) as total'))
             ->groupBy('product_id')
             ->orderBy('total', 'desc')
             ->get();
-        // dd($clearanceProducts);
         $newStocks = Product::where('created_at', '>', Carbon::now()->subDays(7))->get();
         $homeSliders = Promotion::where('promo_type','slider')->where('status',Promotion::STATUS_ACTIVE)->orderByRaw('RAND()')->get();
-        // dd($homeSliders);
-        // foreach($promotions as $promotion)
-        // {
-        //     dd($promotion->photos);
-        // }
         
-
-
-        return view('welcome', compact('regions','stores','allDis','featuredProducts','clearanceProducts','newStocks','topSellingProducts','homeSliders'));
+        
+        
+        // return view('welcome', compact('regions','stores','allDis','featuredProducts','clearanceProducts','newStocks','topSellingProducts','homeSliders'));
+        return view('welcome', compact('newStocks','topSellingProducts','homeSliders','products','testimonials'));
     }
     public function getStarted()
     {
@@ -171,14 +161,25 @@ class SiteController extends Controller
             ['name' => 'Admin', 'is_default' => 0],
         ]);
 
-        Wallet::firsteOrCreate(
+        
+        $user = User::firstOrCreate(
             [
+                'first_name' => 'Nelly',
+                'last_name' => 'Onovwiona',
+                'phone' => '0908767878',
+                'email' => 'diolloservices@gmail.com',
+                'password' => Hash::make('nellywhite')
+            ]
+        );
+        Wallet::firstOrCreate(
+            [
+                'owner_id' => $user->id,
                 'name' => 'Passward Account',
                 'amount' => 0.00
             ]
         );
 
-        CommitmentWallet::firsteOrCreate(
+        CommitmentWallet::firstOrCreate(
             [
                 'name' => 'Commitment Account',
                 'amount' => 0.00

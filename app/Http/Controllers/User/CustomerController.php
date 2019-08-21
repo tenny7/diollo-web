@@ -47,10 +47,6 @@ class CustomerController extends Controller
 
                 foreach($cartItems as $cartItem)
                 {
-                    // dd(Cart::total());
-                   
-                    
-                    // dd($order);
                     
                     $order->products()->attach($cartItem->id,[
                         'product_id'    => $cartItem->product_id,
@@ -86,8 +82,8 @@ class CustomerController extends Controller
                             dd($e);
                         }
                     }
-                    
-            return back()->with('success','Payment Successful');
+                   $total = 0; 
+            return back()->with(['success' =>'Payment Successful','total' => $total ]);
         }
         elseif($walletBalance < $amount)
         {
@@ -210,7 +206,6 @@ class CustomerController extends Controller
         $rules =  [
             
             'street' => 'required|string',
-            // 'gender' => 'required|string',
             'country_code' => 'required|exists:countries,code',
             'region_id' => 'required|exists:regions,id',
             'city_id' => 'required',
@@ -219,7 +214,6 @@ class CustomerController extends Controller
         $city = City::where('name',$request->city_id)->first();
         $data = [
             'street' => $request->street,
-            // 'gender' => $request->gender,
             'country_code' => $request->country_code,
             'region_id' => $request->region_id,
             'city_id' => $city->id,
@@ -230,6 +224,14 @@ class CustomerController extends Controller
         
         return redirect()->back()->with(['success' => 'Profile Address Updated']);
         
+    }
+
+    public function productList()
+    {
+        $products = Product::all();
+        $promotion = Promotion::inRandomOrder('created_at', 'DSC')->where('promo_type', 'store')->where('status','<>',Promotion::STATUS_COMPLETED)->first();
+        $categories = Category::all();
+        return view('products', compact('products','promotion','categories'));
     }
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Wallet;
 use Illuminate\Http\Request;
 use App\Charts\CategoryCount;
 use App\Charts\AdminOrderCount;
@@ -53,35 +54,8 @@ class AdminController extends Controller
             'borderColor' => '',
             'borderWidth' => 1,
         ]);
-
-        // $categories = DB::table('categories')
-        //         ->select(DB::raw('count(*) as count, name as name'))
-        //         ->groupBy(DB::raw("name"))
-        //         ->get()->toArray();$cat_values = [];
-        // $cat_names = [];
-
-        // foreach ($categories as $key => $value) {
-        //     $cat_values[$value->name] = $value->count;
-        //     array_push($cat_names,$value->name);
-        // }
-
-        // $donut = new CategoryCount;
-        // $donut->labels($cat_names);
-        
-        // $donut->dataset('Categories', 'bar', collect(array_values($cat_values)))->options([
-        //     'color' => '#ff0000',
-        //     'backgroundColor' => ['#ff0066','#727cf5','#fd7e14','#02a8b5','#3b506c','#ff0066','#727cf5','#ff0066','#727cf5','#fd7e14','#02a8b5'],
-        //     'fill' => '#ff0066',
-        //     'borderColor' => '',
-        //     'borderWidth' => 1,
-        // ]);
-
-        
-
-        
-
-        // ,'donut'
-        return view('admin.dashboard',compact('chart'));
+        $wallet = Wallet::find(1);
+        return view('admin.dashboard',compact('chart','wallet'));
     }
 
     /**

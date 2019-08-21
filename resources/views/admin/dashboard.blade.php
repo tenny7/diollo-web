@@ -709,14 +709,14 @@
 
                                 <!-- Title -->
                                 <h6 class="card-title text-uppercase text-muted mb-2">
-                  Wallet
+                  Admin Wallet
                 </h6>
 
                                 <!-- Heading -->
                                 <span class="h2 mb-0">
-                                    @php 
+                                    {{-- @php 
                                        $wallet =  \App\Models\Wallet::find(1);
-                                    @endphp
+                                    @endphp --}}
                   ₦ {{ number_format($wallet->amount,2) }}
                 </span>
 

@@ -1,0 +1,207 @@
+/* your styles go here */
+.card-image-css {
+    width: 100%;
+    height: 235px;
+    object-fit: fill;
+    margin-bottom: 20px;
+    /* margin-right:15px; */
+}
+
+.card-title>h5 {
+    margin-left: -3px;
+    margin-bottom: -7px;
+    margin-top: 5px;
+    padding: 4px;
+}
+.card-no-response {
+    margin-top: 170px;
+    padding: 14px;
+    width:100%;
+}
+.card-no-response > h5{ 
+    text-align: center;
+}
+
+.card {
+    /* margin-top: 30px; */
+    margin-bottom: 20px;
+}
+
+.add-tour-btn {
+    float:right; 
+    margin-right: 8%;
+}
+
+.video {
+    width: 100%;
+}
+
+.virtual-tour-p {
+    padding: 10px;
+    margin-top: 29px;
+    line-height: 30.1px;
+}
+
+.section-title:before, 
+.section-title:after {
+    display: inline-block;
+    content: "";
+    border-bottom: 1px solid #e1e1e1;
+    position: relative;
+    width: 150px;
+    margin-bottom: 9px;
+    
+}
+
+.h3-tag {
+    text-align: center;
+    letter-spacing: 2px;
+    margin-top: 33px;
+}
+
+.p-intro {
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 30px; 
+}
+
+.p-text {
+    font-weight: 300;
+    font-size: 19px;
+    line-height: 29px;
+}
+
+.p-tag {
+   
+    font-size: 15px;
+    text-align: center;
+}
+.p-tag-2 {
+   
+    font-size: 22px;
+    text-align: center;
+    text-transform: capitalize;
+    margin-top: 98px;
+}
+
+.tour-image {
+    width:100%;
+}
+
+.h4-tag {
+    text-align: center;
+    padding: 5px;
+}
+
+#features {
+    margin-top: 74px;
+    background-color: #f9f6f6;
+}
+
+#projects {
+    margin-top: 81px;
+}
+#first-section {
+    margin-top:40px;
+}
+
+.h5-margin-bottom {
+    margin-bottom:10px;
+    font-size: 15px;
+}
+
+#the-process {
+    margin-bottom:40px;
+}
+
+#google-first {
+    margin-top:40px;
+}
+
+.p-google {
+    font-size: 19px;
+    padding: 2px;
+    line-height: 31.3px;
+    margin-top: 74px;
+}
+
+#interactive-video {
+    font-size: 14px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.col-edit-bottom {
+    margin-bottom: 20px;
+}
+.col-edit-bottom-1 {
+    margin-bottom: 63px;
+}
+.what-we-do {
+    /* border: 1px solid #e1e1e1; */
+    padding: 40px 20px 25px;
+    position: relative;
+    -webkit-transition: all 200ms ease-in;
+}
+
+.i-css {
+    border-radius:50%; 
+    border:solid 2px #3e9e88; 
+    padding:20px;
+}
+.i-css:hover {
+    border-radius:50%; 
+    border:solid 2px #3e9e88; 
+    padding:20px;
+    -webkit-box-shadow: 1px 11px 37px -8px rgba(0,0,0,0.58);
+    -moz-box-shadow: 1px 11px 37px -8px rgba(0,0,0,0.58);
+    box-shadow: 1px 11px 37px -8px rgba(0,0,0,0.58);
+}
+
+#contact-first {
+    margin-top:40px;
+    margin-bottom:30px;
+}
+
+.card-2 {
+    width: 246px !important;
+}
+
+.header-text {
+    text-transform: uppercase;
+}
+
+
+
+/* .my-class {
+    width:249px;
+} */
+
+
+
+
+@media only screen and (max-width: 600px) {
+    .mobile-control, .recent-project, .benefits, .what-we-do {
+        font-size:19px;
+    }
+
+    .section-title:before, 
+    .section-title:after {
+        display: inline-block;
+        content: "";
+        border-bottom: 1px solid #e1e1e1;
+        position: relative;
+        width: 50px;
+        margin-bottom: 9px;
+        
+    }
+    /* <iframe src="" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe> */
+    /* <iframe src="" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe> */
+
+    
+    .card-2 {
+        width:100% !important;
+    }
+  }
+
+

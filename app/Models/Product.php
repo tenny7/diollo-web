@@ -117,6 +117,11 @@ class Product extends BaseModel
         return $this->belongsToMany(Cart::class);
     }
 
+    public function productimages()
+    {
+        return $this->hasMany(ProductImage::class);
+    }
+
     /**
      * Product has many Review.
      *

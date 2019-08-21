@@ -1,4 +1,4 @@
-@extends('layouts.frontend.app')
+@extends('layouts.frontend.app2')
 
 @push('css')
 <link rel="stylesheet" href="{{ asset('assets/admin/css/toastr.css') }}">
@@ -6,25 +6,25 @@
 @section('content')
 
 
-<div class="top_star">
+{{-- <div class="top_star">
         <img src="images/path 41.svg" alt="path star">
-      </div>
-      <div class="rotated" style="width: 233px;">
+      </div> --}}
+      {{-- <div class="rotated" style="width: 233px;">
         <i class="fab fa-facebook fa-rotate-360" style="color: #FF3C89;"></i>&nbsp;
         <i class="fab fa-whatsapp fa-rotate-360" style="color: #FF3C89;"></i>&nbsp;
         <i class="fab fa-twitter fa-rotate-360" style="color: #FF3C89;"></i> &nbsp;
         <span class="text-muted cabin">
            Follow us on social media </span>
         <span class="run-through"></span>
-      </div>
-      <!-- side links   -->
+      </div> --}}
+      {{-- <!-- side links   -->
       <div class="container">
           <div class="row">
             <a href="index.html" style="text-decoration:none; color: #d1d2d3;">
                     <p class="home">Home / <span class="top">Stores / </span> <span class="storename">Stores</span>
             </a> <a href="PhonesComputers.html">  </a>
           </div>
-      </div>
+      </div> --}}
   
       <!-- end of side links -->
       <div>
@@ -80,23 +80,8 @@
   
                   <div class="col-md-9 col-sm-12 col-xs-12">
                               <div class="row">
-  
-                                  <div class="col-md-3 col-xs-12 col-sm-12">
-                                      {{-- <p class="pages"> 1-20 <span class="page-ext"> of 2,334 results</span></p> --}}
-                                  </div>
-  
-  
-                                  <div class="col-md-3 col-xs-6 col-sm-6">
-  
-                                      </div>
-                                      <div class="col-md-3 col-xs-6 col-sm-6">
-  
-                                          </div>
-                                          <div class="col-md-3 col-xs-12 col-sm-12">
-                                              <button class="sortbutton"><p class="sort"> Sort By: <span class="lowprice">Lowest Price</span> <span style="margin-left:12px;"><i class="fas fa-angle-down"></i></span> </p></button>
-  
-                                          </div>
-                          </div>
+
+                              </div>
                           <div class="row" style="margin-top: 35px;">
                             @forelse($newStocks as $newStock)
                             <div class="col-xs-6 col-md-3">
@@ -144,167 +129,8 @@
                 </div>
           </div>
   
-              {{-- <div class="container">
-                <div class="row">
-                    <div class="col-xs-12 col-md-12">
-                    <img src="{{ asset('assets/password/images/Banner-for-new-stock-passward@2x.jpg')}}" alt="banner" class=" img-responsive img-fluid">
-                    </div>
-                </div>
-              </div> --}}
-  
-                  {{-- <div class="container"> --}}
-                      {{-- <div class="row">
-                        <div class="col-md-3"></div>
-                        <div class="col-xs-12 col-md-9">
-                          <div class="row" style="margin-top: 35px;">
-                            <div class="col-xs-6 col-md-3">
-                              <div class="img-block">
-                                   <a href="#"> <img src="images/download.jpg" alt="download" class="img-responsive img-fluid" style="height:160px"></a>
-                                        <div class="edit">
-                                          <a href="#"><img src="images/fav appearance selected.svg" style="height: 25px;" alt=""></a>
-                                        </div>
-                                        <div class="content">
-                                          <div class="amount">
-                                            <p class="price">&#8358;9,000</p>
-                                              <span><i class="fas fa-star star" style="margin-left:4px;"></i><i class="fas fa-star star" style="margin-left:4px;"></i><i class="far fa-star star" style="margin-left:4px;"></i> </span>
-                                          </div>
-                                            <p class="shop"> Gionee Shop</p>
-                                            <p class="street">Nwaniba Rd. Uyo</p>
-                                        </div>
-                              </div>
-                            </div>
-                            <div class="col-xs-6 col-md-3">
-                              <div class="img-block">
-                                <a href="#"> <img src="images/phone 3.jpg" alt="phone" class="img-responsive img-fluid" style="height:160px"></a>
-                                        <div class="edit">
-                                          <a href="#"><img src="images/fav appearance selected.svg" style="height: 25px;" alt=""></a>
-                                        </div>
-                                        <div class="content">
-                                          <div class="amount">
-                                            <p class="price">&#8358;9,000</p>
-                                              <span><i class="fas fa-star star" style="margin-left:4px;"></i><i class="fas fa-star star" style="margin-left:4px;"></i><i class="far fa-star star" style="margin-left:4px;"></i> </span>
-                                          </div>
-                                            <p class="shop"> Gionee Shop</p>
-                                            <p class="street">Nwaniba Rd. Uyo</p>
-                                        </div>
-                              </div>
-                            </div>
-                            <div class="col-xs-6 col-md-3">
-                              <div class="img-block">
-                                <a href="#"> <img src="images/pjone 1.jpg" alt="phone" class="img-responsive img-fluid" style="height:160px"></a>
-                                <div class="edit">
-                                  <a style="display: flex; justify-content: flex-end;" href="#"><img src="images/fav appearance selected.svg" style="height: 25px;" alt=""></a>
-                                </div>
-                              </div>
-                              <div class="content">
-                                <div class="amount">
-                                  <p class="price">&#8358;4,000</p>
-                                    <span><i class="fas fa-star star" style="margin-left:4px;"></i><i class="fas fa-star star" style="margin-left:4px;"></i><i class="far fa-star star" style="margin-left:4px;"></i> </span>
-                                </div>
-                                  <p class="shop"> Gionee Shop</p>
-                                  <p class="street">Nwaniba Rd. Uyo</p>
-                              </div>
-                            </div>
-                            <div class="col-xs-6 col-md-3">
-                              <div class="img-block">
-                                <a href="#"> <img src="images/phone 3.jpg" alt="phone" class="img-responsive img-fluid" style="height:160px"></a>
-                                <div class="edit">
-                                  <a style="display: flex; justify-content: flex-end;" href="#"><img src="images/fav appearance selected.svg" style="height: 25px;" alt=""></a>
-                                </div>
-                              </div>
-                              <div class="content">
-                                <div class="amount">
-                                  <p class="price">&#8358;9,000</p>
-                                  <span><i class="fas fa-star star" style="margin-left:4px;"></i><i class="fas fa-star star" style="margin-left:4px;"></i><i class="far fa-star star" style="margin-left:4px;"></i> </span>
-                                </div>
-                                  <p class="shop"> Gionee Shop</p>
-                                  <p class="street">Nwaniba Rd. Uyo</p>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row"  style="margin-top: 35px;">
-                            <div class="col-xs-6 col-md-3">
-                              <div class="img-block">
-                                    <a href="#"> <img src="images/download.jpg" alt="download" class="img-responsive img-fluid" style="height:160px"></a>
-                                        <div class="edit">
-                                          <a href="#"><img src="images/fav appearance selected.svg" style="height: 25px;" alt=""></a>
-                                        </div>
-                                        <div class="content">
-                                          <div class="amount">
-                                            <p class="price">&#8358;9,000</p>
-                                              <span><i class="fas fa-star star" style="margin-left:4px;"></i><i class="fas fa-star star" style="margin-left:4px;"></i><i class="far fa-star star" style="margin-left:4px;"></i> </span>
-                                          </div>
-                                            <p class="shop"> Gionee Shop</p>
-                                            <p class="street">Nwaniba Rd. Uyo</p>
-                                        </div>
-                              </div>
-                            </div>
-                            <div class="col-xs-6 col-md-3">
-                              <div class="img-block">
-                                <a href="#"> <img src="images/phone 3.jpg" alt="phone" class="img-responsive img-fluid" style="height:160px"></a>
-                                        <div class="edit">
-                                          <a href="#"><img src="images/fav appearance selected.svg" style="height: 25px;" alt=""></a>
-                                        </div>
-                                        <div class="content">
-                                          <div class="amount">
-                                            <p class="price">&#8358;9,000</p>
-                                              <span><i class="fas fa-star star" style="margin-left:4px;"></i><i class="fas fa-star star" style="margin-left:4px;"></i><i class="far fa-star star" style="margin-left:4px;"></i> </span>
-                                          </div>
-                                            <p class="shop"> Gionee Shop</p>
-                                            <p class="street">Nwaniba Rd. Uyo</p>
-                                        </div>
-                              </div>
-                            </div>
-                            <div class="col-xs-6 col-md-3">
-                              <div class="img-block">
-                                <a href="#"> <img src="images/download.jpg" alt="download" class="img-responsive img-fluid" style="height:160px"></a>
-                                <div class="edit">
-                                  <a style="display: flex; justify-content: flex-end;" href="#"><img src="images/fav appearance selected.svg" style="height: 25px;" alt=""></a>
-                                </div>
-                                </div>
-                              <div class="content">
-                                <div class="amount">
-                                  <p class="price">&#8358;4,000</p>
-                                    <span><i class="fas fa-star star" style="margin-left:4px;"></i><i class="fas fa-star star" style="margin-left:4px;"></i><i class="far fa-star star" style="margin-left:4px;"></i> </span>
-                                </div>
-                                  <p class="shop"> Gionee Shop</p>
-                                  <p class="street">Nwaniba Rd. Uyo</p>
-                              </div>
-                              </div>
-                            <div class="col-xs-6 col-md-3">
-                              <div class="img-block">
-                                <a href="#"> <img src="images/phone 3.jpg" alt="phone" class="img-responsive img-fluid" style="height:160px"></a>
-                                <div class="edit">
-                                  <a style="display: flex; justify-content: flex-end;" href="#"><img src="images/fav appearance selected.svg" style="height: 25px;" alt=""></a>
-                                </div>
-                              </div>
-                              <div class="content">
-                                <div class="amount">
-                                  <p class="price">&#8358;9,000</p>
-                                  <span><i class="fas fa-star star" style="margin-left:4px;"></i><i class="fas fa-star star" style="margin-left:4px;"></i><i class="far fa-star star" style="margin-left:4px;"></i> </span>
-                                </div>
-                                  <p class="shop"> Gionee Shop</p>
-                                  <p class="street">Nwaniba Rd. Uyo</p>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row" style="margin-top:35px;">
-                                      <div class="col-md-3 col-xs-6 col-sm-6">
-                                              <p class="pages"> 1-20 <span class="page-ext"> of 233,456 results</span></p>
-                                      </div>
-  
-                                  <div class="col-md-3 col-xs-12 col-sm-12"> </div>
-  
-                              <div class="col-md-3 col-xs-12 col-sm-12"> </div>
-  
-                          <div class="col-md-3 col-xs-6 col-sm-6">
-                                  <a href="#" style="text-decoration:none;"> <p> <i class="fas fa-angle-left" style="margin-right: 15px;"></i> PREV <span class="next"> NEXT</span> <i class="fas fa-angle-right" style="margin-left:15px;"></i></p> </a>
-                          </div>
-  
-                          </div>
-                        </div>
-                    </div> --}}
-                  {{-- </div> --}}
+             
+                  
   
     
 @stop

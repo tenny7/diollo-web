@@ -30,7 +30,7 @@
           <div class="col-xl-10">
             <div class="text-center text-lg-left">
               <p class="subtitle letter-spacing-4 mb-2 text-secondary text-shadow">PREMIUM</p>
-              <h1 class="display-3 font-weight-bold text-shadow">COLLECTION FOR MEN,WOMEN & KIDS</h1>
+              <h1 class="display-3 font-weight-bold text-shadow">COLLaECTION FOR MEN,WOMEN & KIDS</h1>
             </div>
             <div class="search-bar mt-5 p-3 p-lg-1 pl-lg-4">
               <form action="{{ route('search.query')}}" method="get">
@@ -38,19 +38,7 @@
                   <div class="col-lg-10 d-flex align-items-center form-group">
                     <input type="text" name="search" placeholder="What are you searching for?" class="form-control border-0 shadow-0">
                   </div>
-                  {{-- <div class="col-lg-3 d-flex align-items-center form-group">
-                    <div class="input-label-absolute input-label-absolute-right w-100">
-                      <label for="location" class="label-absolute"><i class="fa fa-crosshairs"></i><span class="sr-only">City</span></label>
-                      <input type="text" name="location" placeholder="Location" id="location" class="form-control border-0 shadow-0">
-                    </div>
-                  </div> --}}
-                  {{-- <div class="col-lg-3 d-flex align-items-center form-group no-divider">
-                    <select title="Categories" data-style="btn-form-control" class="selectpicker">
-                      <option value="women">Women</option>
-                      <option value="men">Men</option>
-                      <option value="lids">Kids</option>
-                    </select>
-                  </div> --}}
+                  
                   <div class="col-lg-2">
                     <button type="submit" class="btn btn-primary btn-block rounded-xl h-100">Search </button>
                   </div>

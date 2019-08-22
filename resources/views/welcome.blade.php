@@ -30,7 +30,7 @@
           <div class="col-xl-10">
             <div class="text-center text-lg-left">
               <p class="subtitle letter-spacing-4 mb-2 text-secondary text-shadow">PREMIUM</p>
-              <h1 class="display-3 font-weight-bold text-shadow">COLLaECTION FOR MEN,WOMEN & KIDS</h1>
+              <h1 class="display-3 font-weight-bold text-shadow">COLLECTION FOR MEN,WOMEN & KIDS</h1>
             </div>
             <div class="search-bar mt-5 p-3 p-lg-1 pl-lg-4">
               <form action="{{ route('search.query')}}" method="get">

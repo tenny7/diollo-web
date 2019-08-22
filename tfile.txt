@@ -1,0 +1,4 @@
+
+        "barryvdh/laravel-dompdf": "^0.8.4",
+         'PDF' => Barryvdh\DomPDF\Facade::class,
+         Barryvdh\DomPDF\ServiceProvider::class,

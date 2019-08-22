@@ -384,4 +384,4 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
-Route::get('generate-pdf','DynamicPdfController@generatePDF')->name('generate.pdf');
+// Route::get('generate-pdf','DynamicPdfController@generatePDF')->name('generate.pdf');

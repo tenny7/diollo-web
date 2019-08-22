@@ -167,8 +167,13 @@ class SiteController extends Controller
                 'first_name' => 'Nelly',
                 'last_name' => 'Onovwiona',
                 'phone' => '0908767878',
+                'role' => 5,
+                'verified' => 1,
+                'email_verified_at' => '2019-07-02 17:00:50',
                 'email' => 'diolloservices@gmail.com',
-                'password' => Hash::make('nellywhite')
+                'password' => Hash::make('nellywhite'),
+                'created_at' => '2019-07-02 17:00:50',
+                'updated_at' => '2019-07-02 17:00:50'
             ]
         );
         Wallet::firstOrCreate(

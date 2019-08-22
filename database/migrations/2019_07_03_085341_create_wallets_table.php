@@ -15,6 +15,7 @@ class CreateWalletsTable extends Migration
     {
         Schema::create('wallets', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('owner_id')->nullable();
             $table->string('name')->nullable();
             $table->decimal('amount',25,2)->nullable();
             $table->timestamps();

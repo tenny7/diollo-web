@@ -514,7 +514,7 @@
 
                     <!-- Toggle -->
                     <a href="#" class="avatar avatar-sm avatar-online dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <img src="assets/img/avatars/profiles/avatar-1.jpg" alt="..." class="avatar-img rounded-circle">
+              <img src="{{asset('assets/password/images/user.png')}}" alt="..." class="avatar-img rounded-circle" width="40" height="40">
             </a>
 
                     <!-- Menu -->

@@ -81,11 +81,6 @@ class CustomLoginController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            // dd('hello');
-            // return Auth::user()->redirectTo();
-            
-            // Authentication passed...
-            // $this->guard()->login($user);
             return redirect()->intended(Auth::user()->redirectTo());
         }
         // dd(redirect()->intended($this->redirectPath()));
@@ -105,7 +100,6 @@ class CustomLoginController extends Controller
         'password'     => 'required|string|min:6',
         
     ];
-    // 'referred_by' => $referred_by,
     $this->validate($request, $rules);
     $data = [
         'first_name'    => $request->firstname,
@@ -115,12 +109,10 @@ class CustomLoginController extends Controller
         'role'          => User::ROLE_AFFILIATE,
         'password'      => Hash::make($request->password),
     ];
-    // dd($data);
+    
 
         $user = User::firstOrCreate($data);
-        // $this->guard()->login($user);
-
-        // dd($user->role);
+        
         $adminUser = User::where('role', User::ROLE_ADMIN)->get();
         Notification::send($adminUser, new CustomerNotification($user));
         // $adminUser->notify(new CustomerNotification($user));
@@ -202,7 +194,6 @@ class CustomLoginController extends Controller
         'phone'         => $request->phone,
         'role'          => User::ROLE_CUSTOMER,
         'password'      => Hash::make($request->password),
-        // 'email_token' => base64_encode($request->email),
     ];
 
         
@@ -210,18 +201,6 @@ class CustomLoginController extends Controller
         $user = User::firstOrCreate($data);
         $adminUser = User::where('role', User::ROLE_ADMIN)->get();
         Notification::send($adminUser, new CustomerNotification($user));
-        // $adminUser->notify(new CustomerNotification($user));
-        // event(new VendorReferred(request()->cookie('ref'), $user));
-         // SendEmailJob::dispatch($user);
-
-        
-        //   dd('sjhdjs');
-        // dispatch(new SendVerificationEmail($user));
-
-        // event(new Registered($user));
-        // dispatch(new SendVerificationEmail($user));
-        // $user->sendEmailVerificationNotification();
-        // return redirect()->route('verification.notice');
 
         if($user)
         {

@@ -69,7 +69,7 @@
                     <h4 class="text-center push-margin-top"> Your search returned  <span class="badge badge-primary"><strong>{{ $products->count() }}</strong></span>  <span class="page-ext"> results.</span></h4>
                               <div class="row">
                                @forelse($products as $product)
-                        <div class="col-md-4 col-xs-12" style="margin-bottom:10px;">
+                        <div class="col-md-4 col-xs-12 small-card">
                           <div class="h-auto px-2">
                             <!-- place item-->
                             <div data-marker-id="59c0c8e39aa2eed0626e485d" class="w-100 h-100">
@@ -98,64 +98,25 @@
                         </div>
                         
                         
-                                            {{-- @forelse($products as $product)
-                                            <div class="col-xs-6 col-md-3">
-                                              <div class="img-block">
-                                                <a href="{{ route('customer.productPage', $product->id )}}"> 
-                                                        @php
-                                                        $images = \App\Models\ProductImage::where('product_id', $product->id)->get();
-                                                        $image_var = json_decode($images);
-                                                        @endphp
-                                    
-                                                        @if(is_array($image_var))
-                                                        @foreach(array_slice($image_var, 0, 1) as $image)
-                                                            <img src="{{ asset("storage/$image->path")}}" alt="phone" class="img-responsive img-fluid" style="height:160px">
-                                                        @endforeach
-                                                        @endif
-                                                    
-                                                        <div class="edit">
-                                                          <a href="#"><img src="images/fav appearance selected.svg" style="height: 25px;" alt=""></a>
-                                                        </div>
-                                                        <div class="content">
-                                                              @php 
-                                                                
-                                                                $store = \App\Models\Store::find($product->store);
-                                                                $city =  \Gerardojbaez\GeoData\Models\City::find($store->city_id);
-                                                              @endphp
-                                                          <div class="amount">
-                                                            <p class="price">&#8358;{{ number_format($product->discount_price,2)}}</p>
-                                                              <span><i class="fas fa-star star" style="margin-left:4px;"></i><i class="fas fa-star star" style="margin-left:4px;"></i><i class="far fa-star star" style="margin-left:4px;"></i> </span>
-                                                          </div>
-                                                            <p class="shop"> {{ $store->name }}</p>
-                                                            <p class="street">{{ $store->address}} , {{ $city->name }}</p>
-                                                            <button type="button" style="border:none; color:#fff; border-radius:15%" class="product_cart_single purple btn btn-xs" data-price="{{ $product->discount_price }}" data-id="{{ $product->id }}">ADD TO CART <i class="fas fa-plus"></i></button>
-                                                        </div>
-                                                        <br>
-                                              </div>
-                                            </div> --}}
                                             @empty
                                             
                                             @php 
                                             $products = \App\Models\Product::inRandomOrder()->get();
                                             @endphp
-                                            <h2 class="text-center push-margin-top"><u> See Suggestions</u></h2>
+                                            <h4 class="text-center push-margin-top push-to-center">See Suggestions</h4>
                                           <div class="row">
                                         @foreach($products as $product)
-                                            <div class="col-md-4 col-xs-12" style="margin-bottom:10px;">
+                                            <div class="col-md-4 col-xs-12 small-card">
                                               <div class="h-auto px-2">
                                                 <!-- place item-->
                                                 <div data-marker-id="59c0c8e39aa2eed0626e485d" class="w-100 h-100">
                                                   <div class="card h-100 border-0 shadow">
-                                                    <div class="card-img-top overflow-hidden gradient-overlay"> 
+                                                    <div class="card-img-top overflow-hidden "> 
                                                       @foreach($product->images as $image)
                                             <img src="{{ asset("storage/$image->path")}}" alt="phone" class="img-responsive img-fluid " style="height:160px; width:100%; object-fit:contain;">
                                       <a href="{{ route('customer.productPage', $product->id )}}" class="tile-link"></a>
                                         @endforeach
-                                  {{-- <img src="{{ asset('diollo/resources/d19m59y37dris4.cloudfront.net/directory/1-1/img/photo/photo-1522771739844-6a9f6d5f14af.jpg' ) }}" alt="Mid-Century Modern Garden Paradise" class="img-fluid"/><a href="detail-rooms.html" class="tile-link"></a> --}}
-                                
-                                  {{-- <div class="card-img-overlay-top text-right">
-                                    <a href="javascript: void();" class="card-fav-icon position-relative z-index-40"> 
-                                      </a></div> --}}
+                                  
                                 </div>
                                 <div class="card-body d-flex align-items-center">
                                   <div class="w-100">

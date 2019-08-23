@@ -10,41 +10,17 @@
 <br>
 <br>
 <br>
-{{-- <div class="top_star">
-    <img src="images/path 41.svg" alt="path star">
-  </div> --}}
-  {{-- <div class="rotated" style="width: 233px;">
-    <i class="fab fa-facebook fa-rotate-360" style="color: #FF3C89;"></i>&nbsp;
-    <i class="fab fa-whatsapp fa-rotate-360" style="color: #FF3C89;"></i>&nbsp;
-    <i class="fab fa-twitter fa-rotate-360" style="color: #FF3C89;"></i> &nbsp;
-    <span class="text-muted cabin">
-       Follow us on social media </span>
-    <span class="run-through"></span>
-  </div> --}}
-    <div class="container" style="margin:auto;">
-        {{-- <header>
-           <a href="index.html"> <p class="home">Home /</a> <a href=""> <span class="shopping_cart"> Shopping Cart</span></a>
-            </p>
-        </header>
-        <div>
-            <p class="carting">Shopping Cart</p>
-        </div> --}}
-        
 
-        {{-- <div class="row">
-                
-        </div> --}}
+    <div class="container" style="margin:auto;">
+    
 <br>
         @include('partials.admin.success')
         @include('partials.admin.error')
 
-        {{-- @if(Session::has('success'))
-        <p class="alert {{ session()->get('alert-class', 'alert-info') }}">{{ session()->get('message') }}</p>
-        @endif --}}
         <div class="row">
             
-        <div class="col-md-8 col-md-offset--2 col-sm-12 col-xs-12">
-            
+        <div class="col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
+            <div class="table-responsive">
                 <table class="table" style="margin-top: 50px;" id="tableId">
                    
                        <thead>
@@ -133,6 +109,7 @@
                             @endforeach
                         </tbody>
                         </table>
+  </div>
   </div>
 
         <div class="col-md-4 col-md-offset--4 col-sm-12 col-xs-12 push-margin-top">

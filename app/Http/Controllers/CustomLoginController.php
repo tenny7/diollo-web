@@ -208,28 +208,26 @@ class CustomLoginController extends Controller
                 'user_id' => $user->id,
                 'token' => sha1(time())
               ]);
+              $request->session()->put('userDetails', $user);
+
               SendEmailJob::dispatch($user);
-              
-            //   Mail::to($request->email)->send(new VerifyMail($user));
               return $this->registered($request, $user)
                         ?: view('verification');
-                // return $this->registered($request, $user)
-                //         ?: view('verification');
-        }
-        
-                        // return view('verification');
+                    }
         
     }
 
-    // public function verify($token)
-    // {
-    //     $user = User::where('email_token', $token)->first();
-    //     $user->email_verified_at = Carbon::now();
-
-    //     if($user->save()){
-    //         return view('emailconfirm', ['user' => $user]);
-    //     }
-    // }
+    public function resendMail()
+    {
+        if(session()->has('userDetails'))
+        {
+            $user = session()->get('userDetails');
+            SendEmailJob::dispatch($user); 
+            return back()->with('success','A verification mail has been resent to your mail box');
+        }
+       
+ 
+    }
 
     /**
      * Get the guard to be used during registration.
@@ -244,7 +242,6 @@ class CustomLoginController extends Controller
     public function verifyUser($token)
     {
         $verifyUser = VerifyUser::where('token', $token)->first();
-        // dd($verifyUser);
         if(isset($verifyUser) )
         {
             $user = $verifyUser->user;
@@ -254,20 +251,18 @@ class CustomLoginController extends Controller
                 
                 $verifyUser->user->verified = 1;
                 $verifyUser->user->email_verified_at = Carbon::now();
-               
-               
+                
                 $verifyUser->user->save();
                 $status = "Your e-mail is verified. You can now login.";
                 return redirect()->intended(route('signin'))->with(['status' => $status]);
             } else {
-                // dd('verified');
+
                 $status = "Your e-mail is already verified. You can now login.";
                 return redirect()->intended(route('signin'))->with(['status' => $status]);
             }
         } 
         else 
         {
-            // dd('fdhjkd');
             return redirect('/signin')->with('warning', "Sorry your email cannot be identified.");
         }
         return redirect('/signin')->with('status', $status);

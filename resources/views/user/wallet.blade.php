@@ -6,23 +6,7 @@
 
 @section('content')
 
-{{-- <div class="path">
-        <img src="{{ asset('assets/password/images/Path 41.svg')}}" alt="path_star">
-      </div>
-      <div class="top_star">
-        <img src="{{ asset('assets/password/images/path 41.svg')}}" alt="path star">
-      </div> --}}
-      {{-- <div class="rotated" style="width: 233px;">
-        <i class="fab fa-facebook fa-rotate-360" style="color: #FF3C89;"></i>&nbsp;
-        <i class="fab fa-whatsapp fa-rotate-360" style="color: #FF3C89;"></i>&nbsp;
-        <i class="fab fa-twitter fa-rotate-360" style="color: #FF3C89;"></i> &nbsp;
-        <span class="text-muted cabin">
-           Follow us on social media </span>
-        <span class="run-through"></span>
-      </div> --}}
-      {{-- <br>
-      <br>
-      <br> --}}
+
                   <div class="container" style="margin-bottom:100px;">
                     @include('partials.admin.success')
                     @include('partials.admin.error')
@@ -33,7 +17,7 @@
       
                 <div class="col-sm-12 col-md-6 col-offset-md-2">
       
-                    <div class="card card-edit-login">
+                    <div class="card card-edit-login h3-margin-top">
                       <div class="" style="padding-bottom: 15px; margin-top: 15px;">
       
                         <div class="paystack row">

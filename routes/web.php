@@ -162,6 +162,7 @@ Route::get('/review/{id}/{rating}', 'SearchController@reviews')->name('reviews')
 
 Route::get('/signin', 'CustomLoginController@showLoginForm')->name('signin');
 Route::post('/signin', 'CustomLoginController@authenticate')->name('signinAction');
+Route::get('/resend-mail', 'CustomLoginController@resendMail')->name('resend.mail');
 Route::get('/create-user', 'CustomLoginController@showSignUpForm')->name('signup');
 Route::post('/signup', 'CustomLoginController@signup')->name('signupAction');
 Route::get('/logout', 'CustomLoginController@logout')->name('customer.logout');

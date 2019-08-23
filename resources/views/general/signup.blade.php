@@ -126,6 +126,10 @@
                     <button class="btn btn-lg btn-block btn-primary mb-3" type="submit">
                     Sign up
                     </button>
+                    <form action="{{ route('resend.mail')}}" method="get">
+                    <button class="btn btn-lg btn-block btn-primary mb-3">
+                    Resend Mail
+                    </button>
         
                     <!-- Link -->
                     <div class="text-center">

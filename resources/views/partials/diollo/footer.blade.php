@@ -6,7 +6,7 @@
           <div class="row">
             <div class="col-lg-4 mb-5 mb-lg-0">
               <div class="font-weight-bold text-uppercase text-dark mb-3">About us</div>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+              <p>Diollo Wardrobe is an online fashion shop for getting quality nigerian dresses for women, men, and kids. We focus on precision, quality and fast delivery</p>
               <ul class="list-inline">
                 <li class="list-inline-item"><a href="#" target="_blank" title="twitter" class="text-muted text-hover-primary"><i class="fab fa-twitter"></i></a></li>
                 <li class="list-inline-item"><a href="#" target="_blank" title="facebook" class="text-muted text-hover-primary"><i class="fab fa-facebook"></i></a></li>
@@ -18,20 +18,27 @@
             <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
               <h6 class="text-uppercase text-dark mb-3">Category</h6>
               <ul class="list-unstyled">
-                <li><a href="index-2.html" class="text-muted">Rooms     </a></li>
-                {{-- <li><a href="category-rooms.html" class="text-muted">Map on top     </a></li>
-                <li><a href="category-2-rooms.html" class="text-muted">Side map     </a></li>
-                <li><a href="category-3-rooms.html" class="text-muted">No map     </a></li>
-                <li><a href="detail-rooms.html" class="text-muted">Room detail     </a></li> --}}
+                @php 
+                                        $categories = App\Models\Category::all();
+                                        @endphp
+                @foreach($categories as $category)
+                                             <li><a href="{{ route('category.search',$category->id )}}" class="text-muted">{{ strtoupper($category->name)}}</a> </li>
+                                        @endforeach
+                {{-- <li><a href="index-2.html" class="text-muted">Rooms     </a></li> --}}
               </ul>
             </div>
             <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
               <h6 class="text-uppercase text-dark mb-3">Pages</h6>
               <ul class="list-unstyled">
-                <li><a href="contact.html" class="text-muted">Contact                                   </a></li>
-                <li><a href="pricing.html" class="text-muted">Shop                                   </a></li>
-                <li><a href="text.html" class="text-muted">Login                                   </a></li>
-                <li><a href="faq.html" class="text-muted">Sign up  <span class="badge badge-info ml-1">New</span>                                   </a></li>
+                {{-- <li><a href="contact.html" class="text-muted">Contact   
+                  @guest                                </a></li> --}}
+                  @guest
+                <li><a href="{{ route('customer.shop')}}" class="text-muted">Shop                                   </a></li>
+                <li><a href="{{ route('signin')}}" class="text-muted">Login                                   </a></li>
+                <li><a href="{{ route('signup')}}" class="text-muted">Sign up  <span class="badge badge-info ml-1">New</span>                                   </a></li>
+                @else
+                <li><a href="{{ route('admin.dashboard')}}" class="text-muted">Dashboard <span class="badge badge-info ml-1">New</span>                                   </a></li>
+                @endguest
                 {{-- <li><a href="coming-soon.html" class="text-muted">Coming soon                                   </a></li> --}}
               </ul>
             </div>

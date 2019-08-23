@@ -2,6 +2,7 @@
 @extends('layouts.frontend.app2')
 
 @push('css')
+<link rel="stylesheet" href="{{ asset('diollo/assets/css/custom.css') }}">
 <style>
   .font-weight-bold {
    background-color:transparent !important;
@@ -60,7 +61,7 @@
             <div class="px-0 px-lg-3">
               <div class="icon-rounded bg-primary-light mb-3">
                 {{-- <i class="fa fa-tshirt fa-3x"></i> --}}
-                <i class="fas fa-tshirt fa-2x    "></i>
+                <i class="fas fa-tshirt fa-2x fa-margin-edit"></i>
                 {{-- <svg class="svg-icon text-primary w-2rem h-2rem">
                   <use xlink:href="#destination-map-1"> </use>
                 </svg> --}}
@@ -72,7 +73,7 @@
           <div class="col-lg-4 mb-3 mb-lg-0 text-center">
             <div class="px-0 px-lg-3">
               <div class="icon-rounded bg-primary-light mb-3">
-                <i class="fas fa-cut fa-2x"></i>
+                <i class="fas fa-cut fa-2x fa-margin-edit"></i>
               </div>
               <h3 class="h5">Custom made dresses</h3>
               <p class="text-muted">Want a custom made dress?, drop us your measurement </p>
@@ -81,7 +82,7 @@
           <div class="col-lg-4 mb-3 mb-lg-0 text-center">
             <div class="px-0 px-lg-3">
               <div class="icon-rounded bg-primary-light mb-3">
-                <i class="fas fa-brush fa-2x"></i>
+                <i class="fas fa-brush fa-2x fa-margin-edit"></i>
               </div>
               <h3 class="h5">Training</h3>
               <p class="text-muted">Looking to learn how to make quality dresses, then enroll in our fashion academy!</p>
@@ -144,6 +145,7 @@
         </div>
       </div>
     </section> --}}
+    @if(count($products) > 0)
     <section class="py-6 bg-gray-100"> 
       <div class="container">
         <div class="row mb-5">
@@ -164,17 +166,12 @@
              @foreach($products as $key => $product)
             <!-- Slides-->
             <div class="swiper-slide h-auto px-2">
-              <!-- place item-->
-              
-              {{-- <div class="col-4">
-
-              </div> --}}
+             
              
             <div data-marker-id="59c0c8e33b1527bfe2abaf92-{{ $key}}" class="w-100 h-100  ">
                 
                 <div class="card h-100 border-0 shadow">
                   <div class="card-img-top overflow-hidden ">
-                    {{-- <img src="{{ asset('diollo/resources/d19m59y37dris4.cloudfront.net/directory/1-1/img/photo/photo-1484154218962-a197022b5858.jpg') }}" alt="Modern, Well-Appointed Room" class="img-fluid"/> --}}
                      @foreach($product->images as $image)
                         <img src="{{ asset("storage/$image->path")}}" alt="phone" class="img-responsive img-fluid " style="height:160px; width:100%; object-fit:contain;">
                   <a href="{{ route('customer.productPage', $product->id )}}" class="tile-link"></a>
@@ -184,19 +181,15 @@
                      
                     </div>
                     <div class="card-img-overlay-top text-right">
-                      {{-- <a href="javascript: void();" class="card-fav-icon position-relative z-index-40">  --}}
-                        {{-- <i class="fa fas-heart fa-2x"></i> --}}
                   </div>
                   <div class="card-body d-flex align-items-center">
                     <div class="w-100">
                     <h6 class="card-title"><a href="{{ route('customer.productPage', $product->id )}}" class="text-decoration-none text-dark">{{ $product->name }}</a></h6>
                       <div class="d-flex card-subtitle mb-3">
-                        {{-- <p class="flex-grow-1 mb-0 text-muted text-sm">{{ $product->categories->first->name }}</p> --}}
                         <p class="flex-shrink-1 mb-0 card-stars text-xs text-right"><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i>
                         </p>
                       </div>
                       <p class="card-text text-muted"><span class="h4 text-primary">{{ $product->discount_price }}</span> </p>
-                      {{-- <p class="card-text text-muted"><span class="h4 text-primary">{{ number_format($product->original_price,2) }}</span> </p> --}}
                     </div>
                   </div>
                 </div>
@@ -218,7 +211,9 @@
      
            
     </section>
+    @endif
     <!-- Divider Section-->
+    
     <section class="py-7 position-relative ">
       <img src="{{ asset('diollo/assets/images/feedback.jpg') }}" alt="" class="bg-image">
       <div class="container">
@@ -261,6 +256,7 @@
         </div>
       </div>
     </section>
+    @if(count($testimonials) > 0)
     <section class="py-7">
       <div class="container">
         <div class="text-center">
@@ -283,164 +279,9 @@
               </div>
             </div>
             @endforeach
-            
-            {{-- <div class="swiper-slide px-3">
-              <div class="testimonial card rounded-lg shadow border-0">
-                <div class="testimonial-avatar"><img src="{{ asset('diollo/resources/d19m59y37dris4.cloudfront.net/directory/1-1/img/avatar/avatar-3.jpg') }}" alt="..." class="img-fluid"></div>
-                <div class="text">
-                  <div class="testimonial-quote"><i class="fas fa-quote-right"></i></div>
-                  <p class="testimonial-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever</p><strong>Jessica Watson</strong>
-                </div>
-              </div>
             </div>
-            <div class="swiper-slide px-3">
-              <div class="testimonial card rounded-lg shadow border-0">
-                <div class="testimonial-avatar"><img src="{{ asset('diollo/resources/d19m59y37dris4.cloudfront.net/directory/1-1/img/avatar/avatar-3.jpg') }}" alt="..." class="img-fluid"></div>
-                <div class="text">
-                  <div class="testimonial-quote"><i class="fas fa-quote-right"></i></div>
-                  <p class="testimonial-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever</p><strong>Jessica Watson</strong>
-                </div>
-              </div>
-            </div> --}}
-            {{-- <div class="swiper-slide px-3">
-              <div class="testimonial card rounded-lg shadow border-0">
-                <div class="testimonial-avatar"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/avatar/avatar-3.jpg" alt="..." class="img-fluid"></div>
-                <div class="text">
-                  <div class="testimonial-quote"><i class="fas fa-quote-right"></i></div>
-                  <p class="testimonial-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever</p><strong>Jessica Watson</strong>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide px-3">
-              <div class="testimonial card rounded-lg shadow border-0">
-                <div class="testimonial-avatar"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/avatar/avatar-3.jpg" alt="..." class="img-fluid"></div>
-                <div class="text">
-                  <div class="testimonial-quote"><i class="fas fa-quote-right"></i></div>
-                  <p class="testimonial-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever</p><strong>Jessica Watson</strong>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide px-3">
-              <div class="testimonial card rounded-lg shadow border-0">
-                <div class="testimonial-avatar"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/avatar/avatar-3.jpg" alt="..." class="img-fluid"></div>
-                <div class="text">
-                  <div class="testimonial-quote"><i class="fas fa-quote-right"></i></div>
-                  <p class="testimonial-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever</p><strong>Jessica Watson</strong>
-                </div>
-              </div>
-            </div> --}}
-          </div>
-          <div class="swiper-pagination">     </div>
-        </div>
-      </div>
-    </section>
-    {{-- <section class="py-6 bg-gray-100"> 
-      <div class="container">
-        <div class="row mb-5">
-          <div class="col-md-8">
-            <p class="subtitle text-secondary">Stories from around the globe</p>
-            <h2>From our travel blog</h2>
-          </div>
-          <div class="col-md-4 d-md-flex align-items-center justify-content-end"><a href="blog.html" class="text-muted text-sm">
-               
-              See all articles<i class="fas fa-angle-double-right ml-2"></i></a></div>
-        </div>
-        <div class="row">
-          <!-- blog item-->
-          <div class="col-lg-4 col-sm-6 mb-4">
-            <div class="card shadow border-0 h-100"><a href="post.html"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/photo/photo-1512917774080-9991f1c4c750.jpg" alt="..." class="img-fluid card-img-top"/></a>
-              <div class="card-body"><a href="#" class="text-uppercase text-muted text-sm letter-spacing-2">Travel </a>
-                <h5 class="my-2"><a href="post.html" class="text-dark">Autumn fashion tips and tricks          </a></h5>
-                <p class="text-gray-500 text-sm my-3"><i class="far fa-clock mr-2"></i>January 16, 2016</p>
-                <p class="my-2 text-muted text-sm">Pellentesque habitant morbi tristique senectus. Vestibulum tortor quam, feugiat vitae, ultricies ege...</p><a href="post.html" class="btn btn-link pl-0">Read more<i class="fa fa-long-arrow-alt-right ml-2"></i></a>
-              </div>
-            </div>
-          </div>
-          <!-- blog item-->
-          <div class="col-lg-4 col-sm-6 mb-4">
-            <div class="card shadow border-0 h-100"><a href="post.html"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/photo/photo-1522771739844-6a9f6d5f14af.jpg" alt="..." class="img-fluid card-img-top"/></a>
-              <div class="card-body"><a href="#" class="text-uppercase text-muted text-sm letter-spacing-2">Living </a>
-                <h5 class="my-2"><a href="post.html" class="text-dark">Newest photo apps          </a></h5>
-                <p class="text-gray-500 text-sm my-3"><i class="far fa-clock mr-2"></i>January 16, 2016</p>
-                <p class="my-2 text-muted text-sm">ellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibu...</p><a href="post.html" class="btn btn-link pl-0">Read more<i class="fa fa-long-arrow-alt-right ml-2"></i></a>
-              </div>
-            </div>
-          </div>
-          <!-- blog item-->
-          <div class="col-lg-4 col-sm-6 mb-4">
-            <div class="card shadow border-0 h-100"><a href="post.html"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/photo/photo-1482463084673-98272196658a.jpg" alt="..." class="img-fluid card-img-top"/></a>
-              <div class="card-body"><a href="#" class="text-uppercase text-muted text-sm letter-spacing-2">Travel </a>
-                <h5 class="my-2"><a href="post.html" class="text-dark">Best books about Photography          </a></h5>
-                <p class="text-gray-500 text-sm my-3"><i class="far fa-clock mr-2"></i>January 16, 2016</p>
-                <p class="my-2 text-muted text-sm">Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.  Mauris placerat eleif...</p><a href="post.html" class="btn btn-link pl-0">Read more<i class="fa fa-long-arrow-alt-right ml-2"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section> --}}
-    <!-- Instagram-->
-    {{-- <section>
-      <div class="container-fluid px-0">
-        <div class="swiper-container instagram-slider">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide overflow-hidden"><a href="#"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/instagram/instagram-1.jpg" alt="" class="img-fluid hover-scale"></a></div>
-            <div class="swiper-slide overflow-hidden"><a href="#"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/instagram/instagram-2.jpg" alt="" class="img-fluid hover-scale"></a></div>
-            <div class="swiper-slide overflow-hidden"><a href="#"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/instagram/instagram-3.jpg" alt="" class="img-fluid hover-scale"></a></div>
-            <div class="swiper-slide overflow-hidden"><a href="#"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/instagram/instagram-4.jpg" alt="" class="img-fluid hover-scale"></a></div>
-            <div class="swiper-slide overflow-hidden"><a href="#"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/instagram/instagram-5.jpg" alt="" class="img-fluid hover-scale"></a></div>
-            <div class="swiper-slide overflow-hidden"><a href="#"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/instagram/instagram-6.jpg" alt="" class="img-fluid hover-scale"></a></div>
-            <div class="swiper-slide overflow-hidden"><a href="#"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/instagram/instagram-7.jpg" alt="" class="img-fluid hover-scale"></a></div>
-            <div class="swiper-slide overflow-hidden"><a href="#"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/instagram/instagram-8.jpg" alt="" class="img-fluid hover-scale"></a></div>
-            <div class="swiper-slide overflow-hidden"><a href="#"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/instagram/instagram-9.jpg" alt="" class="img-fluid hover-scale"></a></div>
-            <div class="swiper-slide overflow-hidden"><a href="#"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/instagram/instagram-10.jpg" alt="" class="img-fluid hover-scale"></a></div>
-            <div class="swiper-slide overflow-hidden"><a href="#"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/instagram/instagram-11.jpg" alt="" class="img-fluid hover-scale"></a></div>
-            <div class="swiper-slide overflow-hidden"><a href="#"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/instagram/instagram-12.jpg" alt="" class="img-fluid hover-scale"></a></div>
-            <div class="swiper-slide overflow-hidden"><a href="#"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/instagram/instagram-13.jpg" alt="" class="img-fluid hover-scale"></a></div>
-            <div class="swiper-slide overflow-hidden"><a href="#"><img src="../../../d19m59y37dris4.cloudfront.net/directory/1-1/img/instagram/instagram-14.jpg" alt="" class="img-fluid hover-scale"></a></div>
-          </div>
-        </div>
-      </div>
-    </section> --}}
-   
-
-
-{{-- <section class="hero hero-with-header">
-     <div class="row">
-       <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
- 
-        <ol class="carousel-indicators">
-            @foreach( $homeSliders as $key => $value)
-            <li data-target="#carouselExampleIndicators" data-slide-to="{{ $loop->index }}" class="{{ $key == 0 ? 'active' : '' }}"></li>
-            @endforeach
-        </ol>
-      
-        <div class="carousel-inner" role="listbox">
-          @foreach($homeSliders as $key => $value)
-          <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-            <div class="row">
-              @foreach($value->photos->take(1) as $image)
-                <div class="col-md-8 offset-md-2 photos">
-                  <img class="d-block img-fluid photo" src="{{ asset("storage/".$image->path) }}">
-                </div>
-              @endforeach
-            </div>
-          </div>
-          @endforeach
-        </div>
-        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
-      </div>
-
-      
-        </div>
-</section> --}}
+</section> 
+@endif
 @include('partials.diollo.footer')
 @stop
 

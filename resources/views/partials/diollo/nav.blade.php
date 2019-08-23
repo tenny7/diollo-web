@@ -77,6 +77,7 @@
                      <li class="nav-item dropdown">
                         <a id="docsDropdownMenuLink" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle ">Account</a>
                         <div aria-labelledby="docsDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
+                            <a href="{{ route('customer.accountInfo') }}" class="dropdown-item">Profile </a>
                             <a href="{{ route('saved.item') }}" class="dropdown-item">Wishlist </a>
                             <a href="{{ route('orders.viewOrders') }}" class="dropdown-item">Order History </a>
                             <a href="{{ route('customer.wallet')}}" class="dropdown-item">Wallet</a>

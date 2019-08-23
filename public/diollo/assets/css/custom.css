@@ -6,19 +6,30 @@
 }
 
 .fontColor {
-    color: #fff;
+    color: #FFFFFF !important;
     text-decoration: none !important;
 }
 
 .fontColor:hover {
-    color: #fff !important;
+    color: #24282b !important;
     text-decoration: none !important;
+}
+.fontBlack{
+    color: #24282b !important;
+    /* text-decoration: none !important; */
+}
+.bd {
+    text-decoration: none !important;
+   color:#000;
 }
 
 .fontBlack {
-    color: #000;
+    color: #24282b;
     text-decoration: none !important;
 }
+/* .active {
+    color:#fff !important;
+} */
 
 .star {
     font-size: 41px !important;
@@ -130,4 +141,16 @@
 .small-card {
     margin-bottom:17px;
     padding:20px;
+}
+.h5-css {
+    font-weight: bold;
+    font-size: 12px;
+    
+}
+
+.circle-star {
+    margin-bottom: 28px !important;
+    margin-top: 14px;
+    margin-left: auto;
+    margin-right: auto;
 }

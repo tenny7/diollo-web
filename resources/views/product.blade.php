@@ -56,20 +56,33 @@
             <span class="price">{{ $product->discount_price }}</span> 
             <input id="price" type="hidden" name="price" class="price" value="{{ $product->discount_price }}"> |
             <span class="product_newprice" style="font-size:14px;"><del>&#8358;</del> {{ $product->original_price }}</span>
-           
-            <label for="">Quantity</label>
-            <button class="span-round">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="">Quantity</label>
+            <button class="span-round btn btn-primary btn-sm" style="border-radius:25px;">
               <span class="span1" id="btn1"><i class="fas fa-minus"></i></span>
                   &nbsp;&nbsp;<span id="number">1</span>&nbsp;&nbsp;
               <span class="span2" id="btn2"><i class="fas fa-plus"></i></span>
               &nbsp;
             </button>
+            </div>
+            
             <span style="display:none" id="spanValue"></span>
             
 
             <input type="hidden" id="productId" value="{{ $product->id }}">
-            <button type="button"  data-id="{{ $product->id }}" class="product_cart">ADD TO CART <i class="fas fa-plus"></i></button>
-            <button type="button" id="reserveId" class="purple reserveId" data-id="{{ $product->id }}" style="border:none; border-radius:25px; color:#fff;">
+            <div class="form-group">
+              <button type="button"  style="margin-bottom:10px; margin-top:3px;  border-radius:25px;"  data-id="{{ $product->id }}" class="product_cart btn btn-primary btn-sm">ADD TO CART <i class="fas fa-plus"></i></button>
+
+            </div>
+              </div>
+        </div>
+
+              <div class="col-md-12 col-xs-12">
+                <button type="button" id="reserveId" class="btn btn-primary reserveId" data-id="{{ $product->id }}" style="border:none; border-radius:25px; color:#fff;">
               <svg height="14" viewBox="0 0 16 14" width="16" class="" 
               name="love">
               <path d="M14.3 1.3A4.22 4.22 0 0 0 11.254.01c-1.15 0-2.232.46-3.047 1.293l-.425.436-.432-.443A4.242 4.242 0 0 0 4.3 0C3.152 0 2.07.46 1.26 1.29A4.418 4.418 0 0 0 0 4.409a4.43 4.43 0 0 0 1.266 3.116l6.194 6.34a.443.443 0 0 0 .313.135.44.44 0 0 0 .313-.132l6.206-6.33a4.435 4.435 0 0 0 1.264-3.119 4.415 4.415 0 0 0-1.257-3.12z" 
@@ -79,15 +92,19 @@
               </svg>
             Reserve for a day
           </button>
+              </div>
+            </div>
+            
+            
                
           </div>
       </div>
       <br>
       <div class="row">
           <div class="col-md-12">
-            <p class="text-light">If you cannot pay for this item immediately you can also <span style="color: #FF3C89;">Reserve Item for 24 hours</span> by selecting a quantity and clicking "reserve for a day"
+            <p class="text-light" style="margin-top: 33px;">If you cannot pay for this item immediately you can also <span style="color: #FF3C89;">Reserve Item for 24 hours</span> by selecting a quantity and clicking "reserve for a day"
             </p><hr>
-                <button type="button" id="productId" class="purple productId" data-id="{{ $product->id }}" style="border:none; border-radius:25px; color:#fff; margin-left:6px;">
+                <button type="button" id="productId" class="btn btn-primary productId" data-id="{{ $product->id }}" style="border:none; border-radius:25px; color:#fff; margin-left:6px;">
                   <svg height="14" viewBox="0 0 16 14" width="16" class="" 
                   name="love">
                   <path d="M14.3 1.3A4.22 4.22 0 0 0 11.254.01c-1.15 0-2.232.46-3.047 1.293l-.425.436-.432-.443A4.242 4.242 0 0 0 4.3 0C3.152 0 2.07.46 1.26 1.29A4.418 4.418 0 0 0 0 4.409a4.43 4.43 0 0 0 1.266 3.116l6.194 6.34a.443.443 0 0 0 .313.135.44.44 0 0 0 .313-.132l6.206-6.33a4.435 4.435 0 0 0 1.264-3.119 4.415 4.415 0 0 0-1.257-3.12z" 
@@ -104,7 +121,7 @@
       <div class="row">
           <div class="col-md-12">
             <br>
-            <h4 class="text-light">QUICK DESCRIPTION</h4>
+            <h4 class="text-light" style="margin-top: 37px;">QUICK DESCRIPTION</h4>
            <p class="text-light">{{ $product->quick_description }}</p>
             {{-- <button type="button" id="example" class="btn btn-secondary" data-toggle="tooltip" data-placement="left" title="Tooltip on left">
   Tooltip on left
@@ -158,7 +175,7 @@
               @php 
                 $countProductOrderTimes = \DB::table('order_product')->where('product_id', $product->id)->count();
               @endphp
-              <h4 class="text-bold"><span class="badge badge-primary">{{ $countProductOrderTimes }}</span>  Successful Sale(s)</h4>
+              <h4 class="text-bold" style="text-align: center;"><span class="badge badge-primary">{{ $countProductOrderTimes }}</span>  Successful Sale(s)</h4>
               </div>
       </div>
       <div class="col-md-6 col-offset-md-2">
@@ -171,13 +188,13 @@
         </div>
         <div class="col-md-6">
           {{-- <p>Good Rating</p> --}}
-          <p style="font-weight: bold; font-size: 12px;">Based on {{ count($ratingCount) }} Ratings</p>
+          <h5 class="h5-css">Based on {{ count($ratingCount) }} Ratings</h5>
         </div>
         </div>
         <div class="row">
           <div class="col-12">
                <h5>Did you like this store? Help rate it immediately</h5>
-                <p>Select a star, then click "add comment to rate"</p>
+                <p style="padding:0px;">Select a star, then click "add comment to rate"</p>
 
                 <input id="input-1" data-id="{{ $product->id }}" height="14" name="input-1" class="rating rating-loading reviewbutton1" data-min="0" data-max="5" data-step="1" value="0">
                   <a href="javascript:void(0);" class="reviewbutton1" data-id="{{ $product->id }}"> <span style="color: #FF0066;">Add a Comment</span></a>
@@ -228,7 +245,11 @@
             @endforeach
            
           </div> --}}
-          <div class="col-md-12"> {{ $product->description }}</div>
+          <div class="col-md-12">
+            <div class="card" style="margin:14px;"><p>{{ $product->description }}</p></div>
+             
+          
+          </div>
         </div>
         
       </div>

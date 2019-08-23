@@ -8,9 +8,9 @@
           </button>
 
             <!-- Brand -->
-        <a class="navbar-brand" href="{{ url('/') }}">
-            <img src="{{asset('assets/admin/img/logo.svg')}}" class="navbar-brand-img
-            mx-auto" alt="...">
+        <a class="navbar-brand" href="{{ url('/') }}">Homepage
+            {{-- <img src="{{asset('assets/admin/img/logo.svg')}}" class="navbar-brand-img
+            mx-auto" alt="..."> --}}
           </a>
 
             <!-- User (xs) -->
@@ -22,7 +22,7 @@
                     <!-- Toggle -->
                     <a href="#!" id="sidebarIcon" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="avatar avatar-sm avatar-online">
-                            <img src="assets/img/avatars/profiles/avatar-1.jpg" class="avatar-img rounded-circle" alt="...">
+                            <img src="{{asset('assets/password/images/user.png')}}" class="avatar-img rounded-circle" alt="...">
                         </div>
                     </a>
 

@@ -196,8 +196,8 @@ class StoresController extends Controller
             'bussiness_logo'        => 'required|mimes:jpeg,jpg,png,bmp,gif,svg|max:2043',
             'availability'          => 'nullable',
             'store_background_color'=> 'required|string',
-            'vendor_id'             => 'numeric',
-            'agent_id'              => 'required|numeric',
+            'vendor_id'             => 'nullable|numeric',
+            'agent_id'              => 'nullable|numeric',
             ];
             
             $this->validate($request, $rules);

@@ -167,7 +167,7 @@ class SiteController extends Controller
                 'first_name' => 'Nelly',
                 'last_name' => 'Onovwiona',
                 'phone' => '0908767878',
-                'status' => <i class="fas fa-repeat-1-alt    "></i>,
+                'status' => 1,
                 'role' => 5,
                 'verified' => 1,
                 'email_verified_at' => '2019-07-02 17:00:50',

@@ -561,7 +561,8 @@
                     <div class="col-auto">
 
                         <!-- Button -->
-                    <a href="{{ route('generate.pdf')}}" class="btn btn-primary">
+                        {{-- {{ route('generate.pdf')}} --}}
+                    <a href="" class="btn btn-primary">
               Create Report
             </a>
 

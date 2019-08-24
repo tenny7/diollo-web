@@ -10,7 +10,7 @@
 @section('content')
 
 
-<div class="container p">
+<div class="container">
   <div class="row push-margin-top-product">
     <div class="col-xs-12 col-md-6">
       <div class="img-loved">
@@ -98,7 +98,7 @@
             
                
           </div>
-      </div>
+      
       <br>
       <div class="row">
           <div class="col-md-12">
@@ -259,6 +259,7 @@
 
 
 
+    </div>
     </div>
     <div style="margin-top:100px;"></div>
     @include('partials.diollo.footer')

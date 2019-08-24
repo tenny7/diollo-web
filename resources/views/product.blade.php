@@ -75,7 +75,7 @@
 
             <input type="hidden" id="productId" value="{{ $product->id }}">
             <div class="form-group">
-              <button type="button"  style="margin-bottom:10px; margin-top:3px;  border-radius:25px;"  data-id="{{ $product->id }}" class="product_cart btn btn-primary btn-sm">ADD TO CART <i class="fas fa-plus"></i></button>
+              <button type="button"  style="margin-bottom:10px; margin-top:3px;  border-radius:25px;"  data-id="{{ $product->id }}" class="add_product_to_cart btn btn-primary btn-sm">ADD TO CART <i class="fas fa-plus"></i></button>
 
             </div>
               </div>

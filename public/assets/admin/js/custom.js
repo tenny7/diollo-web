@@ -26,7 +26,7 @@ $(document).ready(function () {
         }
     });
 
-    $('.product_cart').click(function () {
+    $('.add_product_to_cart').click(function () {
         var price = document.getElementById('price').value;
         var qty = document.getElementById('number').innerText;
         var productId = $(this).data('id');

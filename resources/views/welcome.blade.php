@@ -23,7 +23,8 @@
         <div class="swiper-wrapper dark-overlay">
           @foreach($homeSliders as $key => $value)
               @foreach($value->photos->take(1) as $image)
-                <div style="background-image:url({{ asset('diollo/resources/img/lauren.jpg')}})" class="swiper-slide"></div>
+                <div  class="swiper-slide bk-grad"></div>
+                {{-- <div style="background-image:url({{ asset('diollo/resources/img/lauren.jpg')}})" class="swiper-slide"></div> --}}
               @endforeach
           @endforeach
         </div>

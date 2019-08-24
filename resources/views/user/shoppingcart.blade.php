@@ -7,9 +7,7 @@
 
 @section('content')
 
-<br>
-<br>
-<br>
+
 
     <div class="container" style="margin:auto;">
     
@@ -157,7 +155,7 @@
 
             </tbody>
         </table>
-            <p class="tallytext">
+            <p class="tallytext" style="padding:10px;">
                   Once you make payment at checkout items
                  will be reserved for you in the store until pickup
             </p>

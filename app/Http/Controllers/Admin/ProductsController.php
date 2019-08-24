@@ -194,6 +194,7 @@ class ProductsController extends Controller
         $product = Product::firstOrCreate($validatedData);
         $product->slug = $product->name;
         $product->status = 1;
+        $product->agent = Auth::id();
         
         $product->saveProductImages(collect($request->product_image));
 
@@ -242,14 +243,14 @@ class ProductsController extends Controller
             // 'product_image'  =>  'required|mimes:jpeg,jpg,png,bmp,gif,svg|max:2043',
             'brand'             =>  'required|numeric',
             'store'             =>  'required|numeric',
-            'agent'             =>  'required|numeric',
+            'agent'             =>  'nullable|numeric',
             'waranty'           =>  'required|string'
         ]);
 
         // $product = Product::find($request->product_id);
         $product = Product::where('slug',$product_slug)->first();
         $product->update($validatedData);
-        // $product->slug = $product->name;
+        $product->agent = Auth::id();
         $product->status = 1;
         // $product->saveProductImages(collect($request->product_image));
 

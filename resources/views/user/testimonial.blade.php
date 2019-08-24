@@ -39,4 +39,5 @@
 @push('js')
 <script src="{{ asset('assets/admin/js/custom.js')}}"></script>
 <script src="{{ asset('assets/admin/js/toastr.js')}}"></script>
+{{-- nice --}}
 @endpush

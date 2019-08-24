@@ -33,7 +33,7 @@
     </script>
 
 
-    <title>Passward</title>
+<title>{{ config('app.name','Laravel')}}</title>
 </head>
 
 <body>

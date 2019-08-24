@@ -254,7 +254,7 @@
              </div>
 
              <div class="form-group">
-               <button type="button" class="btn btn-primary submitTestimonial">Submit</button>
+               <button type="button" class="btn btn-primary sendFeedBack">Make Request</button>
              </div>
              
             </form>

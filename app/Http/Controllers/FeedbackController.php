@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Feedback;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class FeedbackController extends Controller
 {
@@ -45,7 +46,8 @@ class FeedbackController extends Controller
         $feedback->fill($validatedData);
         $feedback->save();
 
-        return back()->with('success', 'Thanks, your request has been received. A response would be sent to your email');
+        return Response::json(['success' => 'Thanks, your request has been received. A response would be sent to your email']);
+        // return back()->with('success', 'Thanks, your request has been received. A response would be sent to your email');
 
     }
 

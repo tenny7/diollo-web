@@ -8,9 +8,9 @@
           </button>
 
             <!-- Brand -->
-        <a class="navbar-brand" href="{{ url('/') }}">Homepage
-            {{-- <img src="{{asset('assets/admin/img/logo.svg')}}" class="navbar-brand-img
-            mx-auto" alt="..."> --}}
+        <a class="navbar-brand" href="{{ url('/') }}">
+            <img src="{{asset('assets/admin/img/logo.svg')}}" class="navbar-brand-img
+            mx-auto" alt="...">
           </a>
 
             <!-- User (xs) -->

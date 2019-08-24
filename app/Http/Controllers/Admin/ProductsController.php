@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Models\OrderProduct;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use App\Notifications\ProductNotification;
 use Illuminate\Support\Facades\Notification;
@@ -193,6 +194,7 @@ class ProductsController extends Controller
         $product = Product::firstOrCreate($validatedData);
         $product->slug = $product->name;
         $product->status = 1;
+        
         $product->saveProductImages(collect($request->product_image));
 
        if($product->save())

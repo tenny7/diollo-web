@@ -486,14 +486,14 @@ $(document).ready(function () {
         });
     });
 
-    $('.submitTestimonial').click(function () {
+    $('.sendFeedBack').click(function () {
         name = document.getElementById('username').value;
         email = document.getElementById('email').value;
         content = document.getElementById('content').value;
 
         //  var productId = $(this).data('id');
         $.ajax({
-            url: '/saveTestimonial/',
+            url: '/contact-us/',
             type: 'post',
             dataType: 'json',
             data: {
@@ -505,6 +505,29 @@ $(document).ready(function () {
                 if (response) {
                     document.getElementById('username').value = "";
                     document.getElementById('email').value = " ";
+                    document.getElementById('content').value = " ";
+                    toastr["success"](response.success, "Success");
+                }
+            }
+        });
+    });
+
+    $('.testimonialButton').click(function () {
+        name = document.getElementById('username').value;
+        content = document.getElementById('content').value;
+
+        //  var productId = $(this).data('id');
+        $.ajax({
+            url: '/saveTestimonial/',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                'name': name,
+                'content': content,
+            },
+            success: function (response) {
+                if (response) {
+                    document.getElementById('username').value = "";
                     document.getElementById('content').value = " ";
                     toastr["success"](response.success, "Success");
                 }

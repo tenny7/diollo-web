@@ -21,7 +21,7 @@ use Gerardojbaez\GeoData\Models\Region;
 Route::get('/', 'SiteController@welcome')->name('welcome');
 Route::get('testimonial', 'TestimonyController@index')->name('testimonial');
 Route::post('/saveTestimonial', 'TestimonyController@store')->name('testimonial.submit');
-Route::post('contact-us', 'FeedbackController@contactUs')->name('contact.us');
+Route::post('/contact-us', 'FeedbackController@contactUs')->name('contact.us');
 
 Route::get('get-banks','SiteController@getBanks');
 Route::get('/get-started', 'SiteController@getStarted');

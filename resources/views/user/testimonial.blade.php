@@ -13,7 +13,7 @@
     <div class="col-md-8 col-sm-12 offset-md-2">
         @include('partials.admin.success')
         @include('partials.admin.error')
-        <div class="card">
+        <div class="card h-100 border-0 shadow">
             <div class="card-title"><h4 style="padding:10px;">Say something abut us</h4></div>
             <div class="card-body">
             <form action="{{ route('testimonial.submit')}}" method="post">

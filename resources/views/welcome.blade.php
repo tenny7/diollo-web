@@ -215,12 +215,15 @@
     <!-- Divider Section-->
     
     <section class="py-7 position-relative ">
-      <img src="{{ asset('diollo/assets/images/feedback.jpg') }}" alt="" class="bg-image">
+      {{-- <img src="{{ asset('diollo/assets/images/feedback.jpg') }}" alt="" class="bg-image"> --}}
       <div class="container">
         {{-- <div class="overlay-content text-white py-lg-5">
           
         </div> --}}
+        <div class="card h-100 border-0 shadow">
+          <div class="card-body d-flex align-items-center">
         <div class="row">
+          
           <div class="col-md-6">
             <h3 class="display-3 font-weight-bold text-serif text-shadow text-secondary ">Ready for your next awesome dress design?</h3>
           </div>
@@ -253,6 +256,8 @@
              
             </form>
           </div>
+          </div>
+        </div>
         </div>
       </div>
     </section>

@@ -15,7 +15,7 @@
                   <div class="row push-margin-top">
                    @include('partials.diollo.sidebar')
       
-                <div class="col-sm-12 col-md-6 col-offset-md-2">
+                <div class="col-sm-12 col-md-12">
       {{-- modified ui --}}
                     <div class="card card-edit-login h3-margin-top">
                       <div class="" style="padding-bottom: 15px; margin-top: 15px;">
@@ -34,7 +34,7 @@
                               <img style="margin-top: 20px; object-fit:contain; width:100%; height:42px;" src="{{ asset('assets/password/images/paystack.png')}}" class="img-responsive img-fluid" alt="paystack logo">
                             </div>
                             <div class="col-sm-12 col-md-4">
-                            <a href="{{ route('customer.top.up') }}" name="button" class="btn btn-sm btn-primary withdraw-button" style="text-decoration:none; margin-left:58px;">&nbsp;<i class="fas fa-plus-circle"></i> Top Up</a>
+                            <a href="{{ route('customer.top.up') }}" name="button" class="btn btn-sm btn-primary withdraw-button" style="text-decoration:none;">&nbsp;<i class="fas fa-plus-circle"></i> Top Up</a>
                             </div>
                           </div>
                           <hr>

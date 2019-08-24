@@ -37,7 +37,7 @@ class CreateProductsTable extends Migration
 
             
             $table->foreign('store')->references('id')->on('stores')->onDelete('cascade');
-            $table->foreign('agent')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreign('agent')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('brand')->references('id')->on('brands')->onDelete('cascade');
             
             $table->timestamps();

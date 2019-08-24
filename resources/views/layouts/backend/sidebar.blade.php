@@ -394,6 +394,11 @@
                     
                     <ul class="navbar-nav">
                         <li class="nav-item">
+                            <a class="nav-link" href="{{url('/')}}" role="button" aria-expanded="true" aria-controls="sidebarDashboards">
+                                <i class="fe fe-home"></i> Homepage
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{route('admin.dashboard')}}" role="button" aria-expanded="true" aria-controls="sidebarDashboards">
                                 <i class="fe fe-home"></i> Dashboard
                             </a>
@@ -606,6 +611,11 @@
                                 </ul>
                             </div>
                         </li>
+                        {{-- <li class="nav-item">
+                        <a href="{{route('admin.promotions.index')}}" class="nav-link {{ Request::is('admin/promotions/all*') ? 'active' : '' }}">
+                                All Promotions
+                            </a>
+                        </li> --}}
                         
                     </ul>
     

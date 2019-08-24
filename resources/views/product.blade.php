@@ -102,7 +102,7 @@
       <br>
       <div class="row">
           <div class="col-md-12">
-            <p class="text-light" style="margin-top: 33px;">If you cannot pay for this item immediately you can also <span style="color: #FF3C89;">Reserve Item for 24 hours</span> by selecting a quantity and clicking "reserve for a day"
+            <p class="text-light" style="margin-top: 33px; padding:20px;">If you cannot pay for this item immediately you can also <span style="color: #FF3C89;">Reserve Item for 24 hours</span> by selecting a quantity and clicking "reserve for a day"
             </p><hr>
                 <button type="button" id="productId" class="btn btn-primary productId" data-id="{{ $product->id }}" style="border:none; border-radius:25px; color:#fff; margin-left:6px;">
                   <svg height="14" viewBox="0 0 16 14" width="16" class="" 
@@ -122,7 +122,7 @@
           <div class="col-md-12">
             <br>
             <h4 class="text-light" style="margin-top: 37px;">QUICK DESCRIPTION</h4>
-           <p class="text-light">{{ $product->quick_description }}</p>
+           <p class="text-light" style="padding:20px;">{{ $product->quick_description }}</p>
             {{-- <button type="button" id="example" class="btn btn-secondary" data-toggle="tooltip" data-placement="left" title="Tooltip on left">
   Tooltip on left
 </button> --}}

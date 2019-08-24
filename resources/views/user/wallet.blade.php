@@ -18,7 +18,7 @@
                 <div class="col-sm-12 col-md-12">
       {{-- modified ui --}}
                     <div class="card card-edit-login h3-margin-top">
-                      <div class="" style="padding-bottom: 15px; margin-top: 15px;">
+                      {{-- <div class="" style="padding-bottom: 15px; margin-top: 15px;"> --}}
       
                         {{-- <div class="col-md-12 atm-card"> --}}
                             <h5 style="padding:8px;" class="wallet-element-margin">{{ $user->fullname }}</h5>
@@ -31,10 +31,12 @@
                               <h3> <span class="badge badge-info">₦ {{ number_format($wallet,2)}}</span> </h3>
                             </div>
                             <div class="col-sm-12 col-md-4">
-                              <img style="margin-top: 20px; object-fit:contain; width:100%; height:42px;" src="{{ asset('assets/password/images/paystack.png')}}" class="img-responsive img-fluid" alt="paystack logo">
+                              {{-- margin-top: 20px; object-fit:contain; width:100%; height:42px; --}}
+                              <img style="" src="{{ asset('assets/password/images/paystack.png')}}" class="img-responsive img-fluid" alt="paystack logo">
                             </div>
                             <div class="col-sm-12 col-md-4">
-                            <a href="{{ route('customer.top.up') }}" name="button" class="btn btn-sm btn-primary withdraw-button" style="text-decoration:none;">&nbsp;<i class="fas fa-plus-circle"></i> Top Up</a>
+                            <a href="{{ route('customer.top.up') }}" name="button" class="btn btn-sm btn-primary " style="text-decoration:none;">&nbsp;<i class="fas fa-plus-circle"></i> Top Up</a>
+                            {{-- withdraw-button --}}
                             </div>
                           </div>
                           <hr>
@@ -76,7 +78,7 @@
                           <button id="continuebutton" class="btn btn-primary btn-sm" style="margin-left:58px;" type="submit">CONTINUE</button>
                           </form>
       
-                        </div>
+                        {{-- </div> --}}
       
                         
       

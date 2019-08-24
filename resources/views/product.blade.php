@@ -246,7 +246,7 @@
            
           </div> --}}
           <div class="col-md-12">
-            <div class="card" style="margin:14px;"><p>{{ $product->description }}</p></div>
+            <div class="card" style="margin:14px; padding:14px;"><p>{{ $product->description }}</p></div>
              
           
           </div>

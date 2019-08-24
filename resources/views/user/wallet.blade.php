@@ -75,7 +75,7 @@
                             </div>
       
                           </div>
-                          <button id="continuebutton" class="btn btn-primary btn-sm" style="margin-left:58px;" type="submit">CONTINUE</button>
+                          <button id="continuebutton" class="btn btn-primary" style="margin-left:10px;" type="submit">CONTINUE</button>
                           </form>
       
                         {{-- </div> --}}

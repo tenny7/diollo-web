@@ -79,6 +79,7 @@
                         <div aria-labelledby="docsDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
                             <a href="{{ route('customer.accountInfo') }}" class="dropdown-item">Profile </a>
                             <a href="{{ route('saved.item') }}" class="dropdown-item">Wishlist </a>
+                            <a href="{{ route('testimonial') }}" class="dropdown-item">Feedback </a>
                             <a href="{{ route('orders.viewOrders') }}" class="dropdown-item">Order History </a>
                             <a href="{{ route('customer.wallet')}}" class="dropdown-item">Wallet</a>
                             <a href="{{ route('customer.logout')}}" class="dropdown-item">Logout</a>

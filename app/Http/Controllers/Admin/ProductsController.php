@@ -186,7 +186,7 @@ class ProductsController extends Controller
             // 'product_image'  =>  'required|mimes:jpeg,jpg,png,bmp,gif,svg|max:2043',
             'brand'             =>  'required|numeric',
             'store'             =>  'required|numeric',
-            'agent'             =>  'required|numeric',
+            'agent'             =>  'nullable|numeric',
             'waranty'           =>  'required|string'
         ]);
 

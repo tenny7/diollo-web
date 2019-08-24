@@ -19,25 +19,22 @@ use Gerardojbaez\GeoData\Models\Region;
 */
 
 Route::get('/', 'SiteController@welcome')->name('welcome');
+Route::get('testimonial', 'TestimonyController@index')->name('testimonial');
 Route::post('save-testimonial', 'TestimonyController@store')->name('testimonial.submit');
 Route::post('contact-us', 'FeedbackController@contactUs')->name('contact.us');
 
 Route::get('get-banks','SiteController@getBanks');
-
 Route::get('/get-started', 'SiteController@getStarted');
 Route::get('/make-admin', 'SiteController@makeAdmin')->middleware('auth');
 
-Route::get ('/states/{country_code}', '\Gerardojbaez\GeoData\Controllers\RegionsController@regions' )->name('states');
-
+Route::get ('/states/{country_code}','\Gerardojbaez\GeoData\Controllers\RegionsController@regions' )->name('states');
 Route::get ('/cities/{country_code}/{region_id}', '\Gerardojbaez\GeoData\Controllers\CitiesController@cities' )->name('cities');
-
 Route::get('/markAsRead', 'SiteController@markAsRead');
 
 Route::get('/storeDetails/{store_id}','SiteController@storeDetails');
 Route::post('/pay', 'Payments\PaymentController@redirectToGateway')->name('pay');
 
 Route::get('/payment/callback', 'Payments\PaymentController@handlePayStackCallback');
-
 Route::get('/become-an-agent', 'AgentController@becomeAnAgent1')->name('agent.signup.one');
 Route::post('/become-an-agent', 'AgentController@becomeAnAgent1Process')->name('agent.signupprocess.one');
 
@@ -46,7 +43,6 @@ Route::post('/become-an-agent/2', 'AgentController@becomeAnAgent2Process')->name
 
 Route::get('/become-an-agent/3', 'AgentController@becomeAnAgent3')->name('agent.signup.three');
 Route::post('/become-an-agent/3', 'AgentController@becomeAnAgent3Process')->name('agent.signupprocess.three');
-
 Route::get('/become-a-vendor', 'CustomLoginController@vendorForm')->name('vendor.signup');
 
 // Route::post('/create-vendor', 'CustomLoginController@signupVendor')->name('storeVendor');

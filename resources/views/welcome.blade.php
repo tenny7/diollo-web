@@ -67,7 +67,7 @@
                 </svg> --}}
               </div>
               <h3 class="h5">Find the perfect redy-to-wear dresses</h3>
-              <p class="text-muted">We make goergeousready to wear dresses</p>
+              <p class="text-muted">We make goergeous ready-to-wear dresses</p>
             </div>
           </div>
           <div class="col-lg-4 mb-3 mb-lg-0 text-center">
@@ -230,7 +230,7 @@
           <form action="{{ route('contact.us') }}" method="post">
             @csrf
              <div class="form-group">
-                <label for="loginUsername" class="form-label mb-5-t"> Username </label>
+                <label for="loginUsername" class="form-label mb-5-t"> Name </label>
                 <input  id="username" name="name" type="text" placeholder="Enter name" autocomplete="off" required data-msg="Please enter your name" class="form-control">
                 {{-- <a href="category-rooms.html" class="btn btn-light">Submit</a> --}}
              </div>
@@ -274,7 +274,7 @@
                 <div class="testimonial-avatar"><img src="{{ asset('diollo/resources/d19m59y37dris4.cloudfront.net/directory/1-1/img/avatar/avatar-3.jpg') }}" alt="..." class="img-fluid"></div>
                 <div class="text">
                   <div class="testimonial-quote"><i class="fas fa-quote-right"></i></div>
-                <p class="testimonial-text"> {{ $testimonial->content  }}</p><strong>{{ $testimonial->name }}</strong>
+                <p class="testimonial-text"> {{ str_limit($testimonial->content,80,'...' ) }}</p><strong>{{ $testimonial->name }}</strong>
                 </div>
               </div>
             </div>

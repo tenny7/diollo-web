@@ -28,14 +28,14 @@
                             <div class="row">
                             <div class="col-sm-12 col-md-4">
                               <label for="">Available Balance</label>
-                              <h3> <span class="badge badge-info">₦ {{ number_format($wallet,2)}}</span> </h3>
+                              <h3 style="padding:10px;"> <span class="badge badge-primary">₦ {{ number_format($wallet,2)}}</span> </h3>
                             </div>
                             <div class="col-sm-12 col-md-4">
                               {{-- margin-top: 20px; object-fit:contain; width:100%; height:42px; --}}
-                              <img style="" src="{{ asset('assets/password/images/paystack.png')}}" class="img-responsive img-fluid" alt="paystack logo">
+                              <img style="padding:10px;" src="{{ asset('assets/password/images/paystack.png')}}" class="img-responsive img-fluid" alt="paystack logo">
                             </div>
                             <div class="col-sm-12 col-md-4">
-                            <a href="{{ route('customer.top.up') }}" name="button" class="btn btn-sm btn-primary " style="text-decoration:none;">&nbsp;<i class="fas fa-plus-circle"></i> Top Up</a>
+                            <a href="{{ route('customer.top.up') }}" name="button" class="btn btn-primary " style="text-decoration:none; padding:10px;">&nbsp;<i class="fas fa-plus-circle"></i> Top Up</a>
                             {{-- withdraw-button --}}
                             </div>
                           </div>

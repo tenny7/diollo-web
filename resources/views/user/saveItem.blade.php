@@ -70,9 +70,9 @@
                         </div>
                         @empty 
 
-                        <div class="card h-100 border-0 shadow text-center">
-                            <p>No Items on your Wishlist.</p>
-                            <a href="{{ route('customer.shop')}}" class="btn btn-primary">Add Item <i class="fa fa-plus"></i></a>
+                        <div class="card h-100 border-0 shadow text-center" style="margin-left:auto; margin-right:auto;">
+                            <p style="padding:14px;">No Items on your Wishlist.</p>
+                            <a style="padding:14px;" href="{{ route('customer.shop')}}" class="btn btn-primary">Add Item <i class="fa fa-plus"></i></a>
                         </div>
                         @endforelse
                           

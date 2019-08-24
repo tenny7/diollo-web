@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Testimony;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class TestimonyController extends Controller
 {
@@ -33,18 +34,17 @@ class TestimonyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,Testimony $testimonial)
     {
         $validatedData = $this->validate($request,[
-            'name' => ['required', 'alpha_dash'],
+            'name' => ['required'],
             'content' => ['required'],
         ]);
-        
-        $testimonial = new Testimony();
         $testimonial->fill($validatedData);
         $testimonial->save();
 
-        return back()->with('success','Thanks for saying something');
+        return Response::json(['success' => 'Thank you for your Comment']);
+
     }
 
     /**

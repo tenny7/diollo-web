@@ -36,8 +36,8 @@ class FeedbackController extends Controller
     public function contactUs(Request $request)
     {
         $validatedData = $this->validate($request, [
-            'name' => ['required', 'alpha_dash'],
-            'email' => ['required'],
+            'name' => ['required'],
+            'email' => ['required','email'],
             'content' => ['required'],
         ]);
         

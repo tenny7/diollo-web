@@ -503,8 +503,10 @@ $(document).ready(function () {
             },
             success: function (response) {
                 if (response) {
-
-                    toastr["success"](response.success, "Success")
+                    document.getElementById('username').value = "";
+                    document.getElementById('email').value = " ";
+                    document.getElementById('content').value = " ";
+                    toastr["success"](response.success, "Success");
                 }
             }
         });

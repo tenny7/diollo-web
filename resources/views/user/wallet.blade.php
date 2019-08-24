@@ -20,9 +20,11 @@
                     <div class="card card-edit-login h3-margin-top">
                       <div class="" style="padding-bottom: 15px; margin-top: 15px;">
       
-                        <div class="paystack row">
-                          <div class="col-md-12 atm-card">
+                        {{-- <div class="col-md-12 atm-card"> --}}
                             <h5 style="padding:8px;" class="wallet-element-margin">{{ $user->fullname }}</h5>
+                            {{-- </div> --}}
+                        {{-- <div class="paystack row"> --}}
+                          
                             <div class="row">
                             <div class="col-sm-12 col-md-4">
                               <label for="">Available Balance</label>
@@ -35,16 +37,17 @@
                             <a href="{{ route('customer.top.up') }}" name="button" class="btn btn-sm btn-primary withdraw-button" style="text-decoration:none; margin-left:58px;">&nbsp;<i class="fas fa-plus-circle"></i> Top Up</a>
                             </div>
                           </div>
-                          <div class="row">
-                            <div class="col-md-12 col-xs-12">
-                                <h3>{{ str_limit($user->account_number, $limit = 4, $end = '******') }}</h3>
-                            </div>
-                          </div>
+                          <hr>
+                          {{-- <div class="row">
+                            <div class="col-md-12 col-xs-12"> --}}
+                                <h3 style="text-align:center;">{{ str_limit($user->account_number, $limit = 4, $end = '******') }}</h3>
+                            {{-- </div>
+                          </div> --}}
       
                             
       
-                          </div>
-                        </div>
+                          
+                        {{-- </div> --}}
       
                          
                         <hr>

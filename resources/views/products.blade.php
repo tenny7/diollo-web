@@ -61,7 +61,7 @@
                                       <p class="flex-shrink-1 mb-0 card-stars text-xs text-right"><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i>
                                       </p>
                                     </div>
-                                  <p class="card-text text-muted"><span class="h4 text-primary">{{ number_format($product->discount_price,2) }}</span></p>
+                                  <p class="card-text text-muted"><span class="h4 text-primary">₦ {{ number_format($product->discount_price,2) }}</span></p>
                                   </div>
                                 </div>
                               </div>

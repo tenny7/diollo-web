@@ -126,7 +126,7 @@
                                       <p class="flex-shrink-1 mb-0 card-stars text-xs text-right"><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i>
                                       </p>
                                     </div>
-                                  <p class="card-text text-muted"><span class="h4 text-primary">{{ number_format($product->discount_price,2) }}</span></p>
+                                  <p class="card-text text-muted"><span class="h4 text-primary">₦ {{ number_format($product->discount_price,2) }}</span></p>
                                   </div>
                                 </div>
                               </div>
@@ -136,44 +136,7 @@
                         
                         @endforeach
                         </div>
-                                        {{-- @foreach($products as $product)
-                                            <div class="col-xs-6 col-md-3">
-                                                <div class="img-block">
-                                                  <a href="{{ route('customer.productPage', $product->id )}}"> 
-                                                          @php
-                                                          $images = \App\Models\ProductImage::where('product_id', $product->id)->get();
-                                                          $image_var = json_decode($images);
-                                                          @endphp
-                                      
-                                                          @if(is_array($image_var))
-                                                          @foreach(array_slice($image_var, 0, 1) as $image)
-                                                              <img src="{{ asset("storage/$image->path")}}" alt="phone" class="img-responsive img-fluid" style="height:160px">
-                                                          @endforeach
-                                                          @endif
-                                                          <div class="edit">
-                                                            <a href="#"><img src="images/fav appearance selected.svg" style="height: 25px;" alt=""></a>
-                                                          </div>
-                                                          <div class="content">
-                                                                @php 
-                                                                  $store = \App\Models\Store::find($product->store);
-                                                                  $city =  \Gerardojbaez\GeoData\Models\City::find($store->city_id);
-                                                                @endphp
-                                                            <div class="amount">
-                                                              <p class="price">&#8358;{{ number_format($product->discount_price,2)}}</p>
-                                                                <span><i class="fas fa-star star" style="margin-left:4px;"></i><i class="fas fa-star star" style="margin-left:4px;"></i><i class="far fa-star star" style="margin-left:4px;"></i> </span>
-                                                            </div>
-                                                              <p class="shop"> {{ $store->name }}</p>
-                                                              <p class="street">{{ $store->address}} , {{ $city->name }}</p>
-                                                              <button type="button" style="border:none; color:#fff; border-radius:15%" class="product_cart_single purple btn btn-xs" data-price="{{ $product->discount_price }}" data-id="{{ $product->id }}">ADD TO CART <i class="fas fa-plus"></i></button>
-                                                          </div>
-                                                          <br>
-                                                        </a>
-                                                </div>
-                                              </div>
-                                              @endforeach --}}
-                                              {{-- @else 
-      
-                                              @endif --}}
+                                       
                                             @endforelse
                                             
                                            

@@ -115,13 +115,14 @@
           }
       }    
       // to avoid CORS issues when viewing using file:// protocol, using the demo URL for the SVG sprite
-      // use your own URL in production, please :)
+      
       // https://demo.bootstrapious.com/directory/1-0/icons/orion-svg-sprite.svg
       injectSvgSprite('icons/orion-svg-sprite.svg'); 
       
     </script>
     <!-- jQuery-->
     <script src="{{ asset('diollo/resources/d19m59y37dris4.cloudfront.net/directory/1-1/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/custom.js') }}"></script>
     @stack('js')
     {{-- @stack('scripts') --}}
     <!-- Bootstrap JS bundle - Bootstrap + PopperJS-->
@@ -136,11 +137,11 @@
     <script src="{{ asset('diollo/resources/d19m59y37dris4.cloudfront.net/directory/1-1/vendor/object-fit-images/ofi.min.js') }}"></script>
     <!-- Swiper Carousel                       -->
     <script src="{{ asset('diollo/resources/cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/js/swiper.min.js') }}"></script>
-    <script>var basePath = ''</script>
-    <!-- Main Theme JS file    -->
+    <script>var basePath = '' </script>
+   
     <script src="{{ asset('diollo/resources/js/theme.js') }}"></script>
     <script src="{{ asset('assets/password/js/script.js') }}"></script>
-    <script src="{{ asset('assets/password/js/custom.js') }}"></script>
+    
 
     
     

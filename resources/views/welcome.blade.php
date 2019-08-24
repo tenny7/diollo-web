@@ -2,6 +2,8 @@
 @extends('layouts.frontend.app2')
 
 @push('css')
+<link rel="stylesheet" href="{{ asset('assets/admin/css/toastr.css') }}">
+
 <link rel="stylesheet" href="{{ asset('diollo/assets/css/custom.css') }}">
 <style>
   .font-weight-bold {
@@ -230,8 +232,9 @@
           <div class="col-md-6">
             @include('partials.admin.success')
             @include('partials.admin.error')
-          <form action="{{ route('contact.us') }}" method="post">
-            @csrf
+          <form>
+            {{-- action="{{ route('contact.us') }}" method="post" --}}
+            {{-- @csrf --}}
              <div class="form-group">
                 <label for="loginUsername" class="form-label mb-5-t"> Name </label>
                 <input  id="username" name="name" type="text" placeholder="Enter name" autocomplete="off" required data-msg="Please enter your name" class="form-control">
@@ -251,7 +254,7 @@
              </div>
 
              <div class="form-group">
-               <button type="submit" class="btn btn-primary">Submit</button>
+               <button type="button" class="btn btn-primary submitTestimonial">Submit</button>
              </div>
              
             </form>
@@ -290,6 +293,7 @@
 @include('partials.diollo.footer')
 @stop
 
-@push('scripts')
+@push('js')
+<script src="{{ asset('assets/admin/js/toastr.js')}}"></script>
 
 @endpush

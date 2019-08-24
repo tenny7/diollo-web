@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-   
+
     // toast notification initialization
     toastr.options = {
         "closeButton": true,
@@ -20,79 +20,79 @@ $(document).ready(function () {
     }
 
 
-     $.ajaxSetup({
-         headers: {
-             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-         }
-     });
-     
-     $('.product_cart').click(function () {
-         var price = document.getElementById('price').value;
-         var qty = document.getElementById('number').innerText;
-         var productId = $(this).data('id');
-         $.ajax({
-             url: '/addToCart/' + productId,
-             type: 'post',
-             dataType: 'json',
-             data: {
-                
-                 'price': price,
-                 'qty': qty,
-                 'product_id': productId,
-             },
-             success: function (response) {
-                 if (response) {
-console.log(response);
-                     toastr["success"](response.success, "Success")
-                 }
-             }
-         });
-     });
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
-     $('.product_cart_single').click(function () {
+    $('.product_cart').click(function () {
+        var price = document.getElementById('price').value;
+        var qty = document.getElementById('number').innerText;
+        var productId = $(this).data('id');
+        $.ajax({
+            url: '/addToCart/' + productId,
+            type: 'post',
+            dataType: 'json',
+            data: {
+
+                'price': price,
+                'qty': qty,
+                'product_id': productId,
+            },
+            success: function (response) {
+                if (response) {
+                    console.log(response);
+                    toastr["success"](response.success, "Success")
+                }
+            }
+        });
+    });
+
+    $('.product_cart_single').click(function () {
         //  var price = document.getElementById('price').value;
         //  var qty = document.getElementById('number').innerText;
-         var price = $(this).data('price');
-         var productId = $(this).data('id');
+        var price = $(this).data('price');
+        var productId = $(this).data('id');
         //  alert(price);
         //  alert(productId);
-         $.ajax({
-             url: '/addToCartSingle/' + productId,
-             type: 'post',
-             dataType: 'json',
-             data: {
-                
-                 'price': price,
+        $.ajax({
+            url: '/addToCartSingle/' + productId,
+            type: 'post',
+            dataType: 'json',
+            data: {
+
+                'price': price,
                 //  'qty': qty,
-                 'product_id': productId,
-             },
-             success: function (response) {
-                 if (response) {
-// console.log(response);
-                     toastr["success"](response.success, "Success")
-                 }
-             }
-         });
-     });
+                'product_id': productId,
+            },
+            success: function (response) {
+                if (response) {
+                    // console.log(response);
+                    toastr["success"](response.success, "Success")
+                }
+            }
+        });
+    });
 
-     $('.productId').click(function () {
-         var productId = $(this).data('id');
-         $.ajax({
-             url: '/save-item/' + productId,
-             type: 'post',
-             dataType: 'json',
-             data: {
-                 'id': productId,
-             },
-             success: function (response) {
-                 if (response) {
+    $('.productId').click(function () {
+        var productId = $(this).data('id');
+        $.ajax({
+            url: '/save-item/' + productId,
+            type: 'post',
+            dataType: 'json',
+            data: {
+                'id': productId,
+            },
+            success: function (response) {
+                if (response) {
 
-                     toastr["success"](response.success, "Success")
-                 }
-             }
-         });
-     });
-    
+                    toastr["success"](response.success, "Success")
+                }
+            }
+        });
+    });
+
 
     jQuery(document).on('change', '.country', function () {
         var country_code = $('#country').val();
@@ -470,7 +470,7 @@ console.log(response);
         var productId = $(this).data('id');
         var qty = document.getElementById('number').innerText;
 
-     
+
         $.ajax({
             url: '/customer/reserve/',
             method: 'get',
@@ -483,12 +483,36 @@ console.log(response);
                 toastr["success"](response.success, "Success")
             }
 
-        });  
+        });
     });
 
-   
+    $('.submitTestimonial').click(function () {
+        name = document.getElementById('username').value;
+        email = document.getElementById('email').value;
+        content = document.getElementById('content').value;
 
-    
+        //  var productId = $(this).data('id');
+        $.ajax({
+            url: '/saveTestimonial/',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                'name': name,
+                'email': email,
+                'content': content,
+            },
+            success: function (response) {
+                if (response) {
+
+                    toastr["success"](response.success, "Success")
+                }
+            }
+        });
+    });
+
+
+
+
 
 
 

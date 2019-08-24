@@ -1,4 +1,4 @@
-<div class="col-md-4 col-sm-12">
+<div class="col-md-4 col-sm-12" style="margin-bottom:20px;">
 
           <ul class="list-group">
           <li class="list-group-item fontColor {{ url()->current() == 'http://localhost:8000/customer/account-info' ? 'active'  : ''}} ">

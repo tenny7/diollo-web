@@ -22,7 +22,7 @@
           
           <div class="row" style="margin-top:35px;">
 
-                    @foreach($products as $product)
+                    @forelse($products as $product)
                         <div class="col-md-4 col-xs-12" style="margin-bottom:10px;">
                           <div class="h-auto px-2">
                             <!-- place item-->
@@ -68,8 +68,13 @@
                             </div>
                           </div>
                         </div>
-                        
-                        @endforeach
+                        @empty 
+
+                        <div class="card h-100 border-0 shadow text-center">
+                            <p>No Items on your Wishlist.</p>
+                            <a href="{{ route('customer.shop')}}" class="btn btn-primary">Add Item <i class="fa fa-plus"></i></a>
+                        </div>
+                        @endforelse
                           
                   
                   

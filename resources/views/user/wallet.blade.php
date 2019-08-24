@@ -16,7 +16,7 @@
                    @include('partials.diollo.sidebar')
       
                 <div class="col-sm-12 col-md-6 col-offset-md-2">
-      
+      {{-- modified ui --}}
                     <div class="card card-edit-login h3-margin-top">
                       <div class="" style="padding-bottom: 15px; margin-top: 15px;">
       
@@ -24,37 +24,28 @@
                           <div class="col-md-12 atm-card">
                             <h5 style="padding:8px;" class="wallet-element-margin">{{ $user->fullname }}</h5>
                             <div class="row">
-                            <div class="col-sm-6 col-md-6">
-                              
-                              
-                              <p class="wallet-element-margin">Available Balance</p>
-                              
-                            </div>
-                            <div class="col-md-6">
+                            <div class="col-sm-12 col-md-4">
+                              <label for="">Available Balance</label>
                               <h3> <span class="badge badge-info">₦ {{ number_format($wallet,2)}}</span> </h3>
+                            </div>
+                            <div class="col-sm-12 col-md-4">
+                              <img style="margin-top: 20px; object-fit:contain; width:100%; height:42px;" src="{{ asset('assets/password/images/paystack.png')}}" class="img-responsive img-fluid" alt="paystack logo">
+                            </div>
+                            <div class="col-sm-12 col-md-4">
+                            <a href="{{ route('customer.top.up') }}" name="button" class="btn btn-sm btn-primary withdraw-button" style="text-decoration:none; margin-left:58px;">&nbsp;<i class="fas fa-plus-circle"></i> Top Up</a>
                             </div>
                           </div>
                           <div class="row">
-                            <div class="col-sm-6 col-md-6">
-                              <img style="margin-top: 20px; object-fit:contain; width:100%; height:42px;" src="{{ asset('assets/password/images/paystack.png')}}" class="img-responsive img-fluid" alt="paystack logo">
-                            </div>
-      
-                            <div class="col-md-6 col-xs-12">
+                            <div class="col-md-12 col-xs-12">
                                 <h3>{{ str_limit($user->account_number, $limit = 4, $end = '******') }}</h3>
-                              {{-- <h2>{{ $password = str_repeat("*", strlen($user->account_number)) }}</h2> --}}
                             </div>
-                            </div>
+                          </div>
       
                             
       
                           </div>
                         </div>
       
-                        <div class="row">
-                          <div class="col-sm-12 col-md-12">
-                            <a href="{{ route('customer.top.up') }}" name="button" class="btn btn-sm btn-primary withdraw-button" style="text-decoration:none; margin-left:58px;">&nbsp;<i class="fas fa-plus-circle"></i> Top Up</a>
-                            </div>
-                          </div>
                          
                         <hr>
                           

@@ -8,17 +8,7 @@
 
 @section('content')
 <br>
-{{-- <div class="top_star">
-    <img src="images/path 41.svg" alt="path star">
-  </div>
-  <div class="rotated" style="width: 233px;">
-    <i class="fab fa-facebook fa-rotate-360" style="color: #FF3C89;"></i>&nbsp;
-    <i class="fab fa-whatsapp fa-rotate-360" style="color: #FF3C89;"></i>&nbsp;
-    <i class="fab fa-twitter fa-rotate-360" style="color: #FF3C89;"></i> &nbsp;
-    <span class="text-muted cabin">
-       Follow us on social media </span>
-    <span class="run-through"></span>
-  </div> --}}
+
 
 <div class="container" style="margin:auto;">
  <div class="row push-margin-top-product ">
@@ -31,8 +21,8 @@
   
   <div class="col-md-8 col-sm-12 col-xs-12">
           <div class="card" style="margin-bottom:100px;">
-              <p class="hidavid"><span class="badge badge-info">Hi, {{ Auth::user()->fullname }}</span> </p>
-                  <p class="infoform"> Personal Information</p>
+              <p class="hidavid" style="padding:14px;"><span class="badge badge-primary">Hi, {{ Auth::user()->fullname }}</span> </p>
+                  <p class="infoform" style="padding:14px;"> Personal Information</p>
                   <hr class="line">
                 <div class="row" style=" padding:25px;">
                         <div class="col-md-6 col-xs-12">   
@@ -159,7 +149,7 @@
                           </div>
 
                           
-                                  <button id="savebutton" class="btn btn-primary" type="submit">SAVE ALL CHANGES</button>
+                                  <button id="savebutton" class="btn btn-primary" style="text-align:center;" type="submit">SAVE ALL CHANGES</button>
 
                                 </form>
 

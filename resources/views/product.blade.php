@@ -2,8 +2,8 @@
 
 @push('css')
 <link rel="stylesheet" href="{{ asset('assets/admin/css/toastr.css') }}">
-
 <link rel="stylesheet" href="{{ asset('diollo/assets/css/custom.css') }}">
+ <link rel="stylesheet" href="{{ asset('assets/admin/css/jquery.rateyo.css') }}">
 
 @endpush
 
@@ -47,7 +47,15 @@
       <div class="row">
           <div class="col-md-12">
           <h4 class="text-bold" style="font-size: 23px;">{{ $product->name }}</h4>
-            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><span style="font-weight: bold; font-family:Ubuntu;">(Reviews from 223 Users)</span>
+          
+          @php $averagerate= number_format($productRating->averageRating); @endphp
+         
+          @for($i=1; $i<=$averagerate; $i++)
+          <i class="fa fa-star"></i>
+          @endfor
+            
+
+            <span style="font-weight: bold; font-family:Ubuntu;">(Reviews from {{ count($ratingCount) }} Users)</span>
           </div>
       </div>
       <div class="row">
@@ -180,9 +188,9 @@
       </div>
       <div class="col-md-6 col-offset-md-2">
         <div class="row">
-          <div class="col-md-6 rating">
+          <div class="col-md-6 ">
           <div class="circle-star">
-          <img src="{{ asset('assets/password/images/star_full.svg')}}" style="height: 30px;" alt="rating star">
+          <img src="{{ asset('assets/password/images/star_full.svg')}}" style="height: 30px;" alt=" star">
             <p style="flex-direction: column; align-self: center; justify-content: center;">{{ number_format($productRating->averageRating) }} star</p>
           </div>
         </div>
@@ -194,10 +202,13 @@
         <div class="row">
           <div class="col-12">
                <h5>Did you like this store? Help rate it immediately</h5>
-                <p style="padding:0px;">Select a star, then click "add comment to rate"</p>
-
-                <input id="input-1" data-id="{{ $product->id }}" height="14" name="input-1" class="rating rating-loading reviewbutton1" data-min="0" data-max="5" data-step="1" value="0">
-                  <a href="javascript:void(0);" class="reviewbutton1" data-id="{{ $product->id }}"> <span style="color: #FF0066;">Add a Comment</span></a>
+                <p style="padding:0px;">Select a star to rate his product"</p>
+                
+                <div style="width:600px; margin:30px auto;">
+                    <div id="rateYo"></div>
+              </div>
+                <input type="hidden" id="productID" name="productID" value="{{ $product->id }}">
+                
                 </div>
           </div>
         </div>
@@ -208,7 +219,7 @@
     <div class="row bordered" style="margin-top: 15px;">
       <div class="col-md-2">
         <p>{{ $rating->user->fullname }}</p>
-        @for($i=0; $i<=$rating->rating; $i++)
+        @for($i=1; $i<=$rating->rating; $i++)
         <i class="fa fa-star"></i>
         @endfor
       </div>
@@ -266,16 +277,35 @@
     @stop 
 
     @push('js')
-    {{-- <script src="{{ asset('assets/admin/js/custom.js')}}"></script> --}}
-     <script src="{{ asset('assets/admin/js/custom.js')}}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.6/js/star-rating.min.js" type="text/javascript"></script>
+<script src="{{ asset('assets/admin/js/jquery.rateyo.js')}}"></script>
+    <script>
+    $('#rateYo').rateYo({
+        rating: 0,
+        starWidth:'40px',
+        numStars:5,
+        minValue:1,
+        maxValue:5,
+        precision : 1,
+        fullStar  : true,
+        normalFill: 'gray',
+        ratedFill: 'orange'
+    });
 
-     
-      <script>
-          $("#input-id").rating();
-          // ("#input-id").rating({'size':'lg'});
-          </script>
-      <script src="{{ asset('assets/admin/js/toastr.js')}}"></script>
+    $('#rateYo').click(function () {
+        var rating = $("#rateYo").rateYo("option", "rating");
+        var id = $('#productID').val();
+        window.location.href = '/review/' + id + '/' + rating;
+    });
+    
+    
+    
+    </script>
+    
+    
+    <script src="{{ asset('assets/admin/js/custom.js')}}"></script>
+   
+    <script src="{{ asset('assets/admin/js/toastr.js')}}"></script>
+    
       
     @endpush
 

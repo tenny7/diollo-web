@@ -87,6 +87,7 @@
                     <button class="btn btn-lg btn-block btn-primary mb-3">
                     Sign in
                     </button>
+
         
                     <!-- Link -->
                     <div class="text-center">
@@ -96,6 +97,14 @@
                     </div>
                     
                 </form>
+
+                 @if(session()->has('status'))
+                        <form action="{{ route('resend.mail')}}" method="get">
+                        <button class="btn btn-lg btn-block btn-primary mb-3">
+                        Resend Mail
+                        </button>
+                        </form>
+                    @endif
             
                 </form>
     

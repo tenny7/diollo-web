@@ -204,7 +204,7 @@ class CustomLoginController extends Controller
 
         if($user)
         {
-            $verifyUser = VerifyUser::create([
+            $verifyUser = VerifyUser::firstOrCreate  ([
                 'user_id' => $user->id,
                 'token' => sha1(time())
               ]);
@@ -222,6 +222,10 @@ class CustomLoginController extends Controller
         if(session()->has('userDetails'))
         {
             $user = session()->get('userDetails');
+            $verifyUser = VerifyUser::firstOrCreate([
+                'user_id' => $user->id,
+                'token' => sha1(time())
+              ]);
             SendEmailJob::dispatch($user); 
             return back()->with('success','A verification mail has been resent to your mail box');
         }

@@ -27,7 +27,7 @@
                         <!-- Label -->
                         <label>First Name</label>
                         <!-- Input -->
-                        <input type="text" name="firstname" class="form-control{{ $errors->has('firstname')?' is-invalid':'' }}" placeholder="name@address.com">
+                        <input type="text" name="firstname" class="form-control{{ $errors->has('firstname')?' is-invalid':'' }}" placeholder="Enter First Name">
                         @if ($errors->any() && $errors->has('firstname'))
                             <div class="invalid-feedback">
                                 {{ $errors->first('firstname') }}
@@ -41,7 +41,7 @@
                         <!-- Label -->
                         <label>Last Name</label>
                         <!-- Input -->
-                        <input type="text" name="lastname" class="form-control{{ $errors->has('lastname')?' is-invalid':'' }}" placeholder="name@address.com">
+                        <input type="text" name="lastname" class="form-control{{ $errors->has('lastname')?' is-invalid':'' }}" placeholder="Enter Last Name">
                         @if ($errors->any() && $errors->has('lastname'))
                             <div class="invalid-feedback">
                                 {{ $errors->first('lastname') }}
@@ -55,7 +55,7 @@
                         <!-- Label -->
                         <label>Phone Number</label>
                         <!-- Input -->
-                        <input type="text" name="phone" class="form-control{{ $errors->has('phone')?' is-invalid':'' }}" placeholder="name@address.com">
+                        <input type="text" name="phone" class="form-control{{ $errors->has('phone')?' is-invalid':'' }}" placeholder="Enter Phone">
                         @if ($errors->any() && $errors->has('phone'))
                             <div class="invalid-feedback">
                                 {{ $errors->first('phone') }}
@@ -69,7 +69,7 @@
                         <!-- Label -->
                         <label>Email Address</label>
                         <!-- Input -->
-                        <input type="email" name="email" class="form-control{{ $errors->has('email')?' is-invalid':'' }}" placeholder="name@address.com">
+                        <input type="email" name="email" class="form-control{{ $errors->has('email')?' is-invalid':'' }}" placeholder="Eail Address">
                         @if ($errors->any() && $errors->has('email'))
                             <div class="invalid-feedback">
                                 {{ $errors->first('email') }}
@@ -126,19 +126,12 @@
                     <button class="btn btn-lg btn-block btn-primary mb-3" type="submit">
                     Sign up
                     </button>
-                    <form action="{{ route('resend.mail')}}" method="get">
-                    <button class="btn btn-lg btn-block btn-primary mb-3">
-                    Resend Mail
-                    </button>
-        
-                    <!-- Link -->
-                    <div class="text-center">
+                </form>
+                <div class="text-center">
                         <small class="text-muted text-center">
-                        Aalready have an account? <a href="{{ route('signin') }}">Sign in</a>.
+                        Already have an account? <a href="{{ route('signin') }}">Sign in</a>.
                         </small>
                     </div>
-                    
-                </form>
     
             </div>
         </div> <!-- / .row -->

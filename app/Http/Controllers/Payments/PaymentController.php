@@ -44,7 +44,7 @@ class PaymentController extends Controller
                             CURLOPT_POSTFIELDS            => json_encode([
                                 'amount'                  => $total,
                                 'email'                   => $email,
-                                'callback_url'            =>'http://localhost:8000/payment/callback'
+                                'callback_url'            =>'http://http://35.234.133.174/payment/callback'
                             ]),
                   
         		  CURLOPT_HTTPHEADER => [

@@ -58,7 +58,16 @@
                                   <h6 class="card-title"><a href="#" class="text-decoration-none text-dark">{{ $product->name }}</a></h6>
                                     <div class="d-flex card-subtitle mb-3">
                                       <p class="flex-grow-1 mb-0 text-muted text-sm"><i class="fas fa-kidneys    "></i></p>
-                                      <p class="flex-shrink-1 mb-0 card-stars text-xs text-right"><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i>
+                                      <p class="flex-shrink-1 mb-0 card-stars text-xs text-right">
+                                        @php $averagerate= number_format($product->averageRating); @endphp
+                                        @for($i=1; $i<=$averagerate; $i++)
+                                        <i class="fa fa-star text-warning"></i>
+                                        @endfor
+                                        {{-- <i class="fa fa-star text-warning"></i>
+                                        <i class="fa fa-star text-warning"></i>
+                                        <i class="fa fa-star text-warning"></i>
+                                        <i class="fa fa-star text-warning"></i>
+                                        <i class="fa fa-star text-warning"></i> --}}
                                       </p>
                                     </div>
                                   <p class="card-text text-muted"><span class="h4 text-primary">₦ {{ number_format($product->discount_price,2) }}</span></p>

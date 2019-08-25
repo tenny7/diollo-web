@@ -5,6 +5,8 @@
 
 
 <div class="container" style="margin-top:100px;">
+{{-- <a href="{{ route('customer')}}"></a> --}}
+<a href="javascript:history.back()" class="btn btn-primary">Back</a>
     <div class="row">
         <div class="col-xs-12 col-md-4">
             <div class="img-loved">
@@ -42,16 +44,12 @@
                     </div>
                         <div class="col-md-4"> <br></div>
                         <div class="row">
-                            <div class="col-md-12">
-                                <h5 style="margin-left: 20px;">My Rating</h5>
-                                <hr>
-                                <div id="rater" class="rating-class"></div>
-                            </div>
+                            
 
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <h5 style="margin-left: 20px;">My Review</h5>
+                                <h5 style="margin-left: 20px;">Add Review</h5>
                                 <hr>
                             </div>
                         </div>
@@ -61,11 +59,11 @@
                                 @csrf
                                 <div class="form-group">
                                     <label for="name" class="text-muted">Title:</label>
-                                    <input type="text" name="title" class="form-control" id="InputName">
+                                    <input type="text" name="title" class="form-control" id="InputName" placeholder="Subject">
                                 </div>
                                 <div class="form-group">
                                     <label for="email" class="text-muted">Review:</label><br>
-                                    <textarea class="review_text form-control" name="review_text" rows="5" cols="43"></textarea>
+                                    <textarea class="review_text form-control" placeholder="Type Review" name="review_text" rows="5" cols="43"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="name" class="text-muted">Publish As:</label>

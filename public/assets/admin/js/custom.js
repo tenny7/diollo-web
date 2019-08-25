@@ -457,12 +457,34 @@ $(document).ready(function () {
     });
 
     // load review page
-    $('.reviewbutton1').click(function () {
-        var id = $(this).data('id');
-        var rating = $('#input-1').val();
+
+
+    $('.ratings').rating(function (vote, event) {
+        var id = $('#productID').val();
+        window.location.href = '/review/' + id + '/' + vote;
+        
+    });
+    // $('.ratings').rating(function (vote, event) {
+    //     var id = $('#productID').val();
+    //     window.location.href = '/review/' + id + '/' + vote;
+        
+    // });
+
+    // $('.rating').click(function () {
+    //     var id = $(this).data('id');
+    //     var rating = $('.rating').val();
+    //     // console.log(rating);
+    //     window.location.href = '/review/' + id + '/' + rating;
+    // });
+      $('#rateYo').click(function () {
+        // var id = $(this).data('id');
+        var rating = $("#rateYo").rateYo("option", "rating");
+        var id = $('#productID').val();
         // console.log(rating);
+        alert(id);
         window.location.href = '/review/' + id + '/' + rating;
     });
+    
 
 
 

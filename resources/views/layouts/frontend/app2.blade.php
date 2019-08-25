@@ -8,7 +8,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
      <!-- Price Slider Stylesheets -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/css/star-rating.min.css" />
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/css/star-rating.min.css" /> --}}
     <link rel="stylesheet" href="http://d19m59y37dris4.cloudfront.net/directory/1-1/vendor/nouislider/nouislider.css">
     <!-- Google fonts - Playfair Display-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700">
@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/brands.css" integrity="sha384-7xAnn7Zm3QC1jFjVc1A6v/toepoG3JXboQYzbM0jrPzou9OFXm/fY6Z/XiIebl/k" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/fontawesome.css" integrity="sha384-ozJwkrqb90Oa3ZNb+yKFW2lToAWYdTiF1vt8JiH5ptTGHTGcN7qdoR1F95e0kYyG" crossorigin="anonymous">
 
-    <script src="https://kit.fontawesome.com/20898729e6.js"></script>
+    {{-- <script src="https://kit.fontawesome.com/20898729e6.js"></script> --}}
     <!-- swiper-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/css/swiper.min.css">
     <!-- Magnigic Popup-->
@@ -31,10 +31,9 @@
     <link rel="stylesheet" href="{{ asset('diollo/resources/css/custom.css') }}">
     <!-- Favicon-->
     <link rel="shortcut icon" href="https://d19m59y37dris4.vcloudfront.net/directory/1-1/img/favicon.png">
-    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+   
+   
     
 
     <style>
@@ -43,47 +42,7 @@
     }
     </style>
     @stack('css')
-{{--     
-    <link rel="stylesheet" href="{{ asset('diollo/assets/css/vendor.css') }}" />
-    <link rel="stylesheet" href="{{ asset('diollo/assets/css/style.css') }}" /> --}}
-    
-{{--     
-    
-    <!-- Price Slider Stylesheets -->
-    <link rel="stylesheet" href="{{ asset('diollo/resources/css/d19m59y37dris4.cloudfront.net/directory/1-0/vendor/nouislider/nouislider.css') }}">
-    <!-- Google fonts - Playfair Display-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700">
-    <!-- Google fonts - Poppins-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,400i,700">
 
-    <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css')}}">
-    <!-- swiper-->
-    <link rel="stylesheet" href="{{ asset('toured/cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/css/swiper.min.css') }}">
-    <!-- Magnigic Popup-->
-    <link rel="stylesheet" href="{{ asset('toured/d19m59y37dris4.cloudfront.net/directory/1-0/vendor/magnific-popup/magnific-popup.css') }}">
-    <!-- theme stylesheet-->
-    <link rel="stylesheet" href="{{ asset('toured/css/style.default.css') }}" id="theme-stylesheet">
-    <!-- Custom stylesheet - for your changes-->
-    <link rel="stylesheet" href="{{ asset('toured/css/custom.css') }}">
-    <!-- Favicon-->
-    <link rel="shortcut icon" href="{{ asset('toured/d19m59y37dris4.cloudfront.net/directory/1-0/img/favicon.png') }}">
-   
-    <!-- Font Awesome CSS-->
-    <link rel="stylesheet" href="{{ asset('toured/use.fontawesome.com/releases/v5.1.0/css/solid.css') }}" integrity="" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('toured/use.fontawesome.com/releases/v5.1.0/css/regular.css') }}" integrity="" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('toured/use.fontawesome.com/releases/v5.1.0/css/brands.css') }}" integrity="" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('toured/use.fontawesome.com/releases/v5.1.0/css/fontawesome.css') }}" integrity="" crossorigin="anonymous">
-  
-    <link rel="stylesheet" href="{{ asset('css/lightbox.css') }}">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121642637-2"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-121642637-2');
-    </script> --}}
 
   </head>
   <body>
@@ -122,6 +81,7 @@
     </script>
     <!-- jQuery-->
     <script src="{{ asset('diollo/resources/d19m59y37dris4.cloudfront.net/directory/1-1/vendor/jquery/jquery.min.js') }}"></script>
+    
     <script src="{{ asset('assets/admin/js/custom.js') }}"></script>
     @stack('js')
     {{-- @stack('scripts') --}}

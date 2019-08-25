@@ -160,3 +160,6 @@
     background-image: linear-gradient(62deg, #1788f5 0%, #723ba3 100%);
 
 }
+.myRate {
+    height: 20px !important;
+}

@@ -17,6 +17,7 @@ class CreateReviewsTable extends Migration
             $table->increments('id');
             $table->text('review_text')->nullable();
             $table->string('publish_as')->nullable();
+            $table->integer('rating_id')->nullable();
             $table->string('title')->nullable();
             $table->integer('user_id')->nullable();
             $table->float('rating')->nullable();

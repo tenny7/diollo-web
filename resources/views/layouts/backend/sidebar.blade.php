@@ -28,10 +28,10 @@
 
                     <!-- Menu -->
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="sidebarIcon">
-                        <a href="profile-posts.html" class="dropdown-item">Profile</a>
-                        <a href="settings.html" class="dropdown-item">Settings</a>
+                        <a href="{{route('admin.settings.profile')}}" class="dropdown-item">Profile</a>
+                        {{-- <a href="{{route('admin.settings.profile')}}" class="dropdown-item">Settings</a> --}}
                         <hr class="dropdown-divider">
-                        <a href="sign-in.html" class="dropdown-item">Logout</a>
+                        <a href="{{ route('customer.logout')}}" class="dropdown-item">Logout</a>
                     </div>
 
                 </div>

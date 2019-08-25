@@ -197,20 +197,20 @@
         </div>
         <div class="col-md-6">
           {{-- <p>Good Rating</p> --}}
-          <h5 class="h5-css">Based on {{ count($ratingCount) }} Ratings</h5>
+          <h5 class="h5-css h5-pad">Based on {{ count($ratingCount) }} Ratings</h5>
         </div>
         </div>
         <div class="row">
           <div class="col-12">
-               <h5>Did you like this store? Help rate it immediately</h5>
-                <p style="padding:0px;">Select a star to rate his product"</p>
+               <h5 class="h5-pad">Did you like this store? Help rate it immediately</h5>
+                <p class="h5-pad" style="padding:0px;">Select a star to rate his product"</p>
                 
-                <div style="width:600px; margin:30px auto;">
+                {{-- <div style="width:600px; margin:30px auto;"> --}}
                     <div id="rateYo"></div>
-              </div>
+               {{-- </div> --}}
                 <input type="hidden" id="productID" name="productID" value="{{ $product->id }}">
                 
-                </div>
+        </div>
           </div>
         </div>
       </div>
@@ -218,20 +218,19 @@
     </div>
     @foreach($product->ratings as $rating)
     <div class="row bordered" style="margin-top: 15px; padding:15px;">
-      <div class="col-md-2">
-        <p>{{ $rating->user->fullname }}</p>
-        @for($i=1; $i<=$rating->rating; $i++)
-        <i class="fa fa-star"></i>
-        @endfor
+      <div class="col-md-2 col-xs-6 col-sm-6" style="padding:10px; margin-left:10px; margin-bottom:-5px;">
+        <h5>{{ $rating->user->fullname }}</h5>
+          @for($i=1; $i<=$rating->rating; $i++)
+          <i class="fa fa-star" ></i>
+          @endfor
       </div>
-      <div class="col-md-1"></div>
-      <div class="col-md-9">
+     
+      <div class="col-md-8 col-xs-6 col-sm-6 h5-pad">
         @php 
           $review = \App\Models\Review::where('rating_id', $rating->id)->first();
-          // dd($review);
         @endphp
-      <p class="blue">{{ $review->title }}</p>
-        <p class="text-light">
+        <h5 class="blue text-muted">{{ $review->title }}</h5>
+        <p class="text-light" style="padding:0px;">
             {{ $review->review_text }}
         </p>
 

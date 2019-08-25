@@ -172,8 +172,8 @@
 {{-- </div> --}}
 
 <!-- content for ABumatech Shop -->
-<div class="container">
-<div class="tab-content">
+{{-- <div class="container"> --}}
+<div class="tab-content container">
 <div id="reviews-content" class="row tab-pane fade">
 <div class="col-xs-12 col-md-9 col-md-offset-3">
 
@@ -244,19 +244,12 @@
     
    
 </div>
-</div>
       
 
     
       <div id="description-content" class="row tab-pane fade " style="margin-bottom:100px;">
         <div class="row">
-            {{-- <div class="col-md-6">
-            
-            @foreach($product->images as $image)
-                <img src="{{ asset("storage/$image->path")}}" alt="phone" style="object-fit:contain; height:200px; width:100%;"  class="img-responsive img-fluid">
-            @endforeach
-           
-          </div> --}}
+          
           <div class="col-md-12">
             <div class="card" style="margin:14px; padding:14px;"><p>{{ $product->description }}</p></div>
              

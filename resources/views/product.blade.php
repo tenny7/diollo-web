@@ -142,12 +142,12 @@
       <br>
       
       
-    </div>
+    {{-- </div> --}}
     </div>
   </div>
 </div>
 <hr>
-<div class="container">
+{{-- <div class="container"> --}}
 
   <div class="row ">
     <div class="col-md-6"></div>
@@ -169,10 +169,10 @@
 
     </div>
 
-</div>
+{{-- </div> --}}
 
 <!-- content for ABumatech Shop -->
-<div class="container">
+{{-- <div class="container"> --}}
 <div class="tab-content">
 <div id="reviews-content" class="row tab-pane fade">
 <div class="col-xs-12 col-md-9 col-md-offset-3">
@@ -216,7 +216,7 @@
 
     </div>
     @foreach($product->ratings as $rating)
-    <div class="row bordered" style="margin-top: 15px;">
+    <div class="row bordered" style="margin-top: 15px; padding:15px;">
       <div class="col-md-2">
         <p>{{ $rating->user->fullname }}</p>
         @for($i=1; $i<=$rating->rating; $i++)
@@ -270,8 +270,9 @@
 
 
 
+    {{-- </div> --}}
     </div>
-    </div>
+  </div>
     <div style="margin-top:100px;"></div>
     @include('partials.diollo.footer')
     @stop 

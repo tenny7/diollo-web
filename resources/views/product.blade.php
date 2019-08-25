@@ -172,7 +172,7 @@
 {{-- </div> --}}
 
 <!-- content for ABumatech Shop -->
-{{-- <div class="container"> --}}
+<div class="container">
 <div class="tab-content">
 <div id="reviews-content" class="row tab-pane fade">
 <div class="col-xs-12 col-md-9 col-md-offset-3">
@@ -243,6 +243,7 @@
     
     
    
+</div>
 </div>
       
 

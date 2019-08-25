@@ -175,7 +175,8 @@
 {{-- <div class="container"> --}}
 <div class="tab-content container">
 <div id="reviews-content" class="row tab-pane fade">
-<div class="col-xs-12 col-md-9 col-md-offset-3">
+  <div class="row">
+<div class="col-xs-12 col-md-12 ">
 
     <div class="row" style="margin-top:35px;">
       <div class="col-md-6">

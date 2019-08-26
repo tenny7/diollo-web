@@ -33,7 +33,7 @@ class OrderController extends Controller
     public function listOrders($id)
     {
         $orderProducts = DB::table('order_product')->where('user_id',Auth::id())->where('order_id',$id)->get();
-        return view('user.orderlist', compact('orderProducts'));
+        return view('user.list', compact('orderProducts'));
     }
 
     public function addOrder(Request $request)

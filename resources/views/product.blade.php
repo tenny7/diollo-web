@@ -278,6 +278,7 @@
     @stop 
 
     @push('js')
+    <script src="{{ asset('assets/admin/js/product.js')}}"></script>
 <script src="{{ asset('assets/admin/js/jquery.rateyo.js')}}"></script>
     <script>
     $('#rateYo').rateYo({
@@ -327,7 +328,7 @@
     
     
     <script src="{{ asset('assets/admin/js/custom.js')}}"></script>
-    <script src="{{ asset('assets/admin/js/product.js')}}"></script>
+    
    
     <script src="{{ asset('assets/admin/js/toastr.js')}}"></script>
     

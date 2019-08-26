@@ -20,6 +20,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Gerardojbaez\GeoData\Models\City;
+use Gerardojbaez\GeoData\Models\Region;
 use Illuminate\Support\Facades\Session;
 use Gerardojbaez\GeoData\Models\Country;
 use Illuminate\Support\Facades\Response;
@@ -145,7 +146,11 @@ class CustomerController extends Controller
         $user = Auth::user();
         $city = City::find($user->city_id);
         $countries = Country::all();
-        return view('user.accountinfo', compact('user', 'city','countries'));
+        $con    = Country::where('code', $user->country_code)->first();  
+        $reg    = Region::where('id', $user->region_id)->first();  
+        $cit       = City::where('id', $user->city_id)->first();  
+       
+        return view('user.accountinfo', compact('user', 'city','countries','con','reg','cit'));
     }
     public function saveProfile(Request $request)
     {

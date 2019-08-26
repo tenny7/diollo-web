@@ -240,9 +240,9 @@ Route::group(['prefix' => '/customer', 'as' => 'customer.', 'namespace' => 'User
 });
 
 Route::group(['prefix' => '/orders', 'as' => 'orders.', 'namespace' => 'Order'], function(){
-Route::get('order', 'OrderController@showOrderPage')->name('orderPage');
-Route::get('view-orders', 'OrderController@viewOrders')->name('viewOrders');
-Route::get('order-list/{id}', 'OrderController@listOrders')->name('orderList');
+    Route::get('order', 'OrderController@showOrderPage')->name('orderPage');
+    Route::get('view-orders', 'OrderController@viewOrders')->name('viewOrders');
+    Route::get('order-list/{id}', 'OrderController@listOrders')->name('orderList');
 });
 
 

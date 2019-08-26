@@ -20,11 +20,11 @@ $(document).ready(function () {
     }
 
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
+    // $.ajaxSetup({
+    //     headers: {
+    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //     }
+    // });
 
 
     $('.product_cart_single').click(function () {
@@ -32,6 +32,12 @@ $(document).ready(function () {
         //  var qty = document.getElementById('number').innerText;
         var price = $(this).data('price');
         var productId = $(this).data('id');
+        // e.preventDefault();
+               $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                  }
+              });
         //  alert(price);
         //  alert(productId);
         $.ajax({
@@ -74,6 +80,11 @@ $(document).ready(function () {
 
     jQuery(document).on('change', '.country', function () {
         var country_code = $('#country').val();
+         $.ajaxSetup({
+             headers: {
+                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+             }
+         });
         jQuery.ajax({
             url: '/show_regions/' + country_code,
             type: 'get',
@@ -93,6 +104,11 @@ $(document).ready(function () {
 
     jQuery(document).on('change', '.regions', function () {
         var region_id = $('#regions').val();
+         $.ajaxSetup({
+             headers: {
+                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+             }
+         });
         jQuery.ajax({
             url: '/show_city/' + region_id,
             type: 'get',
@@ -110,6 +126,11 @@ $(document).ready(function () {
 
     $('.noti').click(function () {
         $notificationCount = $(this).data('notification');
+         $.ajaxSetup({
+             headers: {
+                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+             }
+         });
         // alert($notificationCount);
         if ($notificationCount != 0) {
             $.get('/markAsRead', function (res) {
@@ -122,6 +143,11 @@ $(document).ready(function () {
     jQuery(document).on('change', '.stores', function () {
 
         var store_id = $('#store').val();
+         $.ajaxSetup({
+             headers: {
+                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+             }
+         });
 
         jQuery.ajax({
             url: '/storeDetails/' + store_id,
@@ -142,6 +168,11 @@ $(document).ready(function () {
 
 
     $('.update-qty').click(function () {
+         $.ajaxSetup({
+             headers: {
+                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+             }
+         });
         var productId = $(this).data('id');
         var qty = $(this).data('qty');
         $.ajax({
@@ -167,6 +198,11 @@ $(document).ready(function () {
 
     // bulk action button for product 
     $(".deleteAction").click(function () {
+         $.ajaxSetup({
+             headers: {
+                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+             }
+         });
         var id = [];
         if (confirm("Are you sure you want to delete this item?")) {
 
@@ -196,6 +232,11 @@ $(document).ready(function () {
     });
     $(".deleteProduct").click(function () {
         var id = [];
+         $.ajaxSetup({
+             headers: {
+                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+             }
+         });
         if (confirm("Are you sure you want to delete this item?")) {
 
             $(".product_sel:checked").each(function () {
@@ -223,6 +264,11 @@ $(document).ready(function () {
         }
     });
     $(".admindeleteBrandAction").click(function () {
+         $.ajaxSetup({
+             headers: {
+                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+             }
+         });
         var id = [];
         if (confirm("Are you sure you want to delete this item?")) {
 
@@ -254,6 +300,11 @@ $(document).ready(function () {
 
     $(".admindeleteProductAction").click(function () {
         var id = [];
+         $.ajaxSetup({
+             headers: {
+                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+             }
+         });
         if (confirm("Are you sure you want to delete this item?")) {
 
             $(".productIDs:checked").each(function () {
@@ -283,6 +334,11 @@ $(document).ready(function () {
     // end bulk product delete
 
     $(".deleteCategoryAction").click(function () {
+         $.ajaxSetup({
+             headers: {
+                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+             }
+         });
         var id = [];
         if (confirm("Are you sure you want to delete this item?")) {
 
@@ -313,6 +369,11 @@ $(document).ready(function () {
     // end bulk product delete
 
     $(".admindeleteAgentAction").click(function () {
+         $.ajaxSetup({
+             headers: {
+                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+             }
+         });
         var id = [];
         if (confirm("Are you sure you want to delete this item?")) {
 
@@ -343,6 +404,11 @@ $(document).ready(function () {
     // end bulk product delete
 
     $(".deletePromotionAction").click(function () {
+         $.ajaxSetup({
+             headers: {
+                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+             }
+         });
         var id = [];
         if (confirm("Are you sure you want to delete this item?")) {
 
@@ -373,6 +439,11 @@ $(document).ready(function () {
     // end bulk product delete
 
     $(".admindeleteOrderAction").click(function () {
+         $.ajaxSetup({
+             headers: {
+                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+             }
+         });
         var id = [];
         if (confirm("Are you sure you want to delete this item?")) {
 
@@ -405,6 +476,11 @@ $(document).ready(function () {
     // end bulk product delete
 
     $(".deleteVendorAction").click(function () {
+         $.ajaxSetup({
+             headers: {
+                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+             }
+         });
         var id = [];
         if (confirm("Are you sure you want to delete this item?")) {
 
@@ -436,6 +512,11 @@ $(document).ready(function () {
 
     
       $('#rateYo').click(function () {
+           $.ajaxSetup({
+               headers: {
+                   'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+               }
+           });
         // var id = $(this).data('id');
         var rating = $("#rateYo").rateYo("option", "rating");
         var id = $('#productID').val();
@@ -450,6 +531,11 @@ $(document).ready(function () {
    
 
     $('.sendFeedBack').click(function () {
+         $.ajaxSetup({
+             headers: {
+                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+             }
+         });
         name = document.getElementById('username').value;
         email = document.getElementById('email').value;
         content = document.getElementById('content').value;
@@ -475,7 +561,12 @@ $(document).ready(function () {
         });
     });
 
-    $('.testimonialButton').click(function () {
+    $('#testimonialButton').click(function () {
+         $.ajaxSetup({
+             headers: {
+                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+             }
+         });
         name = document.getElementById('username').value;
         content = document.getElementById('content').value;
 
@@ -491,7 +582,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (response) {
                     document.getElementById('username').value = "";
-                    document.getElementById('content').value = " ";
+                    document.getElementById('content').value = "";
                     toastr["success"](response.success, "Success");
                 }
             }

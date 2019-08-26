@@ -32,15 +32,15 @@
                 <form>
                         <div class="form-group">
                             <label for="testifier">Name</label>
-                            <input type="text" name="name" class="form-control" placeholder="Enter Your Name">
+                            <input type="text" name="name" id="username" class="form-control" placeholder="Enter Your Name">
                         </div>
 
                         <div class="form-group">
                             <label for="testifier">Message</label>
-                            <textarea name="content" id="" cols="30" rows="10" class="form-control" placeholder="Enter testimonial"></textarea>
+                            <textarea name="content" id="content" cols="30" rows="10" class="form-control" placeholder="Enter testimonial"></textarea>
                         </div>
                         <div class="form-group">
-                            <button type="button" class="btn btn-primary btn-md testimonialButton">Post</button>
+                            <button type="button" id="testimonialButton" class="btn btn-primary btn-md">Post</button>
                         </div>
                 </form>   
             </div>

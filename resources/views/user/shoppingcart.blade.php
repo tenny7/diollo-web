@@ -12,6 +12,8 @@
     <div class="container" style="margin:auto;">
     
 <br>
+<br>
+<br>
         @include('partials.admin.success')
         @include('partials.admin.error')
 

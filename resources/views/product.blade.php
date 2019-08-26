@@ -300,28 +300,7 @@
     
     
     
-    $('.add_product_to_cart').click(function () {
-        var price = document.getElementById('price').value;
-        var qty = document.getElementById('number').innerText;
-        var productId = $(this).data('id');
-        $.ajax({
-            url: '/addToCart/' + productId,
-            method: 'post',
-            dataType: 'json',
-            data: {
-
-                'price': price,
-                'qty': qty,
-                'product_id': productId,
-            },
-            success: function (response) {
-                if (response) {
-                    // console.log(response);
-                    toastr["success"](response.success, "Success")
-                }
-            }
-        });
-    });
+   
 
      $('.reserveId').click(function () {
         var productId = $(this).data('id');
@@ -348,6 +327,7 @@
     
     
     <script src="{{ asset('assets/admin/js/custom.js')}}"></script>
+    <script src="{{ asset('assets/admin/js/product.js')}}"></script>
    
     <script src="{{ asset('assets/admin/js/toastr.js')}}"></script>
     

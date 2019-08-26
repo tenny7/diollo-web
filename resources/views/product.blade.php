@@ -3,14 +3,14 @@
 @push('css')
 <link rel="stylesheet" href="{{ asset('assets/admin/css/toastr.css') }}">
 <link rel="stylesheet" href="{{ asset('diollo/assets/css/custom.css') }}">
- <link rel="stylesheet" href="{{ asset('assets/admin/css/jquery.rateyo.css') }}">
-
+<link rel="stylesheet" href="{{ asset('assets/admin/css/jquery.rateyo.css') }}">
 @endpush
 
 @section('content')
 
 
 <div class="container">
+  
   <div class="row push-margin-top-product">
     <div class="col-xs-12 col-md-6">
       <div class="img-loved">
@@ -42,8 +42,7 @@
           </div>
          
       </div>
-      @include('partials.admin.success')
-      @include('partials.admin.error')
+      
       <div class="row">
           <div class="col-md-12">
           <h4 class="text-bold" style="font-size: 23px;">{{ $product->name }}</h4>
@@ -81,7 +80,7 @@
             <span style="display:none" id="spanValue"></span>
             
 
-            <input type="hidden" id="productId" value="{{ $product->id }}">
+            {{-- <input type="hidden" id="productId" value="{{ $product->id }}"> --}}
             <div class="form-group">
               <button type="button"  style="margin-bottom:10px; margin-top:3px;  border-radius:25px;"  data-id="{{ $product->id }}" class="add_product_to_cart btn btn-primary btn-sm">ADD TO CART <i class="fas fa-plus"></i></button>
 
@@ -112,8 +111,13 @@
           <div class="col-md-12">
             <p class="text-light" style="margin-top: 33px; padding:10px;">If you cannot pay for this item immediately you can also <span style="color: #FF3C89;">Reserve Item for 24 hours</span> by selecting a quantity and clicking "reserve for a day"
             </p><hr>
-                <button type="button" id="productId" class="btn btn-primary productId" data-id="{{ $product->id }}" style="border:none; border-radius:25px; color:#fff; margin-left:6px;">
-                  <svg height="14" viewBox="0 0 16 14" width="16" class="" 
+            @include('partials.admin.success')
+           @include('partials.admin.error')
+          <form action="{{ route('save.item') }}" method="post">
+              @csrf
+              <input type="hidden" id="productId" name="product_id" value="{{ $product->id }}"> 
+                <button type="submit" id="" class="btn btn-primary " style="border:none; border-radius:25px; color:#fff; margin-left:6px;">
+                  <svg height="14" viewBox="0 0 16 14" 
                   name="love">
                   <path d="M14.3 1.3A4.22 4.22 0 0 0 11.254.01c-1.15 0-2.232.46-3.047 1.293l-.425.436-.432-.443A4.242 4.242 0 0 0 4.3 0C3.152 0 2.07.46 1.26 1.29A4.418 4.418 0 0 0 0 4.409a4.43 4.43 0 0 0 1.266 3.116l6.194 6.34a.443.443 0 0 0 .313.135.44.44 0 0 0 .313-.132l6.206-6.33a4.435 4.435 0 0 0 1.264-3.119 4.415 4.415 0 0 0-1.257-3.12z" 
                     fill="#d8d8d8" 
@@ -122,6 +126,8 @@
                   </svg>
                 Add to wishlist
               </button>
+
+              </form>
                 {{-- </form> --}}
             
           </div>
@@ -294,7 +300,51 @@
     
     
     
+    $('.add_product_to_cart').click(function () {
+        var price = document.getElementById('price').value;
+        var qty = document.getElementById('number').innerText;
+        var productId = $(this).data('id');
+        $.ajax({
+            url: '/addToCart/' + productId,
+            method: 'post',
+            dataType: 'json',
+            data: {
+
+                'price': price,
+                'qty': qty,
+                'product_id': productId,
+            },
+            success: function (response) {
+                if (response) {
+                    // console.log(response);
+                    toastr["success"](response.success, "Success")
+                }
+            }
+        });
+    });
+
+     $('.reserveId').click(function () {
+        var productId = $(this).data('id');
+        var qty = document.getElementById('number').innerText;
+
+
+        $.ajax({
+            url: '/customer/reserve/',
+            method: 'get',
+            data: {
+                id: productId,
+                qty: qty
+            },
+            success: function (response) {
+                console.log(response);
+                toastr["success"](response.success, "Success")
+            }
+
+        });
+    });
+
     </script>
+  
     
     
     <script src="{{ asset('assets/admin/js/custom.js')}}"></script>

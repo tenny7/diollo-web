@@ -107,10 +107,12 @@ class SearchController extends Controller
     {
         $data = [
             'user_id'       => Auth::id(),
-            'product_id'    => $request->id,
+            'product_id'    => $request->product_id,
         ];
+        
         $wishlist = Wishlist::firstOrCreate($data);
-        return Response::json(['success' => 'Item Saved']);
+        return back()->with(['success' => 'Item Added wishlist']);
+        // return Response::json(['success' => 'Item Saved']);
     }
 
 

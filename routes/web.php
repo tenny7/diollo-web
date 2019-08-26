@@ -150,7 +150,7 @@ Route::get('/new-stock', 'SearchController@newStock')->name('new.stock');
 Route::get('/search-by-category/{id}', 'SearchController@searchByCategory')->name('category.search');
 Route::get('/search-by-distance/{id}', 'SearchController@searchByDistance')->name('search.geo.location');
 Route::get('/show-saved-item', 'SearchController@showSavedItem')->name('saved.item');
-Route::post('/save-item/{id}', 'SearchController@saveItem')->name('save.item');
+Route::post('/save-item', 'SearchController@saveItem')->name('save.item')->middleware('auth');
 
 // Route::post('reserve-for-one-day/{product_id}', 'CustomerController@reserveForAday')->name('reserve.for.onday');
 
@@ -366,8 +366,9 @@ Route::group(['prefix' => '/admin', 'as' => 'admin.', 'namespace' => 'Admin'], f
 });
 
 
+
+Route::post('/signleToCartSingle/{product_id}', 'Carts\CartController@addToCartSingle')->name('cart.add.single');
 Route::post('/addToCart/{product_id}', 'Carts\CartController@addToCart')->name('cart.add');
-Route::post('/addToCartSingle/{product_id}', 'Carts\CartController@addToCartSingle')->name('cart.add.single');
 Route::get('/about', 'User\CustomerController@about')->name('about.us');
 Route::get('/help', 'User\CustomerController@help')->name('help');
 Route::get('/faq', 'User\CustomerController@faq')->name('faq');

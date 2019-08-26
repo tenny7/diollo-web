@@ -1,6 +1,7 @@
 @extends('layouts.frontend.app2')
 
 @push('css')
+<link rel="stylesheet" href="{{ asset('assets/admin/css/toastr.css') }}">
 <link rel="stylesheet" href="{{asset('assets/admin/libs/select2/dist/css/select2.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/admin/libs/flatpickr/dist/flatpickr.min.css')}}">
     <link rel="stylesheet" href="{{ asset('diollo/assets/css/custom.css') }}">
@@ -168,7 +169,7 @@
 
 @stop
 
-@push('scripts')
+@push('js')
 <script src="{{ asset('assets/admin/js/custom.js')}}"></script>
 <script src="{{ asset('assets/admin/js/toastr.js')}}"></script>
 <script src="{{asset('assets/admin/libs/highlightjs/highlight.pack.min.js')}}"></script>

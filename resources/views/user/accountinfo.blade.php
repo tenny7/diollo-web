@@ -113,7 +113,7 @@
                                   font-family: 'Cabin', sans-serif; color: #969696"> Current location</label> <br>
 
                                   <div class="form-group ">
-                                  <label for="">Current Country: <span class="badge badge-primary">{{ $con->name }}</span></label>
+                                  <label for="">Current Country: <span class="badge badge-primary">@if(isset($con->name)) {{ $con->name }} @endif</span></label>
                                          
                                           <select id="country" name="country_code" class="country form-control" 
                                           data-toggle="select" data-select2-id="4"  aria-hidden="true">
@@ -130,7 +130,7 @@
 
                           <div class="form-group">
                                 <label for="state" style="font-size: 12px; font-weight: 200;
-                                font-family: 'Cabin', sans-serif; color: #969696">State : <span class="badge badge-primary">{{ $reg->name }}</label>
+                                font-family: 'Cabin', sans-serif; color: #969696">State : <span class="badge badge-primary">@if(isset($reg->name)){{  $reg->name }} @endif</label>
                                 <select id="regions" name="region_id" class="regions form-control " data-toggle="select" data-select2-id="7" tabindex="-1" aria-hidden="true">
                                 </select>
                         </div>
@@ -139,7 +139,7 @@
 
                           <div class="form-group">
                                   <label for="city" style="font-size: 12px; font-weight: 200;
-                                  font-family: 'Cabin', sans-serif; color: #969696">City : <span class="badge badge-primary">{{ $cit->name }}</label>
+                                  font-family: 'Cabin', sans-serif; color: #969696">City : <span class="badge badge-primary">@if(isset($reg->name)) {{ $cit->name }} @endif</label>
                                   <select id="city" name="city_id" class="city form-control " data-toggle="select" data-select2-id="10" tabindex="-1" aria-hidden="true">
                                   </select>
                                   

@@ -457,7 +457,7 @@ $(document).ready(function () {
         var rating = $("#rateYo").rateYo("option", "rating");
         var id = $('#productID').val();
         // console.log(rating);
-        alert(id);
+        // alert(id);
         window.location.href = '/review/' + id + '/' + rating;
     });
     

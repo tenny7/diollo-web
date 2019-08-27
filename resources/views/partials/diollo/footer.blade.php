@@ -37,7 +37,17 @@
                 <li><a href="{{ route('signin')}}" class="text-muted">Login                                   </a></li>
                 <li><a href="{{ route('signup')}}" class="text-muted">Sign up  <span class="badge badge-info ml-1">New</span>                                   </a></li>
                 @else
+                @if (Auth::user()->isAdmin())
                 <li><a href="{{ route('admin.dashboard')}}" class="text-muted">Dashboard <span class="badge badge-info ml-1">New</span>                                   </a></li>
+                @else 
+                <li><a href="{{ route('customer.accountInfo') }}" class="text-muted">Profile </a></li>
+                <li><a href="{{ route('saved.item') }}" class="text-muted">Wishlist </a></li>
+                <li><a href="{{ route('testimonial') }}" class="text-muted">Testimonial </a></li>
+                <li><a href="{{ route('orders.viewOrders') }}" class="text-muted">Order History </a></li>
+                <li><a href="{{ route('customer.wallet')}}" class="text-muted">Wallet</a></li>
+                <li><a href="{{ route('customer.logout')}}" class="text-muted">Logout</a></li>
+                {{-- <li><a href="{{ route('admin.dashboard')}}" class="text-muted">Dashboard <span class="badge badge-info ml-1">New</span>                                   </a></li> --}}
+                @endif
                 @endguest
                 {{-- <li><a href="coming-soon.html" class="text-muted">Coming soon                                   </a></li> --}}
               </ul>

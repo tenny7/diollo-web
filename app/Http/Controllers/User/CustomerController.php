@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use Exception;
 use Carbon\Carbon;
+use App\Models\Bank;
 use App\Models\Cart;
 use App\Models\User;
 use App\Models\Store;
@@ -102,7 +103,9 @@ class CustomerController extends Controller
     {
         $user = Auth::user();
         $wallet = $user->wallet_balance;
-        return view('user.wallet',compact('wallet','user'));
+        $banks = Bank::all();
+
+        return view('user.wallet',compact('wallet','user','banks'));
     }
 
     public function updateAccount(Request $request)
@@ -145,6 +148,7 @@ class CustomerController extends Controller
     {
         $user = Auth::user();
         $city = City::find($user->city_id);
+        
         $countries = Country::all();
         $con    = Country::where('code', $user->country_code)->first();  
         $reg    = Region::where('id', $user->region_id)->first();  

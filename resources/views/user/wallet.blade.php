@@ -8,11 +8,12 @@
 
 
                   <div class="container" style="margin-bottom:100px;">
+                    <div class="push-margin-top-product"></div>
                     @include('partials.admin.success')
                     @include('partials.admin.error')
-                    <h1 class="text-center" style="font-weight: bolder;">My Wallet</h1>
+                    {{-- <h1 class="text-center" style="font-weight: bolder;">My Wallet</h1> --}}
                     <br>
-                  <div class="row push-margin-top">
+                  <div class="row ">
                    @include('partials.diollo.sidebar')
       
                 <div class="col-sm-12 col-md-12">
@@ -63,11 +64,16 @@
                             </div>
                             <div class="form-group">
                               <label for="name" class="text-muted">Account number</label>
-                              <input type="text" class="form-control" name="account_number" id="InputName" value="{{ str_limit($user->account_number, $limit = 4, $end = '******') }}" placeholder="" required>
+                              <input type="text" class="form-control" name="account_number" maxlength="11" id="InputName" value="{{ str_limit($user->account_number, $limit = 4, $end = '******') }}" placeholder="" required>
                             </div>
                             <div class="form-group">
                               <label for="name" class="text-muted">Bank Name</label>
-                            <input type="text" class="form-control" name="bank" id="InputName" value="{{ $user->bank}}" placeholder="" required>
+                              <select name="bank" id="bank" class="form-control">
+                                @foreach($banks as $bank)
+                                  <option value="{{ $bank->id }}" {{ $user->bank == $bank->bank }} ? selected : >{{ $bank->bank }}</option>
+                                @endforeach
+                              </select>
+                            {{-- <input type="text" class="form-control" name="bank" id="InputName" value="{{ $user->bank}}" placeholder="" required> --}}
                             </div>
                             <div class="form-group">
                               <label for="name" class="text-muted">Account name</label>

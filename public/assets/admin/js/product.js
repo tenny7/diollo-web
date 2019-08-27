@@ -49,4 +49,28 @@ $(document).ready(function () {
                  });
              });
 
+             $('#testimonialButton').click(function () {
+
+                 name = document.getElementById('username').value;
+                 content = document.getElementById('content').value;
+
+                 //  var productId = $(this).data('id');
+                 $.ajax({
+                     url: '/saveTestimonial/',
+                     type: 'post',
+                     dataType: 'json',
+                     data: {
+                         'name': name,
+                         'content': content,
+                     },
+                     success: function (response) {
+                         if (response) {
+                             document.getElementById('username').value = "";
+                             document.getElementById('content').value = "";
+                             toastr["success"](response.success, "Success");
+                         }
+                     }
+                 });
+             });
+
         });

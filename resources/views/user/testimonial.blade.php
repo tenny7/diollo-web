@@ -51,7 +51,7 @@
 @stop
 
 @push('js')
-<script src="{{ asset('assets/admin/js/custom.js')}}"></script>
+<script src="{{ asset('assets/admin/js/product.js')}}"></script>
 <script src="{{ asset('assets/admin/js/toastr.js')}}"></script>
 {{-- <script src="{{ asset('assets/admin/js/rating.js')}}"></script> --}}
 

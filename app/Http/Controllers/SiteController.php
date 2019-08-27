@@ -60,6 +60,7 @@ class SiteController extends Controller
             ];
             $saveBanks = Bank::firstOrCreate($details);
         }
+        return "Bank Created";
     }
 
 

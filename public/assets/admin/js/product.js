@@ -73,4 +73,35 @@ $(document).ready(function () {
                  });
              });
 
+
+             $(".deleteProduct").click(function () {
+                 var id = [];
+
+                 if (confirm("Are you sure you want to delete this item?")) {
+
+                     $(".product_sel:checked").each(function () {
+                         id.push($(this).val());
+                     });
+
+                     if (id.length > 0) {
+                         $.ajax({
+                             url: '/bulkProductDelete',
+                             method: 'get',
+                             data: {
+                                 id: id
+                             },
+                             success: function (response) {
+                                 toastr["success"](response.success, "Success")
+                                 jQuery('#tableId').load(location.href + ' #tableId');
+                                 jQuery('#tableId1').load(location.href + ' #tableId1');
+                             }
+
+                         });
+
+                     } else {
+                         alert("Please select at least one checkbox");
+                     }
+                 }
+             });
+
         });

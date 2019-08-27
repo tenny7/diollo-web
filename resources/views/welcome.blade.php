@@ -197,7 +197,7 @@
                           
                         </p>
                       </div>
-                      <p class="card-text text-muted"><span class="h4 text-primary">{{ $product->discount_price }}</span> </p>
+                      <p class="card-text text-muted"><span class="h4 text-primary">₦ {{ $product->discount_price }}</span> </p>
                     </div>
                   </div>
                 </div>
@@ -285,7 +285,7 @@
             <!-- Slides-->
             <div class="swiper-slide px-3">
               <div class="testimonial card rounded-lg shadow border-0">
-                <div class="testimonial-avatar"><img src="{{ asset('diollo/resources/d19m59y37dris4.cloudfront.net/directory/1-1/img/avatar/avatar-3.jpg') }}" alt="..." class="img-fluid"></div>
+                <div class="testimonial-avatar"><img src="{{ asset('assets/password/images/user.png') }}" alt="..." class="img-fluid"></div>
                 <div class="text">
                   <div class="testimonial-quote"><i class="fas fa-quote-right"></i></div>
                 <p class="testimonial-text"> {{ str_limit($testimonial->content,80,'...' ) }}</p><strong>{{ $testimonial->name }}</strong>

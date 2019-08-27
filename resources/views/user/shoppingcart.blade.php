@@ -2,6 +2,11 @@
 @push('css')
 <link rel="stylesheet" href="{{ asset('assets/admin/css/toastr.css') }}">
 <link rel="stylesheet" href="{{ asset('diollo/assets/css/custom.css') }}">
+<style>
+p {
+    font-size:13px;
+}
+</style>
 
 @endpush
 
@@ -16,16 +21,17 @@
 <br>
         @include('partials.admin.success')
         @include('partials.admin.error')
-
+        <div class="push-margin-top"></div>
         <div class="row">
             
         <div class="col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
+             <button class="btn btn-danger purple btn-sm deleteProduct" style="border-radius:25px;" id="deleteProduct">Delete</button>
             <div class="table-responsive">
                 <table class="table" style="margin-top: 50px;" id="tableId">
                    
                        <thead>
                            <tr>
-                               <th  width="3%"><button class="btn btn-danger purple btn-sm deleteProduct" id="deleteProduct">Delete</button></th>
+                               <th  width="3%">Action</th>
                                 <th class="item table-head"> Item</th>
                                 <th class="quantity table-head">Quantity</th>
                                 <th class="unitprice table-head">Unit Price</th>
@@ -95,8 +101,12 @@
                                 <form action="{{ route('updateQty',$product->id)}}" method="post">
                                     @csrf
                                     <input type="hidden" class="productId" id="productId" name="productId" value="{{ $product->id }}">   
-                                    <input type="number" class="qty" id="qty" name="qty" style="width:50px; border:solid 1px #333; border-radius:7px;" min="0" placeholder="0" value="{{$cart->qty }}">
-                                    <button type="submit" class="purple btn btn-warning btn-sm"  data-id="{{ $product->id }}" id="update-qty" style="border:none; color:#fff;" ><i class="fa fa-upload"></i> update </button>
+                                    <div class="form-group">
+                                    <input type="number" class="qty form-control" id="qty" name="qty" style=" border:solid 1px #333; border-radius:7px;" min="0" placeholder="0" value="{{$cart->qty }}">
+                                    </div>
+                                    <div class="form-group">
+                                    <button type="submit" class="purple btn btn-warning btn-sm"  data-id="{{ $product->id }}" id="update-qty" style="border:none; border-radius:25px; color:#fff;" ><i class="fa fa-upload"></i> update </button>
+                                    </div>
                           
                                 </form>
                                     
@@ -108,7 +118,9 @@
                             </tr>
                             @endforeach
                         </tbody>
+                       
                         </table>
+                        
   </div>
   </div>
 
